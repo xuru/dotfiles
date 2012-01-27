@@ -171,6 +171,7 @@ if tty -s; then
     type -p motd >/dev/null && motd #run this neat little script
 fi
 
+export PATH=$PATH:${HOME}/bin
 export PATH=$PATH:/usr/local/bin
 
 ################################################################################
