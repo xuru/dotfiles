@@ -167,6 +167,14 @@ if [ -e /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+# Setup homebrew auto-completion on the Mac
+if [ -e /usr/local/bin/brew ]; then
+    if [ -f `brew --prefix`/etc/bash_completion ]; then
+        . `brew --prefix`/etc/bash_completion
+    fi
+fi
+
+
 if tty -s; then
     type -p motd >/dev/null && motd #run this neat little script
 fi
