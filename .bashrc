@@ -185,7 +185,7 @@ export PATH=$PATH:/usr/local/bin
 ################################################################################
 # Python exports
 ################################################################################
-export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python:/usr/local/lib/python2.6/site-packages
+export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python:/usr/local/lib/python2.7/site-packages
 
 ################################################################################
 # Subversion
