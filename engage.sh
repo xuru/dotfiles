@@ -1,7 +1,7 @@
 #!/bin/bash
 # Symlink some dotfiles, yo!
 
-REPO="git://github.com/njharman/dotfiles.git"
+REPO="git://github.com/xuru/dotfiles.git"
 WORK=~/.dotfiles
 ORIG=~/tmp/.dotfile_preserve
 
@@ -50,11 +50,6 @@ chmod 700 ~/.ssh
 chmod -f 600 ~/.authorized_keys
 chown -R $USER:$USER ~/.ssh
 
-## ~/tmp ~/work vim stuff
+## ~/tmp ~/work stuff
 mkdir -p ~/tmp
-mkdir -p ~/work
-mkdir -p ~/.vim/colors/
-mkdir -p ~/.vim/ftplugin/
-symtastico ~/.vim/colors/ `ls -d "$WORK"/.vim/colors/*`
-symtastico ~/.vim/ftplugin/ `ls -d "$WORK"/.vim/ftplugin/*`
-
+mkdir -p ~/rep
