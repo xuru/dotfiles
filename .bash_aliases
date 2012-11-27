@@ -42,6 +42,13 @@ if type -p mvim >/dev/null; then
     alias gvim=mvim
 fi
 
+if [ "$OS" == "Darwin" ]; then
+    if [ -x /usr/local/bin/brew ]; then
+        alias vi=`brew --prefix macvim`/MacVim.app/Contents/MacOS/Vim
+        alias vim=`brew --prefix macvim`/MacVim.app/Contents/MacOS/Vim
+    fi
+fi
+
 if [ -e `which less` ]; then
 	alias more='less'
 fi

@@ -11,7 +11,8 @@ if [ -e /bin/dircolors ]; then
 fi
 
 export LANG="C"
-set HOSTNAME=`uname -n`
+export HOSTNAME=`uname -n`
+export OS=`uname -s`
 
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
@@ -167,10 +168,19 @@ if [ -e /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-# Setup homebrew auto-completion on the Mac
-if [ -e /usr/local/bin/brew ]; then
-    if [ -f `brew --prefix`/etc/bash_completion ]; then
-        . `brew --prefix`/etc/bash_completion
+################################################################################
+# Homebrew stuff...
+################################################################################
+if [ "$OS" == "Darwin" ]; then
+    if [ -x /usr/local/bin/brew ]; then
+        echo "Where're here..."
+        export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
+
+        export SVN_EDITOR=`brew --prefix macvim`/MacVim.app/Contents/MacOS/Vim
+        # Setup homebrew auto-completion on the Mac
+        if [ -f `brew --prefix`/etc/bash_completion ]; then
+            . `brew --prefix`/etc/bash_completion
+        fi
     fi
 fi
 
@@ -179,8 +189,8 @@ if tty -s; then
     type -p motd >/dev/null && motd #run this neat little script
 fi
 
-export PATH=$PATH:${HOME}/bin
-export PATH=$PATH:/usr/local/bin
+export PATH=${HOME}/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 
 ################################################################################
 # Python exports
@@ -190,7 +200,6 @@ export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python:/usr/local/lib/python2.7/site-p
 ################################################################################
 # Subversion
 ################################################################################
-export SVN_EDITOR=vim
 
 if [ -e /usr/bin/meld ]; then
     export SVN_MERGE=/usr/bin/meld
@@ -208,6 +217,12 @@ if [ -e ${HOME}/.cscope ]; then
 fi
 
 ################################################################################
+# Chef
+################################################################################
+export CHEF_REPO=${HOME}/rep/chef-repo
+export PEARSON_REPO=${HOME}/rep/chef
+
+################################################################################
 # Android
 ################################################################################
 export PATH=${PATH}:/opt/AndroidSDK/tools
@@ -221,3 +236,7 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# load up rvm if it exists
+if [ -f ~/.rvm/scripts/rvm ]; then
+    . ~/.rvm/scripts/rvm
+fi

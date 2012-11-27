@@ -10,8 +10,8 @@ function symtastico {
   destdir=$1
   shift
   for file in $@; do
-    if [ -f "$file" ]; then
-       name=`basename "$file"`
+    name=`basename "$file"`
+    if [ -f "$file" ] || test "$name" = ".vim"; then
        dest=$destdir/$name
        echo -n "$name, "
        if [ -h $dest ]; then
@@ -41,14 +41,18 @@ symtastico ~ `ls -ad "$WORK"/\.*`
 ## ~/bin
 mkdir -p ~/bin
 chmod 700 ~/bin
-symtastico ~/bin `ls -d "$WORK"/bin/*`
+if [ -d $WORK/bin ]; then
+    symtastico ~/bin `ls -d "$WORK"/bin/*`
+fi
 
 ## ~/.ssh
 # Just dir/permissions.  Don't wanna autolink config...
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
-chmod -f 600 ~/.authorized_keys
-chown -R $USER:$USER ~/.ssh
+if [ -f ~/.authorized_keys ]; then
+    chmod -f 600 ~/.authorized_keys
+fi
+chown -R $USER:`id -g $USER` ~/.ssh
 
 ## ~/tmp ~/work stuff
 mkdir -p ~/tmp
