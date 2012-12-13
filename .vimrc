@@ -10,7 +10,7 @@
 " no vi compatibility
 set nocompatible
 
-set modelines=0
+"set modelines=0
 
 set encoding=utf-8
 set scrolloff=3
@@ -266,12 +266,23 @@ if has("autocmd")
     "au BufWritePost ~/.gvimrc :source ~/.gvimrc
 endif
 
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files.
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d syntax=%s :",
+        \ &tabstop, &shiftwidth, &textwidth, &filetype)
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(0, l:modeline)
+endfunction
+
 " Setup vundle configuration...
 source ~/.vim/powerline.vim
 source ~/.vim/vcscommand.vim
+source ~/.vim/python.vim
 source ~/.vim/ctrlp.vim
 source ~/.vim/nerdtree.vim
 source ~/.vim/chef.vim
 source ~/.vim/tagbar.vim
-source ~/.vim/python.vim
 
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>

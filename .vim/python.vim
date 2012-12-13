@@ -1,9 +1,8 @@
 
-" Pylint configuration file
-let g:pymode_lint_checker = "pyflakes,mccabe"
+let g:pymode_folding = 0
 
-" If file not found use 'pylintrc' from python-mode plugin directory
-let g:pymode_lint_config = "$HOME/.pylintrc"
+" Pylint configuration file
+let g:pymode_lint_config=$HOME."/.pylintrc"
 
 " run pep8+pyflakes validator
 "autocmd FileType python map <buffer> ,8 :call Flake8()<CR>
@@ -13,6 +12,7 @@ let g:pymode_lint_config = "$HOME/.pylintrc"
 " don't let pyflakes allways override the quickfix list
 "let g:pyflakes_use_quickfix = 0
 
-" ropevim omnicompleter https://github.com/rygwdn/rope-omni
-autocmd FileType python setlocal omnifunc=RopeCompleteFunc
 
+ab shabang #!/usr/bin/python
+ab utf8 # -*- coding: utf-8 -*-
+ab ifmain if __name__ == "__main__":

@@ -12,4 +12,11 @@ let NERDTreeIgnore=['\env','\.vim$', '\~$', '\.pyc$', '\.swp$', '\.egg-info$', '
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 
+" To close window when there is only NERDTree left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" Uncomment if you want NERDTree to open automatically when you open vim (with
+" a file
+"autocmd vimenter * NERDTree
+
 
