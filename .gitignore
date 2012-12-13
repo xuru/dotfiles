@@ -5,3 +5,4 @@ Thumbs.db
 .svn
 *~
 .*.swp
+.vim/bundle
