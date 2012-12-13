@@ -145,45 +145,10 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    if [ "$HOSTNAME" != "kinglaptop36" ]; then
-        export PROMPT_COMMAND='echo -ne "\033]2;$LOGNAME@$HOSTNAME   Directory: $PWD\007\033]1;$LOGNAME@$HOST\007"'
-    else
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-    fi
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
     ;;
 *)
 esac
-
-# fix GTK
-export GDK_NATIVE_WINDOWS=1
-
-#Pango makes firefox hell slow
-export MOZ_DISABLE_PANGO=1
-export FIREFOX_DSP=none
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -e /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-################################################################################
-# Homebrew stuff...
-################################################################################
-if [ "$OS" == "Darwin" ]; then
-    if [ -x /usr/local/bin/brew ]; then
-        echo "Where're here..."
-        export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
-
-        export SVN_EDITOR=`brew --prefix macvim`/MacVim.app/Contents/MacOS/Vim
-        # Setup homebrew auto-completion on the Mac
-        if [ -f `brew --prefix`/etc/bash_completion ]; then
-            . `brew --prefix`/etc/bash_completion
-        fi
-    fi
-fi
-
 
 if tty -s; then
     type -p motd >/dev/null && motd #run this neat little script
@@ -197,35 +162,38 @@ export PATH=/usr/local/bin:$PATH
 ################################################################################
 export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python:/usr/local/lib/python2.7/site-packages
 
-################################################################################
-# Subversion
-################################################################################
-
-if [ -e /usr/bin/meld ]; then
-    export SVN_MERGE=/usr/bin/meld
-    export SVN_DIFF=/usr/bin/meld
-fi
-
-# MacOS X with xcode installed
-if [ -e /usr/bin/opendiff ]; then
-    export SVN_MERGE=/usr/bin/opendiff
-    export SVN_DIFF=/usr/bin/opendiff
-fi
-
 if [ -e ${HOME}/.cscope ]; then
     CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB   
 fi
 
 ################################################################################
-# Chef
-################################################################################
-export CHEF_REPO=${HOME}/rep/chef-repo
-export PEARSON_REPO=${HOME}/rep/chef
-
-################################################################################
 # Android
 ################################################################################
 export PATH=${PATH}:/opt/AndroidSDK/tools
+
+# source specific os options
+case "$OS" in
+Darwin*)
+    if [ -f ~/.bash/osx ]; then
+        . ~/.bash/osx
+    fi
+Linux*)
+    if [ -f ~/.bash/linux ]; then
+        . ~/.bash/linux
+    fi
+esac
+
+## Source any local additions
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -e /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

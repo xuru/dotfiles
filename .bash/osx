@@ -1,0 +1,31 @@
+#  vim: set ts=4 sw=4 tw=80 syntax=conf :
+################################################################################
+# OSX specific stuff
+################################################################################
+#
+if [ "$TERM_PROGRAM" = "Apple_Terminal" -a "$TERM" = "vt100" ];then
+    export TERM="screen"
+fi
+
+################################################################################
+# Homebrew stuff...
+################################################################################
+if [ -x /usr/local/bin/brew ]; then
+    export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
+
+    export SVN_EDITOR=`brew --prefix macvim`/MacVim.app/Contents/MacOS/Vim
+    # Setup homebrew auto-completion on the Mac
+    if [ -f `brew --prefix`/etc/bash_completion ]; then
+        . `brew --prefix`/etc/bash_completion
+    fi
+fi
+
+
+################################################################################
+# Subversion
+################################################################################
+if [ -e /usr/bin/opendiff ]; then
+    export SVN_MERGE=/usr/bin/opendiff
+    export SVN_DIFF=/usr/bin/opendiff
+fi
+
