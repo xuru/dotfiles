@@ -177,10 +177,12 @@ Darwin*)
     if [ -f ~/.bash/osx ]; then
         . ~/.bash/osx
     fi
+    ;;
 Linux*)
     if [ -f ~/.bash/linux ]; then
         . ~/.bash/linux
     fi
+    ;;
 esac
 
 ## Source any local additions
