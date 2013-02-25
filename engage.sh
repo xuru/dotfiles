@@ -11,7 +11,7 @@ function symtastico {
   shift
   for file in $@; do
     name=`basename "$file"`
-    if [ -f "$file" ] || test "$name" = ".vim"; then
+    if [ -f "$file" ] || test "$name" = ".vim" || test "$name" = ".bash"; then
        dest=$destdir/$name
        echo -n "$name, "
        if [ -h $dest ]; then
