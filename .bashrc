@@ -166,10 +166,28 @@ if [ -e ${HOME}/.cscope ]; then
     CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB   
 fi
 
+if [ ! -d $HOME/.virtualenvs ]; then
+    mkdir $HOME/.virtualenvs 
+fi
+
+export WORKON_HOME=$HOME/.virtualenvs
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+function mkwx () {
+    if [ ! -h $VIRTUAL_ENV/lib/python2.7/site-packages/wxredirect.pth ]; then
+        ln -s /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/wxredirect.pth $VIRTUAL_ENV/lib/python2.7/site-packages/wxredirect.pth
+    fi
+    export PYTHONPATH=$VIRTUAL_ENV/lib/python2.7/site-packages
+}
+
+alias mkve='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.3/bin/python'
+alias mkve3='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.3/bin/python'
+
 ################################################################################
 # Android
 ################################################################################
-export PATH=${PATH}:/opt/AndroidSDK/tools
 
 # source specific os options
 case "$OS" in
@@ -210,3 +228,4 @@ fi
 if [ -f ~/.rvm/scripts/rvm ]; then
     . ~/.rvm/scripts/rvm
 fi
+
