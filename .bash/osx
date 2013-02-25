@@ -2,10 +2,20 @@
 ################################################################################
 # OSX specific stuff
 ################################################################################
-#
+
+# Setup Android development...
+export PATH="$HOME/Applications/adt-bundle-mac-x86_64/sdk/tools":$PATH
+export PATH="$HOME/Applications/adt-bundle-mac-x86_64/sdk/tools/lib":$PATH
+alias adt=$HOME/Applications/adt-bundle-mac-x86_64/eclipse/Eclipse.app/Contents/MacOS/eclipse
+
+# vmware fusion
+export PATH="$PATH:/Applications/VMware Fusion.app/Contents/Library"
+
 if [ "$TERM_PROGRAM" = "Apple_Terminal" -a "$TERM" = "vt100" ];then
     export TERM="screen"
 fi
+
+export JAVA_HOME=`/usr/libexec/java_home`
 
 ################################################################################
 # Homebrew stuff...
