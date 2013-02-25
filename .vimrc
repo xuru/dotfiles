@@ -25,9 +25,21 @@ set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
+set autoread
+
+" turn backup off
+set nobackup
+set nowritebackup
+set noswapfile
+
+" write out the buffer on switching buffers
+set autowrite
 
 " set relativenumber
 set undofile
+
+" auto reload vimrc when editing it
+autocmd! bufwritepost .vimrc source ~/.vimrc
 
 source ~/.vim/vundle.vim
 
@@ -79,6 +91,11 @@ if has("gui_running")
         " Anti-aliasing is niiiice
         set antialias
     endif
+else
+    " Setup the scrollwheel action
+    set mouse=a
+    map <ScrollWheelUp> <C-Y>
+    map <ScrollWheelDown> <C-E>
 endif
 
 " Tabstops are 4 spaces
@@ -228,12 +245,6 @@ nmap ,wr :RecurGrepFast <cword><CR>
 " autoclose (
 inoremap ( ()<Left>
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-" autoclose [
-inoremap [ []<Left>
-inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
-" autoclose {
-inoremap { {}<Left>
-inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 
 set wildignore=*.pyc,*~
 
@@ -245,6 +256,9 @@ set wildmode=list:longest
 set foldmethod=indent
 set foldlevel=99
 set foldenable
+
+"buffers
+set switchbuf=usetab
 
 " format JSON
 "map <Leader>j !python -m json.tool<CR>
@@ -261,6 +275,7 @@ if has("autocmd")
     " don't fold vim files
     autocmd FileType vim set nofoldenable
 
+    au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
     " Re-load vimrc file when you save
     "au BufWritePost ~/.vimrc :source ~/.vimrc
     "au BufWritePost ~/.gvimrc :source ~/.gvimrc
