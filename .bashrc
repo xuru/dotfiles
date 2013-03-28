@@ -160,7 +160,8 @@ export PATH=/usr/local/bin:$PATH
 ################################################################################
 # Python exports
 ################################################################################
-export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python:/usr/local/lib/python2.7/site-packages
+export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 if [ -e ${HOME}/.cscope ]; then
     CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB   
@@ -184,10 +185,6 @@ function mkwx () {
 
 alias mkve='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.3/bin/python'
 alias mkve3='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.3/bin/python'
-
-################################################################################
-# Android
-################################################################################
 
 # source specific os options
 case "$OS" in
