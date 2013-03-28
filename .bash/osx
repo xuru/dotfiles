@@ -3,10 +3,14 @@
 # OSX specific stuff
 ################################################################################
 
+export ANDROID_HOME="/opt/adt/sdk"
+
+
 # Setup Android development...
-export PATH="$HOME/Applications/adt-bundle-mac-x86_64/sdk/tools":$PATH
-export PATH="$HOME/Applications/adt-bundle-mac-x86_64/sdk/tools/lib":$PATH
-alias adt=$HOME/Applications/adt-bundle-mac-x86_64/eclipse/Eclipse.app/Contents/MacOS/eclipse
+export PATH="$ANDROID_HOME/tools":$PATH
+export PATH="$ANDROID_HOME/platform-tools":$PATH
+export PATH="$ANDROID_HOME/tools/lib":$PATH
+alias adt=$ANDROID_HOME/../eclipse/Eclipse.app/Contents/MacOS/eclipse
 
 # vmware fusion
 export PATH="$PATH:/Applications/VMware Fusion.app/Contents/Library"
@@ -39,3 +43,10 @@ if [ -e /usr/bin/opendiff ]; then
     export SVN_DIFF=/usr/bin/opendiff
 fi
 
+################################################################################
+# Colorizer
+# brew install grc
+################################################################################
+if [ -x /usr/local/bin/grc ]; then
+    source "`brew --prefix`/etc/grc.bashrc"
+fi
