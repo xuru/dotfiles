@@ -42,7 +42,11 @@ Bundle 'kien/ctrlp.vim'
 
 Bundle 'vim-scripts/YankRing.vim'
 
-" Python and PHP Debugger
+" Javascript... must install jshint (npm install jshint)
+Bundle 'walm/jshint.vim'
+Bundle 'leshill/vim-json'
+
+" Python
 Bundle 'klen/python-mode'
 "Bundle 'fisadev/vim-debug.vim'
 "Bundle 'nvie/vim-flake8'
