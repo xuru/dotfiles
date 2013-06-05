@@ -25,7 +25,7 @@ export HISTSIZE=10000
 export INPUTRC=/etc/inputrc
 export EDITOR=vim
 export VISUAL=vim
-export BROWSER=firefox
+export BROWSER=
 export PAGER=less
 export MANPAGER=less
 export MAILCHECK=0
@@ -210,6 +210,10 @@ fi
 # sources /etc/bash.bashrc).
 if [ -e /etc/bash_completion ]; then
     . /etc/bash_completion
+fi
+
+if [ -f /usr/local/bin/grunt ]; then
+    eval "$(grunt --completion=bash)"
 fi
 
 # Alias definitions.
