@@ -11,7 +11,8 @@ if [ -e /bin/dircolors ]; then
 fi
 
 export LANG="C"
-set HOSTNAME=`uname -n`
+export HOSTNAME=`uname -n`
+export OS=`uname -s`
 
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
@@ -24,7 +25,7 @@ export HISTSIZE=10000
 export INPUTRC=/etc/inputrc
 export EDITOR=vim
 export VISUAL=vim
-export BROWSER=firefox
+export BROWSER=
 export PAGER=less
 export MANPAGER=less
 export MAILCHECK=0
@@ -144,21 +145,65 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    if [ "$HOSTNAME" != "kinglaptop36" ]; then
-        export PROMPT_COMMAND='echo -ne "\033]2;$LOGNAME@$HOSTNAME   Directory: $PWD\007\033]1;$LOGNAME@$HOST\007"'
-    else
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-    fi
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
     ;;
 *)
 esac
 
-# fix GTK
-export GDK_NATIVE_WINDOWS=1
+if tty -s; then
+    type -p motd >/dev/null && motd #run this neat little script
+fi
 
-#Pango makes firefox hell slow
-export MOZ_DISABLE_PANGO=1
-export FIREFOX_DSP=none
+export PATH=${HOME}/bin:$PATH
+export PATH=/usr/local/bin:$PATH
+
+################################################################################
+# Python exports
+################################################################################
+export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+if [ -e ${HOME}/.cscope ]; then
+    CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB   
+fi
+
+if [ ! -d $HOME/.virtualenvs ]; then
+    mkdir $HOME/.virtualenvs 
+fi
+
+export WORKON_HOME=$HOME/.virtualenvs
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+function mkwx () {
+    if [ ! -h $VIRTUAL_ENV/lib/python2.7/site-packages/wxredirect.pth ]; then
+        ln -s /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/wxredirect.pth $VIRTUAL_ENV/lib/python2.7/site-packages/wxredirect.pth
+    fi
+    export PYTHONPATH=$VIRTUAL_ENV/lib/python2.7/site-packages
+}
+
+alias mkve='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.3/bin/python'
+alias mkve3='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.3/bin/python'
+
+# source specific os options
+case "$OS" in
+Darwin*)
+    if [ -f ~/.bash/osx ]; then
+        . ~/.bash/osx
+    fi
+    ;;
+Linux*)
+    if [ -f ~/.bash/linux ]; then
+        . ~/.bash/linux
+    fi
+    ;;
+esac
+
+## Source any local additions
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -167,50 +212,9 @@ if [ -e /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-# Setup homebrew auto-completion on the Mac
-if [ -e /usr/local/bin/brew ]; then
-    if [ -f `brew --prefix`/etc/bash_completion ]; then
-        . `brew --prefix`/etc/bash_completion
-    fi
+if [ -f /usr/local/bin/grunt ]; then
+    eval "$(grunt --completion=bash)"
 fi
-
-
-if tty -s; then
-    type -p motd >/dev/null && motd #run this neat little script
-fi
-
-export PATH=$PATH:${HOME}/bin
-export PATH=$PATH:/usr/local/bin
-
-################################################################################
-# Python exports
-################################################################################
-export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python:/usr/local/lib/python2.7/site-packages
-
-################################################################################
-# Subversion
-################################################################################
-export SVN_EDITOR=vim
-
-if [ -e /usr/bin/meld ]; then
-    export SVN_MERGE=/usr/bin/meld
-    export SVN_DIFF=/usr/bin/meld
-fi
-
-# MacOS X with xcode installed
-if [ -e /usr/bin/opendiff ]; then
-    export SVN_MERGE=/usr/bin/opendiff
-    export SVN_DIFF=/usr/bin/opendiff
-fi
-
-if [ -e ${HOME}/.cscope ]; then
-    CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB   
-fi
-
-################################################################################
-# Android
-################################################################################
-export PATH=${PATH}:/opt/AndroidSDK/tools
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -219,5 +223,10 @@ export PATH=${PATH}:/opt/AndroidSDK/tools
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+fi
+
+# load up rvm if it exists
+if [ -f ~/.rvm/scripts/rvm ]; then
+    . ~/.rvm/scripts/rvm
 fi
 

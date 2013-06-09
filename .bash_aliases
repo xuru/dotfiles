@@ -1,5 +1,6 @@
 ##############################################################################
 
+export OS=`uname -s`
 ## Standard aliases - convenience
 # Color syntax
 # enable color support of ls and also add handy aliases
@@ -38,8 +39,21 @@ else
     alias vim=vi
 fi
 
-if type -p mvim >/dev/null; then
-    alias gvim=mvim
+if [ "$OS" == "Darwin" ]; then
+    # latest wins...
+    if [ -d /Applications/MacVim.app ]; then
+        alias vi=/Applications/MacVim.app/Contents/MacOS/Vim
+        alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+    fi
+
+    if [ -d /usr/local/Cellar/macvim ]; then
+        alias vi=`brew --prefix macvim`/MacVim.app/Contents/MacOS/Vim
+        alias vim=`brew --prefix macvim`/MacVim.app/Contents/MacOS/Vim
+    fi
+
+    if type -p mvim >/dev/null; then
+        alias gvim=mvim
+    fi
 fi
 
 if [ -e `which less` ]; then

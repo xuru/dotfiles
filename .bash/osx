@@ -1,0 +1,61 @@
+#  vim: set ts=4 sw=4 tw=80 syntax=conf :
+################################################################################
+# OSX specific stuff
+################################################################################
+
+export ANDROID_HOME="/opt/adt/sdk"
+
+# Setup Android development...
+export PATH="$ANDROID_HOME/tools":$PATH
+export PATH="$ANDROID_HOME/build-tools/17.0.0/":$PATH
+export PATH="$ANDROID_HOME/platform-tools":$PATH
+export PATH="$ANDROID_HOME/tools/lib":$PATH
+alias adt=$ANDROID_HOME/../eclipse/Eclipse.app/Contents/MacOS/eclipse
+
+# vmware fusion
+export PATH="$PATH:/Applications/VMware Fusion.app/Contents/Library"
+
+# node
+export PATH="/usr/local/share/npm/bin:$PATH"
+
+if [ "$TERM_PROGRAM" = "Apple_Terminal" -a "$TERM" = "vt100" ];then
+    export TERM="screen"
+fi
+
+export JAVA_HOME=`/usr/libexec/java_home`
+
+################################################################################
+# Homebrew stuff...
+################################################################################
+if [ -x /usr/local/bin/brew ]; then
+    export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
+
+    export SVN_EDITOR=`brew --prefix macvim`/MacVim.app/Contents/MacOS/Vim
+    # Setup homebrew auto-completion on the Mac
+    if [ -f `brew --prefix`/etc/bash_completion ]; then
+        . `brew --prefix`/etc/bash_completion
+    fi
+fi
+
+
+################################################################################
+# Subversion
+################################################################################
+if [ -e /usr/bin/opendiff ]; then
+    export SVN_MERGE=/usr/bin/opendiff
+    export SVN_DIFF=/usr/bin/opendiff
+fi
+
+################################################################################
+# Colorizer
+# brew install grc
+################################################################################
+if [ -x /usr/local/bin/grc ]; then
+    source "`brew --prefix`/etc/grc.bashrc"
+fi
+
+
+function pos()
+{
+    osascript ~/bin/terms.scpt
+}
