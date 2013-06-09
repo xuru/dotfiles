@@ -4,6 +4,7 @@
 REPO="git://github.com/xuru/dotfiles.git"
 WORK=~/.dotfiles
 ORIG=~/tmp/.dotfile_preserve
+OS=`uname -s`
 
 function symtastico {
   # make symlinks, ignoring directories and archiving existing files.
@@ -41,15 +42,30 @@ symtastico ~ `ls -ad "$WORK"/\.*`
 ## ~/bin
 mkdir -p ~/bin
 chmod 700 ~/bin
-symtastico ~/bin `ls -d "$WORK"/bin/*`
+if [ -d "$WORK"/bin ]
+then
+    symtastico ~/bin `ls -d "$WORK"/bin/*`
+fi
 
 ## ~/.ssh
 # Just dir/permissions.  Don't wanna autolink config...
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
-chmod -f 600 ~/.authorized_keys
-chown -R $USER:$USER ~/.ssh
+if [ -f ~/.authorized_keys ]
+then
+    chmod -f 600 ~/.authorized_keys
+fi
 
 ## ~/tmp ~/work stuff
 mkdir -p ~/tmp
 mkdir -p ~/rep
+if [ "$OS" = "Darwin" ]
+then
+    echo "We're on Darwin..."
+    chown -R $USER:staff ~/.ssh
+    source ~/.osx
+else
+    echo "We're on Linux..."
+    chown -R $USER:$USER ~/.ssh
+fi
+
