@@ -46,6 +46,9 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'walm/jshint.vim'
 Bundle 'leshill/vim-json'
 
+" syntax support for css3.
+Bundle 'lepture/vim-css'
+
 " Python
 Bundle 'klen/python-mode'
 "Bundle 'fisadev/vim-debug.vim'
