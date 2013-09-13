@@ -40,7 +40,7 @@ Bundle 'reinh/vim-makegreen'
 Bundle 'vim-scripts/vcscommand.vim'
 Bundle 'kien/ctrlp.vim'
 
-Bundle 'vim-scripts/YankRing.vim'
+"Bundle 'vim-scripts/YankRing.vim'
 
 " Javascript... must install jshint (npm install jshint)
 Bundle 'walm/jshint.vim'
@@ -56,6 +56,9 @@ Bundle 'klen/python-mode'
 "Bundle 'finder/rope-vim'
 "Bundle 'rygwdn/rope-omni'
 "Bundle 'fs111/pydoc.vim'
+
+" Syntax highlighting for applescript
+Bundle 'vim-scripts/applescript.vim'
 
 " Zen coding
 Bundle 'mattn/zencoding-vim'

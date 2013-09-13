@@ -3,17 +3,17 @@
 # OSX specific stuff
 ################################################################################
 
-export ANDROID_HOME="/opt/adt/sdk"
+#export ANDROID_HOME="/opt/adt/sdk"
 
 # Setup Android development...
-export PATH="$ANDROID_HOME/tools":$PATH
-export PATH="$ANDROID_HOME/build-tools/17.0.0/":$PATH
-export PATH="$ANDROID_HOME/platform-tools":$PATH
-export PATH="$ANDROID_HOME/tools/lib":$PATH
-alias adt=$ANDROID_HOME/../eclipse/Eclipse.app/Contents/MacOS/eclipse
+#export PATH="$ANDROID_HOME/tools":$PATH
+#export PATH="$ANDROID_HOME/build-tools/17.0.0/":$PATH
+#export PATH="$ANDROID_HOME/platform-tools":$PATH
+#export PATH="$ANDROID_HOME/tools/lib":$PATH
+#alias adt=$ANDROID_HOME/../eclipse/Eclipse.app/Contents/MacOS/eclipse
 
 # node
-export PATH="/usr/local/share/npm/bin:$PATH"
+#export PATH="/usr/local/share/npm/bin:$PATH"
 
 if [ "$TERM_PROGRAM" = "Apple_Terminal" -a "$TERM" = "vt100" ];then
     export TERM="screen"

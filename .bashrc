@@ -230,3 +230,5 @@ if [ -f ~/.rvm/scripts/rvm ]; then
     . ~/.rvm/scripts/rvm
 fi
 
+
+[ -r "$HOME/.smartcd_config" ] && ( [ -n $BASH_VERSION ] || [ -n $ZSH_VERSION ] ) && source ~/.smartcd_config

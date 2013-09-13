@@ -17,6 +17,10 @@ if has("autocmd")
     " css - requires csstidy
     autocmd filetype css setlocal equalprg=/Users/plaster/bin/csstidy\ -\ --silent=true
 
+    " open .applescript files as .scpt files...
+    au BufRead,BufNewFile *.applescript setfiletype applescript
+    au BufRead,BufNewFile *.scpt setfiletype applescript
+
     " Re-load vimrc file when you save
     "au BufWritePost ~/.vimrc :source ~/.vimrc
     "au BufWritePost ~/.gvimrc :source ~/.gvimrc
