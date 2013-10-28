@@ -30,7 +30,7 @@ Bundle 'scrooloose/nerdtree'
 
 Bundle 'ervandew/supertab'
 Bundle 'majutsushi/tagbar'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline'
 Bundle 'jnurmine/Zenburn'
 Bundle 't9md/vim-chef'
 

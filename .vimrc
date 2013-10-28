@@ -51,7 +51,7 @@ colorscheme desert
 
 " GUI options (only in effect when running in a GUI).
 if has("gui_running")
-    set guifont=Liberation_Mono:h11
+    set guifont=Liberation\ Mono\ for\ Powerline:h11
     set background=dark						" I use dark background
     colorscheme zenburn
 
