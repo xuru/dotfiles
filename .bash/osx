@@ -19,7 +19,7 @@ if [ "$TERM_PROGRAM" = "Apple_Terminal" -a "$TERM" = "vt100" ];then
     export TERM="screen"
 fi
 
-export JAVA_HOME=`/usr/libexec/java_home`
+#export JAVA_HOME=`/usr/libexec/java_home`
 
 ################################################################################
 # Homebrew stuff...
