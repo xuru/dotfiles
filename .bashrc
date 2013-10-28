@@ -162,6 +162,7 @@ export PATH=/usr/local/bin:$PATH
 ################################################################################
 export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+export PYTHONIOENCODING=utf_8
 
 if [ -e ${HOME}/.cscope ]; then
     CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB   
@@ -232,3 +233,6 @@ fi
 
 
 [ -r "$HOME/.smartcd_config" ] && ( [ -n $BASH_VERSION ] || [ -n $ZSH_VERSION ] ) && source ~/.smartcd_config
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
