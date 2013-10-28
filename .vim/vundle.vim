@@ -49,6 +49,12 @@ Bundle 'leshill/vim-json'
 " syntax support for css3.
 Bundle 'lepture/vim-css'
 
+" salt support
+Bundle 'saltstack/salt-vim'
+
+" vagrant support
+Bundle 'vim-scripts/vim-vagrant'
+
 " Python
 Bundle 'klen/python-mode'
 "Bundle 'fisadev/vim-debug.vim'
@@ -56,6 +62,7 @@ Bundle 'klen/python-mode'
 "Bundle 'finder/rope-vim'
 "Bundle 'rygwdn/rope-omni'
 "Bundle 'fs111/pydoc.vim'
+Bundle 'terryma/vim-multiple-cursors'
 
 " Syntax highlighting for applescript
 Bundle 'vim-scripts/applescript.vim'
