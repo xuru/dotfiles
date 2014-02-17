@@ -10,7 +10,9 @@ if [ -e /bin/dircolors ]; then
     eval $(dircolors -b ~/.dircolors)
 fi
 
-export LANG="C"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 export HOSTNAME=`uname -n`
 export OS=`uname -s`
 
@@ -156,6 +158,13 @@ fi
 
 export PATH=${HOME}/bin:$PATH
 export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
+
+################################################################################
+# Ack
+################################################################################
+# per directory settings
+export ACKRC=".ackrc"
 
 ################################################################################
 # Python exports
@@ -184,8 +193,9 @@ function mkwx () {
     export PYTHONPATH=$VIRTUAL_ENV/lib/python2.7/site-packages
 }
 
-alias mkve='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.3/bin/python'
-alias mkve3='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.3/bin/python'
+alias mkve='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.5/bin/python'
+
+export HOMEBREW_GITHUB_API_TOKEN=18e68592722d2a935a44f5c22317c31ad4de3193
 
 # source specific os options
 case "$OS" in
@@ -231,7 +241,7 @@ if [ -f ~/.rvm/scripts/rvm ]; then
     . ~/.rvm/scripts/rvm
 fi
 
-
+#. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
 [ -r "$HOME/.smartcd_config" ] && ( [ -n $BASH_VERSION ] || [ -n $ZSH_VERSION ] ) && source ~/.smartcd_config
 
 ### Added by the Heroku Toolbelt
