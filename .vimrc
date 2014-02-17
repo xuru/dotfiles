@@ -109,12 +109,6 @@ set shiftround      "round to multiples of shiftwidth
 set history=200
 set undolevels=1000
 
-" tablength exceptions
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
-autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
-
 " set the search scan to wrap lines
 set wrapscan
 
@@ -209,10 +203,6 @@ map <C-S-Right> :tabn<CR>
 imap <C-S-Right> <ESC>:tabn<CR>
 map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
-
-map <leader>d :RopeGotoDefinition<CR>
-map <leader>r :RopeRename<CR>
-
 " show pending tasks list
 map <F2> :TaskList<CR>
 
@@ -279,7 +269,8 @@ source ~/.vim/vcscommand.vim
 source ~/.vim/python.vim
 source ~/.vim/ctrlp.vim
 source ~/.vim/nerdtree.vim
-source ~/.vim/chef.vim
+"source ~/.vim/chef.vim
 source ~/.vim/tagbar.vim
+source ~/.vim/dash.vim
 
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>

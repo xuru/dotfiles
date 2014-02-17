@@ -32,7 +32,7 @@ Bundle 'ervandew/supertab'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/powerline'
 Bundle 'jnurmine/Zenburn'
-Bundle 't9md/vim-chef'
+" Bundle 't9md/vim-chef'
 
 
 Bundle 'mileszs/ack.vim'
@@ -57,18 +57,23 @@ Bundle 'vim-scripts/vim-vagrant'
 
 " Python
 Bundle 'klen/python-mode'
-"Bundle 'fisadev/vim-debug.vim'
-"Bundle 'nvie/vim-flake8'
-"Bundle 'finder/rope-vim'
-"Bundle 'rygwdn/rope-omni'
-"Bundle 'fs111/pydoc.vim'
 Bundle 'terryma/vim-multiple-cursors'
+
+" reStructuredText
+Bundle 'Rykka/riv.vim'
+
+" Integrate with Dash.app
+Bundle 'rizzatti/funcoo.vim'
+Bundle 'rizzatti/dash.vim'
 
 " Syntax highlighting for applescript
 Bundle 'vim-scripts/applescript.vim'
 
 " Zen coding
 Bundle 'mattn/zencoding-vim'
+
+" XML
+Bundle 'othree/xml.vim'
 
 filetype plugin indent on " required! 
 "
