@@ -1,159 +1,247 @@
-# Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-# Enable subpixel font rendering on non-Apple LCDs
-defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
-# Enable the 2D Dock
-defaults write com.apple.dock no-glass -bool true
+function osx_debug {
+    defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
+    defaults write com.apple.DiskUtility advanced-image-options -bool true
+    defaults write com.apple.Safari IncludeDebugMenu -bool true
+    defaults write com.apple.addressbook ABShowDebugMenu -bool true
+    defaults write com.apple.iCal IncludeDebugMenu -bool true
+}
 
-# Automatically hide and show the Dock
-defaults write com.apple.dock autohide -bool true
+function osx_disk {
+    sudo pmset -a sms 0  # sudden motion sensor off for SSD
+    sudo pmset -a hibernatemode 0  # no ram to disk backup for sleep
+    sudo rm /var/vm/sleepimage
+    sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist  # swapoff
+}
 
-# Make Dock icons of hidden applications translucent
-defaults write com.apple.dock showhidden -bool true
+function osx_dock {
+    #defaults write com.apple.dock no-glass -bool true
+    defaults write com.apple.dock magnification -bool true
+    defaults write com.apple.dock largesize -int 64
+    defaults write com.apple.dock tilesize -int 32
 
-# Disable menu bar transparency
-defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
+    defaults write com.apple.dock show-process-indicators -bool true
+    defaults write com.apple.dock launchanim -bool false
+    defaults write com.apple.dock mouse-over-hilte-stack -bool true
+    defaults write com.apple.dock autohide -bool true
+    defaults write com.apple.dock autohide-delay -float 0
+    defaults write com.apple.dock autohide-time-modifier -float 0.25
+    defaults write com.apple.dock dashboard-in-overlay -bool true
+    defaults write com.apple.dock expose-animation-duration -float 0.1
+    defaults write com.apple.dock minimize-to-application -bool true
+    defaults write com.apple.dock orientation -string left
+    defaults write com.apple.dock showhidden -bool true
+}
 
-# Show remaining battery time; hide percentage
-defaults write com.apple.menuextra.battery ShowPercent -string "NO"
-defaults write com.apple.menuextra.battery ShowTime -string "YES"
+function osx_finder {
+    chflags nohidden ~/Library
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true # no .DS_Store on network volumes
+    defaults write com.apple.finder AppleShowAllExtensions -bool true
+    #defaults write com.apple.finder AppleShowAllFiles -bool true
+    defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+    defaults write com.apple.finder FXPreferredGroupBy -string "Kind"
+    defaults write com.apple.finder NewWindowTargetPath -string "file://Users/$USER/"
+    defaults write com.apple.finder QLEnableTextSelection -bool true
+    defaults write -g ShowStatusBar -bool true # finder: show status bar
+    defaults write NSGlobalDomain AppleShowAllExtensions -bool true  # Show all filename extensions in Finder
 
-# Always show scrollbars
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+    # Allow quitting Finder via ⌘ + Q; doing so will also hide desktop icons
+    defaults write com.apple.finder QuitMenuItem -bool true
 
-# Allow quitting Finder via ⌘ + Q; doing so will also hide desktop icons
-defaults write com.apple.finder QuitMenuItem -bool true
+    # Automatically open a new Finder window when a volume is mounted
+    defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
+    defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 
-# Show all filename extensions in Finder
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+    # Disable disk image verification
+    defaults write com.apple.frameworks.diskimages skip-verify -bool true
+    defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+    defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
-# Expand save panel by default
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+    # Display full POSIX path as Finder window title
+    defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
-# Expand print panel by default
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+    # Disable the warning when changing a file extension
+    defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
+    # Show item info below desktop icons
+    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
 
-# Disable shadow in screenshots
-defaults write com.apple.screencapture disable-shadow -bool true
+    defaults write com.apple.finder WarnOnEmptyTrash -bool false
+    defaults write com.apple.finder EmptyTrashSecurely -bool false  # Empty Trash securely by default
 
-# Enable highlight hover effect for the grid view of a stack (Dock)
-defaults write com.apple.dock mouse-over-hilte-stack -bool true
 
-# Enable spring loading for all Dock items
-defaults write enable-spring-load-actions-on-all-items -bool true
+}
 
-# Show indicator lights for open applications in the Dock
-defaults write com.apple.dock show-process-indicators -bool true
+function osx_general {
+    defaults write -g AppleScrollerPagingBehavior -int 1 # scroll bar: jump to clicked spot
+    defaults write -g NSTableViewDefaultSizeMode -int 1 # sidebar icon size: small
+    defaults write -g NSQuitAlwaysKeepsWindows -bool true # resume windows
+    #defaults write -g NSDisableAutomaticTermination -bool true # sudden termination
+    defaults write -g AppleShowAllExtensions -bool true # show all extensions
+    defaults write -g ShowMountedServersOnDesktop -bool true # desktop: show servers
+    defaults write com.apple.dock showAppExposeGestureEnabled -bool true # trackpad: enable app expose
 
-# Don’t animate opening applications from the Dock
-defaults write com.apple.dock launchanim -bool false
+    # Show remaining battery time; hide percentage
+    defaults write com.apple.menuextra.battery ShowPercent -string "NO"
+    defaults write com.apple.menuextra.battery ShowTime -string "YES"
 
-# Disable press-and-hold for keys in favor of key repeat
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+    sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName # more verbose clock icon
+    sudo scutil --set ComputerName "xuru"
+    sudo scutil --set HostName "xuru.mbp.local"
+    sudo scutil --set LocalHostName "xuru"
 
-# Set a blazingly fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 0
+    sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "mbp"
+    defaults write com.apple.screensaver askForPassword -int 1
+    defaults write com.apple.screensaver askForPasswordDelay -int 0
+    defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false  # Disable auto-correct
 
-# Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+    # Disable the “Are you sure you want to open this application?” dialog
+    defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# Disable window animations
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+    # Enable AirDrop over Ethernet and on unsupported Macs running Lion
+    defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
-# Enable AirDrop over Ethernet and on unsupported Macs running Lion
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+    #TODO checkout systemsetup
+}
 
-# Disable disk image verification
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
-# Automatically open a new Finder window when a volume is mounted
-defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
-defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+function osx_homebrew {
+    [ ! -r /usr/bin/clang ] && echo "Please download command line tools for Xcode (https://developer.apple.com/downloads/index.action) first!" && return
+    ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+    brew update
+    if [ ! -e /usr/local/bin/bin ]; then
+        brew install git
+    fi
+}
 
-# Display full POSIX path as Finder window title
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+function osx_itunes {
+    defaults write com.apple.iTunes disableGeniusSidebar -bool true
+    defaults write com.apple.iTunes disablePing -bool true
+    defaults write com.apple.iTunes disablePingSidebar -bool true
+    defaults write com.apple.iTunes disableRadio -bool true
+    defaults write com.apple.iTunes show-store-link-arrows -bool false
+}
 
-# Increase window resize speed for Cocoa applications
-defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+function osx_keyboard {
+    defaults write -g AppleKeyboardUIMode -int 3                # full keyboard access
+    defaults write -g ApplePressAndHoldEnabled -bool false      # favor key repeat
+    defaults write com.apple.BezelServices kDim -bool true      # keyboard illumination
+    defaults write com.apple.BezelServices kDimTime -int 300    # dim after 5 minutes
+    defaults write NSGlobalDomain KeyRepeat -int 0              # Set a blazingly fast keyboard repeat rate
+}
 
-# Avoid creating .DS_Store files on network volumes
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+function osx_noatime {
+    sudo defaults write com.apple.loginwindow LoginHook $HOME/bin/remount_noatime
+}
 
-# Disable the warning when changing a file extension
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+function osx_power {
+    sudo pmset -b displaysleep 5
+    sudo pmset -c displaysleep 20
+    sudo pmset -c sleep 0
+}
 
-# Show item info below desktop icons
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+function osx_reset {
+    find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
+}
 
-# Disable the warning before emptying the Trash
-defaults write com.apple.finder WarnOnEmptyTrash -bool false
+function osx_safari {
+    defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2 # thumbnails off
+    defaults write com.apple.Safari ProxiesInBookmarksBar "()"
+}
 
-# Empty Trash securely by default
-defaults write com.apple.finder EmptyTrashSecurely -bool false
+function osx_security {
+    # unneded daemons
+    #sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.blued.plist                           # bluetooth
+    #sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.IIDCAssistant.plist                   # iSight
+    sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.nis.ypbind.plist                       # NIS
+    sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.racoon.plist                           # VPN
+    sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.RemoteDesktop.PrivilegeProxy.plist     # ARD
+    sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.RFBEventHelper.plist                   # ARD
+    #sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.UserNotificationCenter.plist          # User notifications
+    sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.webdavfs_load_kext.plist               # WebDAV
+    sudo launchctl unload -w /System/Library/LaunchDaemons/org.postfix.master.plist                         # email server
+    #sudo launchctl unload -w /System/Library/LaunchAgents/com.apple.RemoteUI.plist                         # Remote Control
+    
+    # remove setuid and setgid
+    sudo chmod ug-s /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/MacOS/ARDAgent      # Apple Remote Desktop
+    sudo chmod ug-s /sbin/mount_nfs             # NFS
+    sudo chmod ug-s /usr/bin/at                 # Job Scheduler
+    sudo chmod ug-s /usr/bin/atq                # Job Scheduler
+    sudo chmod ug-s /usr/bin/atrm               # Job Scheduler
+    sudo chmod ug-s /usr/bin/chpass             # Change user info
+    sudo chmod ug-s /usr/bin/crontab            # Job Scheduler
+    sudo chmod ug-s /usr/bin/ipcs               # IPC statistics
+    sudo chmod ug-s /usr/bin/newgrp             # Change Group
+    sudo chmod ug-s /usr/bin/procmail           # Mail Processor
+    sudo chmod ug-s /usr/bin/wall               # User Messaging
+    sudo chmod ug-s /usr/bin/write              # User Messaging
+    sudo chmod ug-s /bin/rcp                    # Remote Access (Insecure)
+    sudo chmod ug-s /usr/bin/rlogin             # Remote Access (Insecure)
+    sudo chmod ug-s /usr/bin/rsh                # Remote Access (Insecure)
+    sudo chmod ug-s /usr/lib/sa/sadc            # System Activity Reporting
+    sudo chmod ug-s /usr/sbin/traceroute        # Trace Network
+    sudo chmod ug-s /usr/sbin/traceroute6       # Trace Network
+    sudo pmset -a destroyfvkeyonstandby 1       # clear file vault key on sleep
+    security set-keychain-settings -l           # lock keychain on sleep
+}
 
-# Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+function osx_symlinks {
+    sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/sbin/airport
+}
 
-# Enable tap to click (Trackpad)
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+function osx_visuals {
+    defaults write -g NSNavPanelExpandedStateForSaveMode -bool true # expand save panel
+    defaults write -g PMPrintingExpandedStateForPrint -bool true # expand print panel
+    defaults write com.apple.screencapture disable-shadow -bool true
+    defaults write enable-spring-load-actions-on-all-items -bool true
+    defaults write NSGlobalDomain AppleFontSmoothing -int 2  # Enable subpixel font rendering on non-Apple LCDs
+    defaults write NSGlobalDomain AppleShowScrollBars -string "Always"  # Always show scrollbars
+    defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false  # Disable menu bar transparency
+}
 
-# Map bottom right Trackpad corner to right-click
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+function osx_trackpad {
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -int 0
 
-# Disable Safari’s thumbnail cache for History and Top Sites
-defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
+    # Enable tap to click (Trackpad)
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 
-# Enable Safari’s debug menu
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+    # Map bottom right Trackpad corner to right-click
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad USBMouseStopsTrackpad -bool true
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+}
 
-# Remove useless icons from Safari’s bookmarks bar
-defaults write com.apple.Safari ProxiesInBookmarksBar "()"
+function osx_mail {
+    # Disable send and reply animations in Mail.app
+    defaults write com.apple.Mail DisableReplyAnimations -bool true
+    defaults write com.apple.Mail DisableSendAnimations -bool true
+}
 
-# Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
+function osx_timemachine {
+    # Disable local Time Machine backups
+    hash tmutil &> /dev/null && sudo tmutil disablelocal
+}
 
-# Disable the Ping sidebar in iTunes
-defaults write com.apple.iTunes disablePingSidebar -bool true
+# osx_disk
+osx_disk
+osx_dock
+osx_finder
+osx_general
+osx_homebrew
+osx_itunes
+osx_keyboard
+osx_noatime
+osx_power
+osx_safari
+osx_security
+osx_symlinks
+osx_visuals
+osx_trackpad
+osx_mail
+osx_timemachine
+osx_reset
 
-# Disable all the other Ping stuff in iTunes
-defaults write com.apple.iTunes disablePing -bool true
-
-# Disable send and reply animations in Mail.app
-defaults write com.apple.Mail DisableReplyAnimations -bool true
-defaults write com.apple.Mail DisableSendAnimations -bool true
-
-# Disable Resume system-wide
-defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
-
-# Enable Dashboard dev mode (allows keeping widgets on the desktop)
-defaults write com.apple.dashboard devmode -bool true
-
-# Reset Launchpad
-[ -e ~/Library/Application\ Support/Dock/*.db ] && rm ~/Library/Application\ Support/Dock/*.db
-
-# Show the ~/Library folder
-chflags nohidden ~/Library
-
-# Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
-
-# Remove Dropbox’s green checkmark icons in Finder.app
-file=/Applications/Dropbox.app/Contents/Resources/check.icns
-[ -e "$file" ] && mv -f "$file" "$file.bak"
-unset file
-
-# Fix for the ancient UTF-8 bug in QuickLook (http://mths.be/bbo)
-# Commented out, as this is known to cause problems when saving files in Adobe Illustrator CS5 :(
-#echo "0x08000100:0" > ~/.CFUserTextEncoding
 
 # Kill affected applications
 for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" >/dev/null 2>&1; done

@@ -29,11 +29,32 @@ function symtastico {
   done
   }
 
+function setup_ssh {
+    # Just dir/permissions.  Don't wanna autolink config...
+    if [ ! -d ~/bin ]; then
+        mkdir -p ~/.ssh
+    fi
+    chmod 700 ~/.ssh
+    chown -R $USER:`id -g $USER` ~/.ssh
+
+    if [ -f ~/.authorized_keys ]; then
+        chmod -f 600 ~/.authorized_keys
+    fi
+}
+
+function setup_bin {
+    if [ ! -d ~/bin ]; then
+        mkdir -p ~/bin
+
+        ln -s "$WORK/bin/*" ~/bin/
+    fi
+}
+
 
 ## Clone repo if it doesn't exist.  Otherwise, leave it to user to pull/update.
 if [ ! -d "$WORK" ]; then
   mkdir "$WORK"
-  git clone "$REPO" $WORK
+  git clone "$REPO" "$WORK"
 fi
 
 ## .dotfiles
@@ -43,17 +64,8 @@ symtastico ~ `ls -ad "$WORK"/\.*`
 mkdir -p ~/bin
 chmod 700 ~/bin
 if [ -d $WORK/bin ]; then
-    symtastico ~/bin `ls -d "$WORK"/bin/*`
+    symtastico ~/bin `ls -d "$WORK/bin/*"`
 fi
-
-## ~/.ssh
-# Just dir/permissions.  Don't wanna autolink config...
-mkdir -p ~/.ssh
-chmod 700 ~/.ssh
-if [ -f ~/.authorized_keys ]; then
-    chmod -f 600 ~/.authorized_keys
-fi
-chown -R $USER:`id -g $USER` ~/.ssh
 
 ## ~/tmp ~/work stuff
 mkdir -p ~/tmp
@@ -62,7 +74,7 @@ if [ "$OS" = "Darwin" ]
 then
     echo "We're on Darwin..."
     chown -R $USER:staff ~/.ssh
-    source ~/.osx
+    source "$WORK/.osx"
 else
     echo "We're on Linux..."
     chown -R $USER:$USER ~/.ssh
