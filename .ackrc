@@ -8,6 +8,9 @@
 --ignore-dir=tmp
 --ignore-dir=doc
 --ignore-dir=coverage
+--ignore-dir=.git
+--ignore-dir=.ropeproject
+--ignore-dir=.settings
 --sort-files
 --color
 --follow
