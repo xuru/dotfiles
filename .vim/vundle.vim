@@ -19,61 +19,82 @@ Bundle 'gmarik/vundle'
 
 " My Bundles here:
 "
-" original repos on github
+" nerdcommenter
+"   https://github.com/scrooloose/nerdcommenter
+"
+" nerdtree
+"   https://github.com/scrooloose/nerdtree
+"
+" nerdtree tabs
+"   https://github.com/jistr/vim-nerdtree-tabs
+"
+" tyok/nerdtree-ack
+"   This plugin add capability to search in folders via NERDtree
+"   https://github.com/tyok/nerdtree-ack
+"
+" vim-scripts/nerdtree-execute
+"   https://github.com/vim-scripts/nerdtree-execute
+"   Plugin for NERDTree that provides an execute menu item, that executes system 
+"   default application for file or directory
+"
+"
+"
+" ervandew/supertab
+"
+"   In insert mode, start typing something and hit <TAB> to tab-complete based on the current context
+"
+"
+" Tagbar
+"
+"   Tagbar is a vim plugin for browsing the tags of source code files.
+"
+" ZoomWin
+"     When working with split windows, ZoomWin lets you zoom into a window and out again using Ctrl-W o
+"     Customizations: Janus binds <leader>zw to :ZoomWin
+"
+" vim-multiple-cursors
+"     Sublime Text's awesome multiple selection feature
+"
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'  " one nerdtree to rule them all
+Bundle 'tyok/nerdtree-ack'
+
+Bundle 'xolox/vim-notes'
+
+Bundle 'vim-scripts/ZoomWin'
+
 Bundle 'tpope/vim-fugitive'
+Bundle 'vim-scripts/vcscommand.vim'
 
 Bundle 'Raimondi/delimitMate'
 Bundle 'docunext/closetag.vim'
-
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-
 Bundle 'ervandew/supertab'
+
+" Speial language support
+Bundle 'leshill/vim-json'
+" Javascript... must install jshint (npm install jshint)
+Bundle 'walm/jshint.vim'
+Bundle 'lepture/vim-css'
+Bundle 'klen/python-mode'
+Bundle 'saltstack/salt-vim'
+Bundle 'vim-scripts/vim-vagrant'  " vagrant commands + ruby syntax
+Bundle 'Rykka/riv.vim'  " reStructuredText
+Bundle 'vim-scripts/applescript.vim'
+"Bundle 'mattn/emmet-vim'  " html and css short cut/abbr expander
+Bundle 'othree/xml.vim'
+
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/powerline'
 Bundle 'jnurmine/Zenburn'
-" Bundle 't9md/vim-chef'
-
-
 Bundle 'mileszs/ack.vim'
 Bundle 'reinh/vim-makegreen'
-Bundle 'vim-scripts/vcscommand.vim'
 Bundle 'kien/ctrlp.vim'
-
-"Bundle 'vim-scripts/YankRing.vim'
-
-" Javascript... must install jshint (npm install jshint)
-Bundle 'walm/jshint.vim'
-Bundle 'leshill/vim-json'
-
-" syntax support for css3.
-Bundle 'lepture/vim-css'
-
-" salt support
-Bundle 'saltstack/salt-vim'
-
-" vagrant support
-Bundle 'vim-scripts/vim-vagrant'
-
-" Python
-Bundle 'klen/python-mode'
 Bundle 'terryma/vim-multiple-cursors'
 
-" reStructuredText
-Bundle 'Rykka/riv.vim'
-
 " Integrate with Dash.app
-Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
-
-" Syntax highlighting for applescript
-Bundle 'vim-scripts/applescript.vim'
-
-" Zen coding
-Bundle 'mattn/zencoding-vim'
-
-" XML
-Bundle 'othree/xml.vim'
+Bundle 'rizzatti/funcoo.vim'
 
 filetype plugin indent on " required! 
 "
