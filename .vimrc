@@ -32,6 +32,12 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" if we're running in the fish shell, tell vim to fire up a different shell for
+" compiles, etc..
+if &shell =~# 'fish$'
+    set shell=sh
+endif
+
 " write out the buffer on switching buffers
 set autowrite
 
@@ -46,14 +52,14 @@ source ~/.vim/vundle.vim
 filetype off
 
 syntax on
-set background=dark
-colorscheme desert
+set background=dark						" I use dark background
+colorscheme zenburn
 
 " GUI options (only in effect when running in a GUI).
 if has("gui_running")
     set guifont=Liberation\ Mono\ for\ Powerline:h11
-    set background=dark						" I use dark background
-    colorscheme zenburn
+    " set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+    " set guifont=Meslo\ LG\ L\ for\ Powerline:h12
 
     " Set Gui Options
     set guioptions=a

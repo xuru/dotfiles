@@ -1,0 +1,9 @@
+\pset null 'NULL'
+\timing on
+\set PROMPT1 '%n@%/%R%# '
+\set PROMPT2 '%n@%/%R> '
+\x auto
+\set VERBOSITY verbose
+\set HISTFILE ~/.psql_history-:DBNAME
+\set HISTCONTROL ignoredups
+\set COMP_KEYWORD_CASE upper

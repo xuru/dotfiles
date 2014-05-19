@@ -34,5 +34,10 @@ if has("autocmd")
     autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
     autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+
+    " fish shell
+    autocmd FileType fish compiler fish
+    autocmd FileType fish setlocal textwidth=79
+    autocmd FileType fish setlocal foldmethod=expr
 endif
 

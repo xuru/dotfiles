@@ -57,9 +57,10 @@ Bundle 'gmarik/vundle'
 "
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'  " one nerdtree to rule them all
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'tyok/nerdtree-ack'
 
+Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-notes'
 
 Bundle 'vim-scripts/ZoomWin'
@@ -78,8 +79,8 @@ Bundle 'walm/jshint.vim'
 Bundle 'lepture/vim-css'
 Bundle 'klen/python-mode'
 Bundle 'saltstack/salt-vim'
-Bundle 'vim-scripts/vim-vagrant'  " vagrant commands + ruby syntax
-Bundle 'Rykka/riv.vim'  " reStructuredText
+Bundle 'vim-scripts/vim-vagrant'
+Bundle 'Rykka/riv.vim'
 Bundle 'vim-scripts/applescript.vim'
 "Bundle 'mattn/emmet-vim'  " html and css short cut/abbr expander
 Bundle 'othree/xml.vim'
@@ -95,6 +96,9 @@ Bundle 'terryma/vim-multiple-cursors'
 " Integrate with Dash.app
 Bundle 'rizzatti/dash.vim'
 Bundle 'rizzatti/funcoo.vim'
+
+" work with fish scripts
+Bundle 'dag/vim-fish'
 
 filetype plugin indent on " required! 
 "
