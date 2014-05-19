@@ -1,3 +1,4 @@
+# vim: set ts=4 sw=4 tw=80 syntax=sh :
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -10,11 +11,12 @@ if [ -e /bin/dircolors ]; then
     eval $(dircolors -b ~/.dircolors)
 fi
 
+# Set architecture flags
+export ARCHFLAGS="-arch x86_64"
+
+# set language, and make sure we can handle unicode
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
-export HOSTNAME=`uname -n`
-export OS=`uname -s`
 
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
@@ -24,17 +26,15 @@ export HISTIGNORE="&:[bf]g:exit"
 export HISTFILESIZE=10000
 export HISTSIZE=10000
 
+# common exports
 export INPUTRC=/etc/inputrc
 export EDITOR=vim
 export VISUAL=vim
-export BROWSER=
 export PAGER=less
 export MANPAGER=less
-export MAILCHECK=0
-export MAIL=~/.mail
 export IGNOREEOF=3
 
-# less man page colors
+# less and man page colors
 export GROFF_NO_SGR=1
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -62,24 +62,6 @@ function vimf () { vim -c "ScratchFind" -c "only"; }
 function vimg () { vim -c "ScratchFind 'grep -rl \"$@\" *'" -c "only"; }
 function vfind () { vim -p $(find . -name '$@'); }
 
-function sendkey () {
-    if [ $# -eq 1 ]; then
-        local key=""
-        if [ -f ~/.ssh/id_dsa.pub ]; then
-            key=~/.ssh/id_dsa.pub
-        elif [ -f ~/.ssh/id_rsa.pub ]; then
-            key=~/.ssh/id_rsa.pub
-        else
-            echo "No public key found" >&2
-            return 1
-        fi
-        ssh $1 'cat >> ~/.ssh/authorized_keys' < $key
-    fi
-}
-if [ "$TERM_PROGRAM" = "Apple_Terminal" -a "$TERM" = "vt100" ];then
-    export TERM="screen"
-fi
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -87,162 +69,12 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
-if [ "$TERM" = "linux" ]; then
-    echo -en "\e]P0222222" #black
-    echo -en "\e]P8222222" #darkgrey
-    echo -en "\e]P1803232" #darkred
-    echo -en "\e]P9982b2b" #red
-    echo -en "\e]P25b762f" #darkgreen
-    echo -en "\e]PA89b83f" #green
-    echo -en "\e]P3aa9943" #brown
-    echo -en "\e]PBefef60" #yellow
-    echo -en "\e]P4324c80" #darkblue
-    echo -en "\e]PC2b4f98" #blue
-    echo -en "\e]P5706c9a" #darkmagenta
-    echo -en "\e]PD826ab1" #magenta
-    echo -en "\e]P692b19e" #darkcyan
-    echo -en "\e]PEa1cdcd" #cyan
-    echo -en "\e]P7ffffff" #lightgrey
-    echo -en "\e]PFdedede" #white
-    clear #for background artifacting
-fi
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    if [ -z "$SSH_TTY" ]; then
-        PS1='${debian_chroot:+($debian_chroot)}[\[\033[01;36m\]\@\[\033[00m\]]\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
-    else
-        PS1='${debian_chroot:+($debian_chroot)}[\[\033[01;36m\]\@\[\033[00m\]]\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
-    fi
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-    ;;
-*)
-esac
-
-if tty -s; then
-    type -p motd >/dev/null && motd #run this neat little script
-fi
-
-export PATH=${HOME}/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-
-################################################################################
-# Ack
-################################################################################
-# per directory settings
-export ACKRC=".ackrc"
-
-################################################################################
-# Python exports
-################################################################################
-export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
-export PYTHONIOENCODING=utf_8
-
-if [ -e ${HOME}/.cscope ]; then
-    CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB   
-fi
-
-if [ ! -d $HOME/.virtualenvs ]; then
-    mkdir $HOME/.virtualenvs 
-fi
-
-export WORKON_HOME=$HOME/.virtualenvs
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-function mkwx () {
-    if [ ! -h $VIRTUAL_ENV/lib/python2.7/site-packages/wxredirect.pth ]; then
-        ln -s /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/wxredirect.pth $VIRTUAL_ENV/lib/python2.7/site-packages/wxredirect.pth
-    fi
-    export PYTHONPATH=$VIRTUAL_ENV/lib/python2.7/site-packages
-}
-
-alias mkve='mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python/2.7.5/bin/python'
-
-export HOMEBREW_GITHUB_API_TOKEN=18e68592722d2a935a44f5c22317c31ad4de3193
-
-# source specific os options
-case "$OS" in
-Darwin*)
-    if [ -f ~/.bash/osx ]; then
-        . ~/.bash/osx
-    fi
-    ;;
-Linux*)
-    if [ -f ~/.bash/linux ]; then
-        . ~/.bash/linux
-    fi
-    ;;
-esac
-
 ## Source any local additions
 if [ -f ~/.bash_local ]; then
     . ~/.bash_local
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -e /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-if [ -f /usr/local/bin/grunt ]; then
-    eval "$(grunt --completion=bash)"
-fi
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# load up rvm if it exists
-if [ -f ~/.rvm/scripts/rvm ]; then
-    . ~/.rvm/scripts/rvm
-fi
-
-#. ~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
-[ -r "$HOME/.smartcd_config" ] && ( [ -n $BASH_VERSION ] || [ -n $ZSH_VERSION ] ) && source ~/.smartcd_config
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export BASHDIR="$HOME/.bash.d"
+for file in $BASHDIR/*.bash; do
+    . $file
+done
