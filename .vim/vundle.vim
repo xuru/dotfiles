@@ -86,6 +86,7 @@ Bundle 'vim-scripts/applescript.vim'
 Bundle 'othree/xml.vim'
 
 Bundle 'majutsushi/tagbar'
+" TODO: move to bling/vim-airline
 Bundle 'Lokaltog/powerline'
 Bundle 'jnurmine/Zenburn'
 Bundle 'mileszs/ack.vim'

@@ -1,2 +1,6 @@
 *~
 .DS_Store
+.ropeproject
+tests/fl/output
+.venv
+*.log
