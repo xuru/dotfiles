@@ -76,7 +76,7 @@ Bundle 'ervandew/supertab'
 Bundle 'leshill/vim-json'
 " Javascript... must install jshint (npm install jshint)
 Bundle 'walm/jshint.vim'
-Bundle 'lepture/vim-css'
+Bundle 'hail2u/vim-css3-syntax'
 Bundle 'klen/python-mode'
 Bundle 'saltstack/salt-vim'
 Bundle 'vim-scripts/vim-vagrant'
@@ -89,7 +89,6 @@ Bundle 'majutsushi/tagbar'
 " TODO: move to bling/vim-airline
 Bundle 'Lokaltog/powerline'
 Bundle 'jnurmine/Zenburn'
-Bundle 'mileszs/ack.vim'
 Bundle 'reinh/vim-makegreen'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
@@ -97,6 +96,7 @@ Bundle 'terryma/vim-multiple-cursors'
 " Integrate with Dash.app
 Bundle 'rizzatti/dash.vim'
 Bundle 'rizzatti/funcoo.vim'
+Bundle 'rizzatti/greper.vim'
 
 " work with fish scripts
 Bundle 'dag/vim-fish'
