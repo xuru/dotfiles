@@ -9,6 +9,8 @@ export CLOUDSDK_PYTHON_ARGS=' '
 
 GCS=/usr/local/google-cloud-sdk 
 if [ -d $GCS ]; then
+    export PATH=$PATH:$GCS/bin
+
     # The next line updates PATH for the Google Cloud SDK.
     source $GCS/path.bash.inc
 
