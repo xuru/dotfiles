@@ -69,7 +69,7 @@ class Linker(object):
                 if self.verbose:
                     print "[WARN] relinking {}".format(slink)
 
-                if not self.opts['dry_run']:
+                if not self.dry_run:
                     os.unlink(slink)
                     os.symlink(orig, slink)
             else:

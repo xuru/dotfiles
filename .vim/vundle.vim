@@ -63,6 +63,9 @@ Bundle 'tyok/nerdtree-ack'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-notes'
 
+" python testing...
+Bundle 'lambdalisue/nose.vim'
+
 Bundle 'vim-scripts/ZoomWin'
 
 Bundle 'tpope/vim-fugitive'
@@ -99,7 +102,7 @@ Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/greper.vim'
 
 " work with fish scripts
-Bundle 'dag/vim-fish'
+Bundle 'plasticboy/vim-markdown'
 
 filetype plugin indent on " required! 
 "

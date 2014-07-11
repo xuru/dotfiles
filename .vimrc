@@ -276,6 +276,8 @@ source ~/.vim/python.vim
 source ~/.vim/ctrlp.vim
 source ~/.vim/nerdtree.vim
 "source ~/.vim/chef.vim
+source ~/.vim/markdown.vim
+source ~/.vim/rst.vim
 source ~/.vim/tagbar.vim
 source ~/.vim/dash.vim
 
