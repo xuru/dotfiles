@@ -72,7 +72,7 @@ brew link macvim
 brew link python
 
 brew install wine
-brew install wintricks
+brew install winetricks
 
 # install fonts
 winetricks fonts allfonts
@@ -80,7 +80,7 @@ winetricks fonts allfonts
 cd /tmp
 git clone https://github.com/Lokaltog/powerline-fonts.git
 
-for font in powerline-fonts/**/*.tff; do
+for font in powerline-fonts/**/*.ttf; do
     cp -v ${font} ~/Library/Fonts/
 done;
 for font in powerline-fonts/**/*.otf; do
