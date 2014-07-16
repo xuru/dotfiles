@@ -13,9 +13,9 @@
 # * grc
 
 if [ ! -d /usr/local ]; then
-    mkdir /usr/local
+    sudo mkdir /usr/local
 fi
-chown -R $USER:staff /usr/local
+sudo chown -R $USER:staff /usr/local
 
 if [ ! -x /usr/local/bin/brew ]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
@@ -41,7 +41,7 @@ brew install bash-completion
 brew install homebrew/completions/pip-completion
 brew install homebrew/completions/vagrant-completion
 brew install homebrew/completions/django-completion
-brew install homebrew/versions/bash-completion2
+# brew install homebrew/versions/bash-completion2
 
 # python
 brew install python
