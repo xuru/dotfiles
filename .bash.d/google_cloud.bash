@@ -22,5 +22,13 @@ if [ -d $GCS ]; then
     if [ -d $GAE ]; then
         export PATH=$PATH:$GAE:$GAE/lib/django-1.4/django/bin
         export PYTHONPATH=$GAE/lib/fancy_urllib:$GAE:$GAE/lib:$GAE/lib/yaml:$GAE/lib/django-1.4:$PYTHONPATH
+        export GAE_SDK_ROOT=$GAE
+    fi
+else
+    GAE=/usr/local/google_appengine
+    if [ -d $GAE ]; then
+        export PATH=$PATH:$GAE
+        export PYTHONPATH=$GAE/lib/fancy_urllib:$GAE:$GAE/lib:$GAE/lib/yaml:$GAE/lib/django-1.4:$PYTHONPATH
+        export GAE_SDK_ROOT=$GAE
     fi
 fi

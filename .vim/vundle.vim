@@ -60,48 +60,51 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'tyok/nerdtree-ack'
 
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-notes'
+Bundle 'joonty/vdebug.git'
 
-" python testing...
-Bundle 'lambdalisue/nose.vim'
+" notes
+"Bundle 'xolox/vim-notes'
+"Bundle 'Rykka/riv.vim'
 
-Bundle 'vim-scripts/ZoomWin'
+"Bundle 'vim-scripts/ZoomWin'
 
 Bundle 'tpope/vim-fugitive'
-Bundle 'vim-scripts/vcscommand.vim'
 
-Bundle 'Raimondi/delimitMate'
-Bundle 'docunext/closetag.vim'
+"Bundle 'Raimondi/delimitMate'
+"Bundle 'docunext/closetag.vim'
+"Plugin 'tpope/vim-surround'
+
 Bundle 'ervandew/supertab'
 
 " Speial language support
-Bundle 'leshill/vim-json'
+Bundle 'jmcantrell/vim-virtualenv'
+"Bundle 'leshill/vim-json'
 " Javascript... must install jshint (npm install jshint)
-Bundle 'walm/jshint.vim'
-Bundle 'hail2u/vim-css3-syntax'
+"Bundle 'walm/jshint.vim'
+"Bundle 'hail2u/vim-css3-syntax'
 Bundle 'klen/python-mode'
-Bundle 'saltstack/salt-vim'
-Bundle 'vim-scripts/vim-vagrant'
-Bundle 'Rykka/riv.vim'
-Bundle 'vim-scripts/applescript.vim'
-"Bundle 'mattn/emmet-vim'  " html and css short cut/abbr expander
-Bundle 'othree/xml.vim'
+Bundle 'davidhalter/jedi-vim'
+
+"Bundle 'saltstack/salt-vim'
+"Bundle 'vim-scripts/vim-vagrant'
+"Bundle 'vim-scripts/applescript.vim'
+"Bundle 'othree/xml.vim'
 
 Bundle 'majutsushi/tagbar'
-" TODO: move to bling/vim-airline
-Bundle 'Lokaltog/powerline'
+Plugin 'bling/vim-airline'
+"
 Bundle 'jnurmine/Zenburn'
-Bundle 'reinh/vim-makegreen'
-Bundle 'kien/ctrlp.vim'
-Bundle 'terryma/vim-multiple-cursors'
+"Bundle 'reinh/vim-makegreen'
+"Bundle 'kien/ctrlp.vim'
+"Bundle 'terryma/vim-multiple-cursors'
+
+Bundle 'airblade/vim-gitgutter'
 
 " Integrate with Dash.app
 Bundle 'rizzatti/dash.vim'
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/greper.vim'
 
-" work with fish scripts
 Bundle 'plasticboy/vim-markdown'
 
 filetype plugin indent on " required! 

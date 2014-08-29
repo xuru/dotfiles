@@ -13,6 +13,7 @@ set nocompatible
 "set modelines=0
 
 set encoding=utf-8
+set termencoding=utf-8
 set scrolloff=3
 set autoindent
 set showmode
@@ -26,17 +27,12 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set autoread
+set shell=bash
 
 " turn backup off
 set nobackup
 set nowritebackup
 set noswapfile
-
-" if we're running in the fish shell, tell vim to fire up a different shell for
-" compiles, etc..
-if &shell =~# 'fish$'
-    set shell=sh
-endif
 
 " write out the buffer on switching buffers
 set autowrite
@@ -46,6 +42,15 @@ set undofile
 
 " auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vimrc
+
+
+" os-specific configuration
+"let s:os = system("uname")
+"if s:os =~ "Darwin"
+"    so ~/.vim/os/darwin.vim
+"else
+"    so ~/.vim/os/linux.vim
+"endif
 
 source ~/.vim/vundle.vim
 
@@ -163,9 +168,6 @@ vnoremap <tab> %
 " Make command line one line high
 set ch=1
 
-" Set the status line the way i like it
-set statusline=%f\ %m\ %r\ %{VCSCommandGetStatusLine()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
-
 " line numbers...
 " set nu
 
@@ -231,12 +233,12 @@ highlight Pmenu ctermbg=4 guibg=LightGray
 " highlight PmenuThumb guibg=Black
 
 " simple recursive grep
-command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
-command! -nargs=1 RecurGrepFast silent exec 'lgrep! <q-args> ./**/*.*' | lopen
-nmap ,R :RecurGrep
-nmap ,r :RecurGrepFast
-nmap ,wR :RecurGrep <cword><CR>
-nmap ,wr :RecurGrepFast <cword><CR>
+"command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
+"command! -nargs=1 RecurGrepFast silent exec 'lgrep! <q-args> ./**/*.*' | lopen
+"nmap ,R :RecurGrep
+"nmap ,r :RecurGrepFast
+"nmap ,wR :RecurGrep <cword><CR>
+"nmap ,wr :RecurGrepFast <cword><CR>
 
 " autoclose (
 inoremap ( ()<Left>
@@ -270,15 +272,15 @@ function! AppendModeline()
 endfunction
 
 " Setup vundle configuration...
-source ~/.vim/powerline.vim
-source ~/.vim/vcscommand.vim
-source ~/.vim/python.vim
-source ~/.vim/ctrlp.vim
-source ~/.vim/nerdtree.vim
-"source ~/.vim/chef.vim
+source ~/.vim/airline.vim
+source ~/.vim/vcs.vim
+source ~/.vim/gutter.vim
 source ~/.vim/markdown.vim
 source ~/.vim/rst.vim
 source ~/.vim/tagbar.vim
 source ~/.vim/dash.vim
+source ~/.vim/complete.vim
+source ~/.vim/python.vim
+source ~/.vim/nerdtree.vim
 
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>

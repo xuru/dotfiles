@@ -67,7 +67,7 @@ brew install macvim
 brew unlink python
 brew unlink macvim
 brew remove macvim
-brew install -v --force macvim
+brew install -v --force macvim --env-std --override-system-vim
 brew link macvim
 brew link python
 
