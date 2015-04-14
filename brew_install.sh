@@ -116,7 +116,6 @@ brew cask install iterm2
 brew cask install java
 brew cask install jenkins-menu
 brew cask install kaleidoscope
-brew cask install ksdiff
 brew cask install moom
 brew cask install mysqlworkbench
 brew cask install onepassword
