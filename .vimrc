@@ -164,7 +164,6 @@ nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 
-
 " Make command line one line high
 set ch=1
 
@@ -183,9 +182,6 @@ set showfulltag
 " Set the textwidth to be 80 chars
 set textwidth=80
 
-" Add the unnamed register to the clipboard
-"set clipboard+=unnamed
-
 " Automatically read a file that has changed on disk
 set autoread
 
@@ -200,45 +196,29 @@ map <leader>k k
 map <leader>h h
 map <leader>l l
 
-nmap <leader>a <ESC>:Ack!
-
 " tab navigation
 map tn :tabn<CR>
 map tp :tabp<CR>
 map tm :tabm<CR>
-map tt :tabnew
+map tt :tabnew<CR>
+
 map <C-S-Right> :tabn<CR>
 imap <C-S-Right> <ESC>:tabn<CR>
 map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
-" show pending tasks list
-map <F2> :TaskList<CR>
 
 " automatically close autocompletition window
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" removes trailing spaces of python files
-" (and restores cursor position)
-autocmd BufWritePre *.py mark z | %s/ *$//e | 'z
 
 " save as sudo
 ca w!! w !sudo tee "%"
 
 " colors and settings of autocompletition
 highlight Pmenu ctermbg=4 guibg=LightGray
-
-" highlight PmenuSel ctermbg=8 guibg=DarkBlue guifg=Red
-" highlight PmenuSbar ctermbg=7 guibg=DarkGray
-" highlight PmenuThumb guibg=Black
-
-" simple recursive grep
-"command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
-"command! -nargs=1 RecurGrepFast silent exec 'lgrep! <q-args> ./**/*.*' | lopen
-"nmap ,R :RecurGrep
-"nmap ,r :RecurGrepFast
-"nmap ,wR :RecurGrep <cword><CR>
-"nmap ,wr :RecurGrepFast <cword><CR>
+highlight PmenuSel ctermbg=8 guibg=DarkGray guifg=Red
+highlight PmenuSbar ctermbg=7 guibg=DarkGray
+highlight PmenuThumb guibg=Black
 
 " autoclose (
 inoremap ( ()<Left>
@@ -261,26 +241,17 @@ set switchbuf=usetab
 " autocommands...
 source ~/.vim/autocmds.vim
 
-" Append modeline after last line in buffer.
-" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
-" files.
-function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d syntax=%s :",
-        \ &tabstop, &shiftwidth, &textwidth, &filetype)
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-  call append(0, l:modeline)
-endfunction
-
 " Setup vundle configuration...
 source ~/.vim/airline.vim
+source ~/.vim/complete.vim
+source ~/.vim/search.vim
 source ~/.vim/vcs.vim
 source ~/.vim/gutter.vim
 source ~/.vim/markdown.vim
+source ~/.vim/nerdtree.vim
 source ~/.vim/rst.vim
 source ~/.vim/tagbar.vim
 source ~/.vim/dash.vim
-source ~/.vim/complete.vim
 source ~/.vim/python.vim
-source ~/.vim/nerdtree.vim
-
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+source ~/.vim/syntastic.vim
+source ~/.vim/vcs.vim

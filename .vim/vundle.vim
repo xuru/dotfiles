@@ -55,57 +55,70 @@ Bundle 'gmarik/vundle'
 " vim-multiple-cursors
 "     Sublime Text's awesome multiple selection feature
 "
+
+" Misc.
+Bundle 'sickill/vim-pasta'
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'tpope/vim-eunuch'
+Bundle 'tpope/vim-dispatch'
+
+" --------- Nerd tree --------------------
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'tyok/nerdtree-ack'
 
-Bundle 'joonty/vdebug.git'
+" --------- Search --------------------
+Bundle 'mileszs/ack.vim'
 
-" notes
-"Bundle 'xolox/vim-notes'
-"Bundle 'Rykka/riv.vim'
+" --------- Snippets --------------------
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
-"Bundle 'vim-scripts/ZoomWin'
+" --------- Syntax Highlighting --------------------
+Plugin 'scrooloose/syntastic'
 
+" --------- Version Control --------------------
 Bundle 'tpope/vim-fugitive'
+Bundle 'airblade/vim-gitgutter'
 
-"Bundle 'Raimondi/delimitMate'
-"Bundle 'docunext/closetag.vim'
-"Plugin 'tpope/vim-surround'
-
-Bundle 'ervandew/supertab'
-
-" Speial language support
+" --------- Python --------------------
+Bundle 'davidhalter/jedi-vim'
 Bundle 'jmcantrell/vim-virtualenv'
+"Bundle 'klen/python-mode'
+"Bundle 'nvie/vim-flake8'
+Plugin 'hynek/vim-python-pep8-indent'
+"Bundle 'reinh/vim-makegreen'
+Bundle 'plasticboy/vim-markdown'
+
+" --------- Other Languages --------------------
+" Speial language support
 "Bundle 'leshill/vim-json'
 " Javascript... must install jshint (npm install jshint)
 "Bundle 'walm/jshint.vim'
 "Bundle 'hail2u/vim-css3-syntax'
-Bundle 'klen/python-mode'
-Bundle 'davidhalter/jedi-vim'
-
 "Bundle 'saltstack/salt-vim'
 "Bundle 'vim-scripts/vim-vagrant'
 "Bundle 'vim-scripts/applescript.vim'
 "Bundle 'othree/xml.vim'
 
+
+" --------- Widgets --------------------
 Bundle 'majutsushi/tagbar'
 Plugin 'bling/vim-airline'
-"
 Bundle 'jnurmine/Zenburn'
-"Bundle 'reinh/vim-makegreen'
-"Bundle 'kien/ctrlp.vim'
-"Bundle 'terryma/vim-multiple-cursors'
 
-Bundle 'airblade/vim-gitgutter'
-
+" --------- Docs --------------------
 " Integrate with Dash.app
 Bundle 'rizzatti/dash.vim'
-Bundle 'rizzatti/funcoo.vim'
-Bundle 'rizzatti/greper.vim'
+Bundle 'Rykka/riv.vim'
 
-Bundle 'plasticboy/vim-markdown'
+" --------- other --------------------
+"Bundle 'jaredly/vim-debug'
+Bundle 'kien/ctrlp.vim'
+Bundle 'ervandew/supertab'
+"Bundle 'terryma/vim-multiple-cursors'
 
 filetype plugin indent on " required! 
 "

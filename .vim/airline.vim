@@ -22,7 +22,7 @@ let g:airline_paste_symbol = '∥'
 let g:airline_whitespace_symbol = 'Ξ'
 
 let g:airline_section_y = ''
-let g:airline_section_z = ''
+"let g:airline_section_z = ''
 
 let g:airline_enable_branch=1
 let g:airline_enable_syntastic=1

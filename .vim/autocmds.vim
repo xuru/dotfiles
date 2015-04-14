@@ -39,5 +39,8 @@ if has("autocmd")
     autocmd FileType fish compiler fish
     autocmd FileType fish setlocal textwidth=79
     autocmd FileType fish setlocal foldmethod=expr
+
+    " open a quickfix window after any grep (including :Ggrep)
+    autocmd QuickFixCmdPost *grep* cwindow
 endif
 

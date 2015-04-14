@@ -8,13 +8,14 @@ let NERDTreeWinSize=35
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let NERDTreeShowBookmarks = 1
 
 " let g:nerdtree_tabs_open_on_gui_startup = 1
 " let g:nerdtree_tabs_smart_startup_focus = 1
 " let g:nerdtree_tabs_focus_on_files = 1
 
 " map <F3> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\env','\.vim$', '\~$', '\.pyc$', '\.swp$', '\.egg-info$', '^dist$', '^build$']
+let NERDTreeIgnore=['\env', '\~$', '\.pyc$', '\.swp$', '\.egg-info$', '^dist$', '^build$']
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 
