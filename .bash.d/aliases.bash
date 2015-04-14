@@ -19,11 +19,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# diff program...
-if [ "$OS" == "Darwin" ]; then
-    alias meld=opendiff
-fi
-
 # some more ls aliases
 alias ll='ls -hl'
 alias la='ls -a'
@@ -112,4 +107,3 @@ alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash"
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
-

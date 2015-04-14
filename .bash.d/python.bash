@@ -12,11 +12,22 @@ if check_installed virtualenvwrapper.sh; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
 
+# -ev negates the regular expression so it will not show up in the logfile window only
+# for the file following the command(s). 
+# -cS uses the color scheme set in multitail.conf for only the file follwing the command.
+# -i specific file to tail.
+# -wh window 2's only 12 lines high
+
+# The order of these lines matter as each color scheme and regular expression are tied to
+# the file that is being tailed. Everything before each -i is tied to the options before it.
+
+confpath="~/.multitail.conf"
+alias ptail="multitail --config $confpath -CS plogging -ev \"HEAD /favicon.ico\" -ev \"deferred.py\" -j"
 # how do we install or upgrade a global package? We can temporarily turn off this restriction by
 # i.e.  syspip install --upgrade pip setuptools virtualenv
-syspip(){
-   PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
+#syspip(){
+##   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+#}
 
 ################################################################################
 # Python exports
@@ -26,7 +37,7 @@ export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python
 export PYTHONIOENCODING=utf_8
 
 # pip should only run if there is a virtualenv currently activated
-export PIP_REQUIRE_VIRTUALENV=true
+#export PIP_REQUIRE_VIRTUALENV=true
 # cache pip-installed packages to avoid re-downloading
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 

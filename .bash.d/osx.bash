@@ -68,4 +68,6 @@ if test "$OS" = "Darwin"; then
     check_installed tree
     check_installed wget
     check_installed tree
+
+    source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
 fi
