@@ -9,8 +9,16 @@ fi
 export WORKON_HOME=$HOME/.virtualenvs
 
 if check_installed virtualenvwrapper.sh; then
-    source /usr/local/bin/virtualenvwrapper.sh
+    source `which virtualenvwrapper.sh`
 fi
+
+# if [[ $OS == winnt ]] ; then
+    # # if we're on windows using cygwin (you are aren't you?)
+    # # we need to use the installed version for pywin32
+    # export VIRTUALENVWRAPPER_PYTHON=/cygdrive/c/Python27/python.exe
+
+    # export PATH=/cygdrive/c/Python27:/cygdrive/c/Python27/Scripts:$PATH
+# fi
 
 # -ev negates the regular expression so it will not show up in the logfile window only
 # for the file following the command(s). 

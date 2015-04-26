@@ -1,20 +1,82 @@
 # vim: set ts=4 sw=4 tw=80 syntax=sh
+set +e
 
-# to see all the colors:
-# for (( i = 0; i < 17; i++ )); do echo "$(tput setaf $i)This is ($i) $(tput sgr0)"; done
-#
-function check_installed() {
-    if type -p "$1" $>/dev/null; then
-        return 0
-    else
-        prt_warn "$1 is not installed"
-    fi
-    return 1
-}
+# Case insensitive string comparison
+shopt -s nocaseglob
 
 # gather some info to switch on
 export HOSTNAME=`uname -n`
-export OS=`uname -s`
+
+ECHO=echo
+OS=
+ARCH=
+
+check_ret() {
+    RET=$?
+    if [[ $RET -ne 0 ]] ; then
+        $ECHO $1 failed
+        exit 2
+    fi
+}
+
+
+find_os() {
+    $ECHO "Finding OS..."
+    uname_s=`uname -s`
+    check_ret uname
+    case $uname_s in
+        CYGWIN_NT-5.2-WOW64) OS=winnt;;
+        *CYGWIN_NT*) OS=winnt;;
+        *CYGWIN*) OS=winnt;;
+        *darwin*) OS=macosx;;
+        *Darwin*) OS=macosx;;
+        *linux*) OS=linux;;
+        *Linux*) OS=linux;;
+        *NetBSD*) OS=netbsd;;
+        *FreeBSD*) OS=freebsd;;
+        *OpenBSD*) OS=openbsd;;
+        *DragonFly*) OS=dragonflybsd;;
+    esac
+}
+
+
+find_architecture() {
+    $ECHO "Finding ARCH..."
+    uname_m=`uname -m`
+    check_ret uname
+    case $uname_m in
+        i386) ARCH=x86;;
+        i686) ARCH=x86;;
+        amd64) ARCH=x86;;
+        ppc64) ARCH=ppc;;
+        *86) ARCH=x86;;
+        *86_64) ARCH=x86;;
+        "Power Macintosh") ARCH=ppc;;
+    esac
+}
+
+find_os
+find_architecture
+
+function check_installed() {
+    if ! [[ -n `type -p $1` ]] ; then
+        return 0;
+    else
+        prt_warn "$1 is not installed"
+    fi
+    return 1;
+}
+
+
+
+set_downloader() {
+    test_program_installed wget curl
+    if [[ $? -ne 0 ]] ; then
+        DOWNLOADER=wget
+    else
+        DOWNLOADER="curl -O"
+    fi
+}
 
 function prt_error() {
     echo "$(tput setaf 1)$1$(tput sgr0)"

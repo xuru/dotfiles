@@ -8,7 +8,7 @@
 
 export CLICOLORS=1
 if [ -e /bin/dircolors ]; then
-    eval $(dircolors -b ~/.dircolors)
+    eval $(dircolors -b ~/.dir_colors)
 fi
 
 # Set architecture flags
