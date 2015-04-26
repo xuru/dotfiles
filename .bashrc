@@ -45,7 +45,6 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 export LESS_TERMCAP_ue=$'\E[0m'
 
 # grep colors
-export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
 function mkcd() { mkdir "$1" && cd "$1"; }
