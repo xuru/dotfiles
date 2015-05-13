@@ -42,5 +42,7 @@ if has("autocmd")
 
     " open a quickfix window after any grep (including :Ggrep)
     autocmd QuickFixCmdPost *grep* cwindow
+
+    com! FormatJSON %!python -m json.tool
 endif
 
