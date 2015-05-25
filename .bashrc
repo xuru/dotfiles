@@ -73,6 +73,10 @@ if [ -f ~/.bash_local ]; then
     . ~/.bash_local
 fi
 
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    . /usr/local/bin/virtualenvwrapper.sh
+fi
+
 export BASHDIR="$HOME/.bash.d"
 for file in $BASHDIR/*.bash; do
     . $file

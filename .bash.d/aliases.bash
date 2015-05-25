@@ -7,14 +7,6 @@ if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
 fi
 
-if [ "$OS" == "Darwin" ]; then
-    alias ls='ls -G'
-else
-    alias ls='ls --color=auto'
-    alias dir='ls --color=auto --format=vertical'
-    alias vdir='ls --color=auto --format=long'
-fi
-
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -61,7 +53,6 @@ alias pygvim='find . -iname \*.py | xargs gvim'
 alias maek='make'
 alias alais='alias'
 alias csl='clear'
-alias sl='ls --color'
 alias givm='gvim'
 alias df='/bin/df -h'
 alias cp='/bin/cp -v'
