@@ -1,5 +1,5 @@
 let g:syntastic_python_checkers = ["flake8"]
-let g:syntastic_python_checker_args='--ignore=E501,E225,E265,F403 --max-complexity 10'
+let g:syntastic_python_flake8_args='--ignore=F403,E301,E501,E221,E202,E251,E731,W391,W291,E701,W293,E121,E122,E123,E124,E125,E126,E127,E128,E502,E711,E712,E721,C901,N801,N802,N803,N804,N805,N806,N811,N812,W503 --max-complexity=18 --max-line-length=120'
 
 let g:syntastic_rst_checkers = ["rstcheck"]
 let g:syntastic_yaml_checkers = ["jsyaml"]
@@ -14,10 +14,10 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" check also when just opened the file
+let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-
+let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 
 " don't put icons on the sign column (it hides the vcs status icons of signify)

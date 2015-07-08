@@ -1,3 +1,4 @@
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
 "-----------------------------------------------------------------------------
 " Global Stuff
 "-----------------------------------------------------------------------------
@@ -15,12 +16,12 @@ set nocompatible
 set encoding=utf-8
 set termencoding=utf-8
 set scrolloff=3
+set scrolljump=5
 set autoindent
-set showmode
 set showcmd
-set hidden
+set linespace=0
+set winminheight=0
 set wildmenu
-set wildmode=list:longest
 set visualbell
 set cursorline
 set ttyfast
@@ -28,11 +29,25 @@ set ruler
 set backspace=indent,eol,start
 set autoread
 set shell=bash
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set showmode                    " Display the current mode
+
+set nospell                           " Spell checking on
+set hidden                          " Allow buffer switching without saving
+set iskeyword-=.                    " '.' is an end of word designator
+set iskeyword-=#                    " '#' is an end of word designator
+set iskeyword-=-                    " '-' is an end of word designator
 
 " turn backup off
 set nobackup
 set nowritebackup
 set noswapfile
+
+"set backup
+"set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+"set backupskip=/tmp/*,/private/tmp/*
+"set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+"set writebackup
 
 " write out the buffer on switching buffers
 set autowrite
@@ -109,14 +124,18 @@ else
     map <ScrollWheelDown> <C-E>
 endif
 
-" Tabstops are 4 spaces
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+set nowrap                      " Do not wrap long lines
+set autoindent                  " Indent at the same level of the previous line
+set shiftwidth=4                " Use indents of 4 spaces
+set expandtab                   " Tabs are spaces, not tabs
+set tabstop=4                   " An indentation every four columns
+set softtabstop=4               " Let backspace delete indent
+set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set splitright                  " Puts new vsplit windows to the right of the current
+set splitbelow                  " Puts new split windows to the bottom of the current
 
-set autoindent
-set shiftround      "round to multiples of shiftwidth
+set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+
 set history=200
 set undolevels=1000
 
@@ -161,8 +180,8 @@ let mapleader = ","
 nnoremap <leader><space> :noh<cr>
 
 " Make the tab key match bracket pairs
-nnoremap <tab> %
-vnoremap <tab> %
+" nnoremap <tab> %
+" vnoremap <tab> %
 
 " Make command line one line high
 set ch=1
@@ -180,7 +199,7 @@ set virtualedit=block
 set showfulltag
 
 " Set the textwidth to be 80 chars
-set textwidth=80
+set textwidth=120
 
 " Automatically read a file that has changed on disk
 set autoread
@@ -207,6 +226,8 @@ imap <C-S-Right> <ESC>:tabn<CR>
 map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
 
+set tabpagemax=15               " Only show 15 tabs
+
 " automatically close autocompletition window
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
@@ -215,12 +236,22 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 ca w!! w !sudo tee "%"
 
 " colors and settings of autocompletition
-highlight Pmenu ctermbg=4 guibg=LightGray
-highlight PmenuSel ctermbg=8 guibg=DarkGray guifg=Red
-highlight PmenuSbar ctermbg=7 guibg=DarkGray
-highlight PmenuThumb guibg=Black
+"highlight Pmenu ctermbg=4 guibg=LightGray
+"highlight PmenuSel ctermbg=8 guibg=DarkGray guifg=Red
+"highlight PmenuSbar ctermbg=7 guibg=DarkGray
+"highlight PmenuThumb guibg=Black
 
-" autoclose (
+hi Pmenu  guifg=#404040 guibg=#B8B8B8 ctermfg=black ctermbg=Lightgray
+hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+
+highlight clear SignColumn      " SignColumn should match background
+highlight clear LineNr          " Current line number row will have same background color in relative mode
+" highlight clear CursorLineNr    " Remove highlight color from current line number
+
+
+" autoclose
 inoremap ( ()<Left>
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
@@ -228,30 +259,72 @@ set wildignore=*.pyc,*~
 
 " autocompletition of files and commands behaves like shell
 " (complete only the common part, list the options that match)
-set wildmode=list:longest
+set wildmode=list:longest,full
 
 "folding...
-set foldmethod=indent
-set foldlevel=99
 set foldenable
+set foldmethod=indent
+set foldlevel=10
+set foldnestmax=10
+nnoremap <space> za
+
+" Code folding options
+nmap <leader>f0 :set foldlevel=0<CR>
+nmap <leader>f1 :set foldlevel=1<CR>
+nmap <leader>f2 :set foldlevel=2<CR>
+nmap <leader>f3 :set foldlevel=3<CR>
+nmap <leader>f4 :set foldlevel=4<CR>
+nmap <leader>f5 :set foldlevel=5<CR>
+nmap <leader>f6 :set foldlevel=6<CR>
+nmap <leader>f7 :set foldlevel=7<CR>
+nmap <leader>f8 :set foldlevel=8<CR>
+nmap <leader>f9 :set foldlevel=9<CR>
+
+" Shortcuts
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+
+" Map <Leader>ff to display all lines with keyword under cursor
+" and ask which one to jump to
+nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 "buffers
 set switchbuf=usetab
 
+" save a session and open with vim -S
+nnoremap <leader>s :mksession<CR>
+
+" Use ag to search
+nnoremap <leader>a :Ag 
+
 " autocommands...
-source ~/.vim/autocmds.vim
+source ~/.vim/general/autocmds.vim
 
 " Setup vundle configuration...
-source ~/.vim/airline.vim
-source ~/.vim/complete.vim
-source ~/.vim/search.vim
-source ~/.vim/vcs.vim
-source ~/.vim/gutter.vim
-source ~/.vim/markdown.vim
-source ~/.vim/nerdtree.vim
-source ~/.vim/rst.vim
-source ~/.vim/tagbar.vim
-source ~/.vim/dash.vim
-source ~/.vim/python.vim
-source ~/.vim/syntastic.vim
-source ~/.vim/vcs.vim
+source ~/.vim/general/airline.vim
+source ~/.vim/general/ctags.vim
+source ~/.vim/general/ctrlp.vim
+source ~/.vim/plugins/nerdtree.vim
+source ~/.vim/general/complete.vim
+source ~/.vim/general/search.vim
+source ~/.vim/languages/markdown.vim
+source ~/.vim/languages/python.vim
+source ~/.vim/languages/rst.vim
+source ~/.vim/languages/syntastic.vim
+source ~/.vim/plugins/jedi.vim
+source ~/.vim/plugins/dash.vim
+source ~/.vim/plugins/gitgutter.vim
+source ~/.vim/plugins/tagbar.vim
+source ~/.vim/plugins/tasklist.vim
+source ~/.vim/plugins/fugitive.vim
+source ~/.vim/plugins/neocomplete.vim
+
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
+
+if has('gui_running')
+    if filereadable(expand("~/.gvimrc.local"))
+        source ~/.gvimrc.local
+    endif
+endif

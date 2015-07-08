@@ -13,112 +13,121 @@ endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
-" required!
+" Deps
 Bundle 'gmarik/vundle'
-
-" My Bundles here:
-"
-" nerdcommenter
-"   https://github.com/scrooloose/nerdcommenter
-"
-" nerdtree
-"   https://github.com/scrooloose/nerdtree
-"
-" nerdtree tabs
-"   https://github.com/jistr/vim-nerdtree-tabs
-"
-" tyok/nerdtree-ack
-"   This plugin add capability to search in folders via NERDtree
-"   https://github.com/tyok/nerdtree-ack
-"
-" vim-scripts/nerdtree-execute
-"   https://github.com/vim-scripts/nerdtree-execute
-"   Plugin for NERDTree that provides an execute menu item, that executes system 
-"   default application for file or directory
-"
-"
-"
-" ervandew/supertab
-"
-"   In insert mode, start typing something and hit <TAB> to tab-complete based on the current context
-"
-"
-" Tagbar
-"
-"   Tagbar is a vim plugin for browsing the tags of source code files.
-"
-" ZoomWin
-"     When working with split windows, ZoomWin lets you zoom into a window and out again using Ctrl-W o
-"     Customizations: Janus binds <leader>zw to :ZoomWin
-"
-" vim-multiple-cursors
-"     Sublime Text's awesome multiple selection feature
-"
-
-" Misc.
-Bundle 'sickill/vim-pasta'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'tpope/vim-eunuch'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+if executable('ag')
+    Bundle 'mileszs/ack.vim'
+elseif executable('ack-grep')
+    Bundle 'mileszs/ack.vim'
+elseif executable('ack')
+    Bundle 'mileszs/ack.vim'
+endif
 Bundle 'tpope/vim-dispatch'
 
-" --------- Nerd tree --------------------
-Bundle 'scrooloose/nerdcommenter'
+" Colors
+Bundle 'jnurmine/Zenburn'
+
+"Bundle 'ctrlpvim/ctrlp.vim'
+"Bundle 'tacahiroy/ctrlp-funky'
+Bundle 'Shougo/unite.vim'
+
+" Nerd...
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'tyok/nerdtree-ack'
 
-" --------- Search --------------------
-Bundle 'mileszs/ack.vim'
+Bundle 'bling/vim-airline'
 
-" --------- Snippets --------------------
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+"Bundle 'flazz/vim-colorschemes'
+"Bundle 'altercation/vim-colors-solarized'
+"Bundle 'spf13/vim-colors'
+"Bundle 'jiangmiao/auto-pairs'
+"Bundle 'kristijanhusak/vim-multiple-cursors'
+"Bundle 'matchit.zip'
+"Bundle 'bling/vim-bufferline'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'mbbill/undotree'
+"Bundle 'nathanaelkane/vim-indent-guides'
+"Bundle 'vim-scripts/restore_view.vim'
+"Bundle 'mhinz/vim-signify'
+"Bundle 'tpope/vim-abolish.git'
+"Bundle 'osyo-manga/vim-over'
+"Bundle 'kana/vim-textobj-user'
+"Bundle 'kana/vim-textobj-indent'
+"Bundle 'gcmt/wildfire.vim'
 
-" --------- Syntax Highlighting --------------------
-Plugin 'scrooloose/syntastic'
+"Bundle 'reedes/vim-litecorrect'
+"Bundle 'reedes/vim-textobj-sentence'
+"Bundle 'reedes/vim-textobj-quote'
+"Bundle 'reedes/vim-wordy'
 
-" --------- Version Control --------------------
+" RST and view it in realtime in a browser
+"Bundle 'Rykka/riv.vim'
+"Bundle 'Rykka/InstantRst'
+
+" General Programming
+Bundle 'scrooloose/syntastic'
+Bundle 'myint/syntastic-extras'
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'scrooloose/nerdcommenter'
 
-" --------- Python --------------------
-Bundle 'davidhalter/jedi-vim'
-Bundle 'jmcantrell/vim-virtualenv'
-"Bundle 'klen/python-mode'
-"Bundle 'nvie/vim-flake8'
-Plugin 'hynek/vim-python-pep8-indent'
-"Bundle 'reinh/vim-makegreen'
-Bundle 'plasticboy/vim-markdown'
+"Plugin 'gregsexton/gitv'
+"Bundle 'mattn/webapi-vim'
+"Bundle 'mattn/gist-vim'
+"Bundle 'godlygeek/tabular'
+if executable('ctags')
+    Bundle 'majutsushi/tagbar'
+endif
 
-" --------- Other Languages --------------------
-" Speial language support
-"Bundle 'leshill/vim-json'
-" Javascript... must install jshint (npm install jshint)
-"Bundle 'walm/jshint.vim'
+" Snippets & AutoComplete
+Bundle 'Shougo/neocomplete'
+Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neosnippet-snippets'
+Bundle 'ervandew/supertab'
+
+Bundle 'Raimondi/delimitMate'
+
+" Languages
+Bundle 'tpope/vim-markdown'
+"Bundle 'elzr/vim-json'
+"Bundle 'groenewege/vim-less'
+"Bundle 'pangloss/vim-javascript'
+"Bundle 'briancollins/vim-jst'
+"Bundle 'kchmck/vim-coffee-script'
+"Plugin 'vim-ruby/vim-ruby'
+"Bundle 'kylef/apiblueprint.vim'
+"Bundle 'amirh/HTML-AutoCloseTag'
 "Bundle 'hail2u/vim-css3-syntax'
+"Bundle 'gorodinskiy/vim-coloresque'
+"Bundle 'tpope/vim-haml'
 "Bundle 'saltstack/salt-vim'
-"Bundle 'vim-scripts/vim-vagrant'
-"Bundle 'vim-scripts/applescript.vim'
-"Bundle 'othree/xml.vim'
 
+" Python
+"Bundle 'klen/python-mode'
+Bundle 'davidhalter/jedi-vim'
+Plugin 'hynek/vim-python-pep8-indent'
+Bundle 'yssource/python.vim'
+Bundle 'python_match.vim'
+Bundle 'pythoncomplete'
+Bundle 'jmcantrell/vim-virtualenv'
+Bundle 'mitsuhiko/vim-jinja'
+"Bundle 'alfredodeza/coveragepy.vim'
 
-" --------- Widgets --------------------
-Bundle 'majutsushi/tagbar'
-Plugin 'bling/vim-airline'
-Bundle 'jnurmine/Zenburn'
+" Misc
+"Bundle 'spf13/vim-preview'
+"Bundle 'cespare/vim-toml'
+"Bundle 'vim-scripts/Gundo'
+Bundle 'rizzatti/dash.vim'
+Bundle 'aklt/plantuml-syntax'
+Bundle 'szw/vim-tags'
+
 
 " --------- Docs --------------------
-" Integrate with Dash.app
-Bundle 'rizzatti/dash.vim'
-Bundle 'Rykka/riv.vim'
-
-" --------- other --------------------
-"Bundle 'jaredly/vim-debug'
-Bundle 'kien/ctrlp.vim'
-Bundle 'ervandew/supertab'
-"Bundle 'terryma/vim-multiple-cursors'
 
 filetype plugin indent on " required! 
 "

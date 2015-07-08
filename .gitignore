@@ -6,3 +6,7 @@ Thumbs.db
 *~
 .*.swp
 .vim/bundle
+.vim/spell
+.vim/vimswap
+.vim/vimundo
+.vim/vimviews

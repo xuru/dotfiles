@@ -3,8 +3,8 @@
 ################################################################################
 # completion specific stuff
 ################################################################################
-if [ -e /etc/bash_completion ]; then
-    . /etc/bash_completion
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
 fi
 
 if [ -f /usr/local/bin/grunt ]; then
