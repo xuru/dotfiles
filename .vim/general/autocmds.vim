@@ -5,10 +5,10 @@
 if has("autocmd")
 
     " In all files, try to jump back to the last spot cursor was in before exiting
-    au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \   exe "normal g`\"" |
-        \ endif
+    " au BufReadPost *
+    "     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    "     \   exe "normal g`\"" |
+    "     \ endif
 
     " don't fold vim files
     au FileType vim set nofoldenable
@@ -32,7 +32,7 @@ if has("autocmd")
     " tablength exceptions
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
     autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
-    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+    autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
     autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 
     " fish shell

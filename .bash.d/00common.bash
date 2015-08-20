@@ -60,9 +60,8 @@ find_architecture
 
 function check_installed() {
     if ! [[ -n `type -p $1` ]] ; then
-        return 0;
-    else
         prt_warn "$1 is not installed"
+        return 0;
     fi
     return 1;
 }

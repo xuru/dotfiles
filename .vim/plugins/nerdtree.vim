@@ -15,7 +15,7 @@ let NERDTreeShowBookmarks = 1
 " let g:nerdtree_tabs_focus_on_files = 1
 
 " map <F3> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\env', '\~$', '\.pyc$', '\.swp$', '\.egg-info$', '^dist$', '^build$']
+let NERDTreeIgnore=['\env', '\~$', '\.pyc$', '\.swp$', '\.egg-info$']
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\~$']
 let NERDTreeHightlightCursorline=1
 
@@ -29,4 +29,4 @@ let NERDTreeHightlightCursorline=1
 " ----- nerd tree tabs -----
 map <F3> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup=1
-let g:nerdtree_tabs_autofind=1
+" let g:nerdtree_tabs_autofind=1

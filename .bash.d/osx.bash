@@ -3,12 +3,21 @@
 ################################################################################
 # OSX specific stuff
 ################################################################################
-if test "$OS" = "Darwin"; then
+echo "osx.bash $OS"
+if test "$OS" = "macosx"; then
     # pick a browser
     if [ -x /Applications/Firefox.app/Contents/MacOS/firefox-bin ]; then
         export BROWSER="/Applications/Firefox.app/Contents/MacOS/firefox-bin &>/dev/null"
     elif [ -x /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ]; then
         export BROWSER="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome &>/dev/null"
+    elif [ -x $HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ]; then
+        export BROWSER="$HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome &>/dev/null"
+    fi
+
+    if [ -x $HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ]; then
+        # override browser env variable
+        export CHROME_BIN="$HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+        export BROWSER="$HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome &>/dev/null"
     fi
 
     if [ -d /usr/local/adt/sdk ]; then
