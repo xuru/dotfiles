@@ -11,6 +11,59 @@ Linux*)
     ;;
 esac
 
+
+git.current_branch() {
+  br=`git branch | grep "*"`
+  echo ${br/* /}
+}
+
+git.checkout() {
+  git checkout $1
+}
+
+git.fetch() {
+  git fetch origin
+}
+
+git.pull() {
+  git pull origin $1
+}
+
+git.rebase() {
+  git rebase -i origin/$1
+}
+
+git.force_push() {
+  git push -f origin $1
+}
+
+git.push() {
+  git push origin $1
+}
+
+git.merge() {
+  git merge --edit $1
+}
+
+git.delete_branch() {
+  git branch -D $1 &&
+  git push origin :$1
+}
+
+freshen() {
+    BRANCH=$(git.current_branch)
+    git fetch upstream &&
+    git status &&
+    git checkout staging &&
+    git pull upstream staging &&
+    git push origin staging
+}
+
+    # git checkout $BRANCH &&
+    # git rebase staging &&
+    # git push -f origin HEAD
+# }
+
 alias gst='git status -sb'
 alias gb='git branch'
 alias gl='git log'

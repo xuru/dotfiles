@@ -7,7 +7,7 @@
 # this line makes gcutil work in a virtualenv
 export CLOUDSDK_PYTHON_ARGS=' '
 
-GCS=/usr/local/google-cloud-sdk 
+GCS=/usr/local/google-cloud-sdk
 if [ -d $GCS ]; then
     export PATH=$PATH:$GCS/bin
 
@@ -21,13 +21,6 @@ if [ -d $GCS ]; then
     # the above doesn't put google appengine on the path
     if [ -d $GAE ]; then
         export PATH=$PATH:$GAE:$GAE/lib/django-1.4/django/bin
-        export PYTHONPATH=$GAE/lib/fancy_urllib:$GAE:$GAE/lib:$GAE/lib/yaml:$GAE/lib/django-1.4:$PYTHONPATH
-        export GAE_SDK_ROOT=$GAE
-    fi
-else
-    GAE=/usr/local/google_appengine
-    if [ -d $GAE ]; then
-        export PATH=$PATH:$GAE
         export PYTHONPATH=$GAE/lib/fancy_urllib:$GAE:$GAE/lib:$GAE/lib/yaml:$GAE/lib/django-1.4:$PYTHONPATH
         export GAE_SDK_ROOT=$GAE
     fi

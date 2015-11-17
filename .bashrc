@@ -11,6 +11,9 @@ if [ -e /bin/dircolors ]; then
     eval $(dircolors -b ~/.dir_colors)
 fi
 
+# Set colors to match iTerm2 Terminal Colors
+export TERM=xterm-256color
+
 # Set architecture flags
 export ARCHFLAGS="-arch x86_64"
 
@@ -71,10 +74,6 @@ shopt -s checkwinsize
 ## Source any local additions
 if [ -f ~/.bash_local ]; then
     . ~/.bash_local
-fi
-
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    . /usr/local/bin/virtualenvwrapper.sh
 fi
 
 export BASHDIR="$HOME/.bash.d"

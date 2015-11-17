@@ -14,21 +14,26 @@ if test "$OS" = "macosx"; then
         export BROWSER="$HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome &>/dev/null"
     fi
 
+    if [ -x /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ]; then
+        export CHROME_BIN="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+        export BROWSER="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome &>/dev/null"
+    fi
+
     if [ -x $HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ]; then
         # override browser env variable
         export CHROME_BIN="$HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
         export BROWSER="$HOME/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome &>/dev/null"
     fi
 
+    # Android sdk installed by brew
     if [ -d /usr/local/adt/sdk ]; then
-        export ANDROID_HOME="/usr/local/adt/sdk"
+        export ANDROID_HOME="/usr/local/opt/android-sdk"
 
         # Setup Android development...
         export PATH="$ANDROID_HOME/tools":$PATH
-        export PATH="$ANDROID_HOME/build-tools/17.0.0/":$PATH
+        export PATH="$ANDROID_HOME/build-tools/23.0.2/":$PATH
         export PATH="$ANDROID_HOME/platform-tools":$PATH
         export PATH="$ANDROID_HOME/tools/lib":$PATH
-        alias adt=$ANDROID_HOME/../eclipse/Eclipse.app/Contents/MacOS/eclipse
     fi
 
     # node

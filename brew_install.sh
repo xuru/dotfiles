@@ -93,19 +93,14 @@ done;
 
 brew cask install alfred
 brew cask install adium
-brew cask install angry-ip-scanner
 brew cask install caffeine
 brew cask install dropbox
-brew cask install cord
 brew cask install dash
-# degrees
 brew cask install firefox
 brew cask install flash
 brew cask install flash-player
 brew cask install flux
-brew cask install gfxcardstatus
 brew cask install github
-brew cask install gimp
 brew cask install google-chrome
 brew cask install google-drive
 brew cask install google-hangouts
@@ -114,10 +109,8 @@ brew cask install heroku-toolbelt
 brew cask install hipchat
 brew cask install iterm2
 brew cask install java
-brew cask install jenkins-menu
 brew cask install kaleidoscope
 brew cask install moom
-brew cask install mysqlworkbench
 brew cask install onepassword
 brew cask install omnidisksweeper
 brew cask install onyx
@@ -125,7 +118,6 @@ brew cask install pacifist
 # patterns
 brew cask install prezi
 brew cask install proximity
-brew cask install pycharm
 # Radia
 brew cask install skitch
 brew cask install skype

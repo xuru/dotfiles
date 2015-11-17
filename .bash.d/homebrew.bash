@@ -5,9 +5,6 @@
 ################################################################################
 if test "$OS" = "Darwin"; then
     if check_installed brew; then
-        # NOTE: exporting this will add all packages to any virtualenv
-        export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
-
         # Setup homebrew auto-completion on the Mac
         source_if_exists `brew --prefix`/etc/bash_completion
 

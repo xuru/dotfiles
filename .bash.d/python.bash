@@ -8,8 +8,12 @@ if [ ! -d $HOME/.virtualenvs ]; then
 fi
 export WORKON_HOME=$HOME/.virtualenvs
 
-if check_installed virtualenvwrapper.sh; then
-    source `which virtualenvwrapper.sh`
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    . /usr/local/bin/virtualenvwrapper.sh
+fi
+
+if [[ $OS == macosx ]] ; then
+    export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
 fi
 
 # if [[ $OS == winnt ]] ; then

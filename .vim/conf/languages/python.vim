@@ -6,21 +6,10 @@ augroup python_autogroup
     autocmd FileType python :set makeprg=python\ %
 augroup END
 
-au FileType python let b:delimitMate_autoclose = 0
-let delimitMate_expand_inside_quotes = 0
+autocmd FileType python setlocal omnifunc=RopeCompleteFunc
 
 " Nerd commenter
 let g:NERDSpaceDelims = 1
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-
-let g:neocomplete#force_omni_input_patterns.python =
-    \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-
-" to get the popup to work right...
-" set completeopt=longest,menuone,preview
 
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
@@ -36,13 +25,25 @@ endfunction
 
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
+" Rope
+let ropevim_codeassist_maxfixes=10
+let ropevim_guess_project=1
+let ropevim_vim_completion=1
+let ropevim_enable_autoimport=0
+let ropevim_extended_complete=1 
+let ropevim_enable_shortcuts=0
+autocmd FileType python setlocal omnifunc=RopeCompleteFunc
+
+map <leader>g :call RopeGotoDefinition()<cr>
+map <leader>d :call RopeShowDoc()<cr>
+map <leader>rm :RopeExtractMethod<cr>
+map <leader>ri :call RopeOrganizeImports()<cr>
+map <leader>rr :call RopeRename()<cr>
+map <leader>rc :call RopeShowCalltip()<cr>
+
 ab shabang #!/usr/bin/env python
 ab utf8 # -*- coding: utf-8 -*-
 ab ifmain if __name__ == "__main__":
-
-" Allow nested quoting in Python
-au FileType python let b:delimitMate_nesting_quotes = ['"',"'"]
-au FileType python let b:delimitMate_expand_cr = 0
 
 " Virtualenv support
 let g:virtualenv_auto_activate = 1
