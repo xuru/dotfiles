@@ -127,3 +127,9 @@ brew cask install vlc
 brew cask install xquartz
 
 brew cask cleanup
+
+# setup a few things with python
+export PATH=/usr/local/bin:$PATH
+
+pip install --upgrade pip setuptools
+pip install --upgrade virtualenv virtualenvwrapper atomac
