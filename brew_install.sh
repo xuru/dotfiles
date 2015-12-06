@@ -53,9 +53,11 @@ brew install python
 brew install htop
 brew install ack
 brew install ctags
+brew install cmake
 brew install cscope
 brew install git
 brew install git-flow
+brew install grc
 brew install nmap
 brew install openssl
 brew install readline
@@ -119,7 +121,7 @@ brew cask cleanup
 export PATH=/usr/local/bin:$PATH
 
 pip install --upgrade pip setuptools
-pip install --upgrade virtualenv virtualenvwrapper atomac docopt
+pip install --upgrade virtualenv virtualenvwrapper atomac docopt ropevim
 
 # setup fonts
 brew tap caskroom/fonts                  # you only have to do this once!
@@ -145,3 +147,11 @@ else
     python ./.dotfiles/engage.py --verbose
     . ./.dotfiles/osx
 fi
+
+# build C component of you complete me...
+cd ~/.vim/bundle/YouCompleteMe
+./install.py
+cd ~
+
+# install the rest of the bundles.
+vim +PluginInstall +qall
