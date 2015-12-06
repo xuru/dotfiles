@@ -84,4 +84,7 @@ if test "$OS" = "macosx"; then
     check_installed tree
 
     source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
+    
+    # ensure that 'brew cask' installs in /Applications
+    export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 fi
