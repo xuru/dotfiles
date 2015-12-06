@@ -15,8 +15,8 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 if [ ! -d /usr/local ]; then
     sudo mkdir /usr/local
-    sudo chown -R $USER:staff /usr/local
 fi
+sudo chown -R $(whoami):admin /usr/local
 
 if [ ! -x /usr/local/bin/brew ]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -84,7 +84,7 @@ brew cask install firefox
 brew cask install flash
 brew cask install flash-player
 brew cask install flux
-brew cask install github
+brew cask install github-desktop
 brew cask install google-chrome
 brew cask install google-drive
 brew cask install google-hangouts
