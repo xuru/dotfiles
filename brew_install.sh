@@ -11,6 +11,7 @@
 # 
 # * bash_completion
 # * grc
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 if [ ! -d /usr/local ]; then
     sudo mkdir /usr/local
@@ -20,6 +21,8 @@ fi
 if [ ! -x /usr/local/bin/brew ]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
+
+cd ~
 
 brew update
 brew upgrade
@@ -64,25 +67,9 @@ brew install wget
 # special care is taken with macvim...
 # brew install macvim
 brew unlink python
-brew install -v --force macvim --env-std --override-system-vim
+brew install -v --force macvim --env-std --override-system-vim --python --cscope
 brew link macvim
 brew link python
-
-brew install wine
-brew install winetricks
-
-# install fonts
-winetricks fonts allfonts
-
-cd /tmp
-git clone https://github.com/Lokaltog/powerline-fonts.git
-
-for font in powerline-fonts/**/*.ttf; do
-    cp -v ${font} ~/Library/Fonts/
-done;
-for font in powerline-fonts/**/*.otf; do
-    cp -v ${font} ~/Library/Fonts/
-done;
 
 ################################################################################
 # GUI apps
@@ -132,4 +119,29 @@ brew cask cleanup
 export PATH=/usr/local/bin:$PATH
 
 pip install --upgrade pip setuptools
-pip install --upgrade virtualenv virtualenvwrapper atomac
+pip install --upgrade virtualenv virtualenvwrapper atomac docopt
+
+# setup fonts
+brew tap caskroom/fonts                  # you only have to do this once!
+brew update
+
+brew cask install font-inconsolata
+brew cask install font-dejavu-sans-mono-for-powerline
+brew cask install font-anonymous-pro-for-powerline
+brew cask install font-ubuntu-mono-powerline
+brew cask install font-source-code-pro-for-powerline
+brew cask install font-sauce-code-powerline
+brew cask install font-meslo-lg-for-powerline
+brew cask install font-liberation-mono-for-powerline
+brew cask install font-inconsolata-g-for-powerline
+brew cask install font-inconsolata-for-powerline
+brew cask install font-inconsolata-dz-for-powerline
+brew cask install font-fira-mono-for-powerline
+brew cask install font-droid-sans-mono-for-powerline
+
+if [[ ! -d .dotfiles ]]; then
+    git clone https://github.com/xuru/dotfiles.git .dotfiles
+else
+    python ./.dotfiles/engage.py --verbose
+    . ./.dotfiles/osx
+fi
