@@ -6,35 +6,6 @@
 
 " Environment 
 
-    " Basics 
-        set nocompatible        " Must be first line
-        set background=dark     " Assume a dark background
-    " 
-
-    " Windows Compatible 
-        " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
-        " across (heterogeneous) systems easier.
-        if has('win32') || has('win64')
-          set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-
-          " Be nice and check for multi_byte even if the config requires
-          " multi_byte support most of the time
-          if has("multi_byte")
-            " Windows cmd.exe still uses cp850. If Windows ever moved to
-            " Powershell as the primary terminal, this would be utf-8
-            set termencoding=cp850
-            " Let Vim use utf-8 internally, because many scripts require this
-            set encoding=utf-8
-            setglobal fileencoding=utf-8
-            " Windows has traditionally used cp1252, so it's probably wise to
-            " fallback into cp1252 instead of eg. iso-8859-15.
-            " Newer Windows files might contain utf-8 or utf-16 LE so we might
-            " want to try them first.
-            set fileencodings=ucs-bom,utf-8,utf-16le,cp1252,iso-8859-15
-          endif
-        endif
-    " 
-
     " Setup Bundle Support 
         " The next three lines ensure that the ~/.vim/bundle/ system works
         filetype off
@@ -67,125 +38,133 @@ endif
 
 
 " Bundles 
-
     " Deps 
         Bundle 'gmarik/vundle'
         Plugin 'editorconfig/editorconfig-vim'
-        Bundle 'MarcWeber/vim-addon-mw-utils'
-        Bundle 'tomtom/tlib_vim'
+        Plugin 'MarcWeber/vim-addon-mw-utils'
+        Plugin 'tomtom/tlib_vim'
         if executable('ag')
-            Bundle 'mileszs/ack.vim'
-            let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-        elseif executable('ack-grep')
-            let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-            Bundle 'mileszs/ack.vim'
+            Plugin 'mileszs/ack.vim'
+            let g:ackprg = 'ag --vimgrep'
         elseif executable('ack')
-            Bundle 'mileszs/ack.vim'
+            Plugin 'mileszs/ack.vim'
         endif
-    " 
-
 
     " General 
-        Bundle 'scrooloose/nerdtree'
-        Bundle 'tpope/vim-surround'
-        Bundle 'tpope/vim-repeat'
-        Bundle 'jiangmiao/auto-pairs'
-        Bundle 'ctrlpvim/ctrlp.vim'
-        Bundle 'tacahiroy/ctrlp-funky'
-        Bundle 'kristijanhusak/vim-multiple-cursors'
-        Bundle 'vim-scripts/sessionman.vim'
-        Bundle 'matchit.zip'
-        Bundle 'bling/vim-airline'
-        Bundle 'powerline/fonts'
-        Bundle 'bling/vim-bufferline'
-        Bundle 'Lokaltog/vim-easymotion'
-        Bundle 'jistr/vim-nerdtree-tabs'
-        Bundle 'tyok/nerdtree-ack'
-        Bundle 'flazz/vim-colorschemes'
-        Bundle 'jnurmine/Zenburn'
-        Bundle 'mbbill/undotree'
-        Bundle 'nathanaelkane/vim-indent-guides'
-        Bundle 'vim-scripts/restore_view.vim'
-        Bundle 'mhinz/vim-signify'
-        Bundle 'tpope/vim-abolish.git'
-        Bundle 'osyo-manga/vim-over'
-        Bundle 'kana/vim-textobj-user'
-        Bundle 'kana/vim-textobj-indent'
-        Bundle 'gcmt/wildfire.vim'
-    " 
+        Plugin 'scrooloose/nerdtree'
+        Plugin 'jistr/vim-nerdtree-tabs'
+        Plugin 'tyok/nerdtree-ack'
+
+        " library for other bundles to support repeat '.' (surrond, abolish)
+        Plugin 'tpope/vim-repeat'
+        Plugin 'tpope/vim-surround'
+        Plugin 'tpope/vim-abolish.git'
+
+        Plugin 'ctrlpvim/ctrlp.vim'
+        Plugin 'tacahiroy/ctrlp-funky'
+
+        Plugin 'jiangmiao/auto-pairs'
+        " Plugin 'kristijanhusak/vim-multiple-cursors'
+        " Plugin 'vim-scripts/sessionman.vim'
+        " Plugin 'matchit.zip'
+        "
+        Plugin 'vim-airline/vim-airline'
+        Plugin 'vim-airline/vim-airline-themes'
+        Plugin 'powerline/fonts'
+
+        Plugin 'bling/vim-bufferline'
+        " Plugin 'Lokaltog/vim-easymotion'
+
+        Plugin 'flazz/vim-colorschemes'
+        Plugin 'jnurmine/Zenburn'
+
+        " Plugin 'mbbill/undotree'
+        " Plugin 'nathanaelkane/vim-indent-guides'
+        Plugin 'vim-scripts/restore_view.vim'
+        " Plugin 'mhinz/vim-signify'
+        " Plugin 'osyo-manga/vim-over'
+        " Plugin 'kana/vim-textobj-user'
+        " Plugin 'kana/vim-textobj-indent'
+
+        " select regions based on text objects (<ENTER>)
+        Plugin 'gcmt/wildfire.vim'
 
     " General Programming 
         " Pick one of the checksyntax, jslint, or syntastic
-        Bundle 'scrooloose/syntastic'
-        Bundle 'tpope/vim-fugitive'
-        Bundle 'airblade/vim-gitgutter'
-        Bundle 'mattn/webapi-vim'
-        Bundle 'mattn/gist-vim'
-        Bundle 'scrooloose/nerdcommenter'
-        Bundle 'tpope/vim-commentary'
-        Bundle 'godlygeek/tabular'
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'airblade/vim-gitgutter'
+
+        Plugin 'scrooloose/syntastic'
+        " Plugin 'mattn/webapi-vim'
+        " Plugin 'mattn/gist-vim'
+        " Plugin 'scrooloose/nerdcommenter'
+        Plugin 'tpope/vim-commentary'
+        " Plugin 'godlygeek/tabular'
         if executable('ctags')
-            Bundle 'majutsushi/tagbar'
+            Plugin 'majutsushi/tagbar'
         endif
-        Bundle 'myint/syntastic-extras'
-    " 
+        " Plugin 'myint/syntastic-extras'
 
     " Snippets & AutoComplete 
-        Bundle 'Valloric/YouCompleteMe'
-        Bundle 'SirVer/ultisnips'
-        Bundle 'honza/vim-snippets'
-    " 
-    
+        Plugin 'Valloric/YouCompleteMe'
+        " Plugin 'SirVer/ultisnips'
+        " Plugin 'honza/vim-snippets'
+
     " Python 
         " Pick either python-mode or pyflakes & pydoc
-        "Bundle 'klen/python-mode'
-        "Bundle 'davidhalter/jedi-vim'
-        Bundle 'python-rope/ropevim'
-        Bundle 'yssource/python.vim'
-        Bundle 'python_match.vim'
-        Bundle 'pythoncomplete'
+        " Plugin 'klen/python-mode'
+        " Plugin 'python-rope/ropevim'
+        "
+        " integrates Python documentation system into Vim
+        Plugin 'fs111/pydoc.vim'
+        Plugin 'davidhalter/jedi-vim'
         Plugin 'hynek/vim-python-pep8-indent'
-        Bundle 'jmcantrell/vim-virtualenv'
-        Bundle 'mitsuhiko/vim-jinja'
+        Plugin 'tmhedberg/SimpylFold'
+        Plugin 'jmcantrell/vim-virtualenv'
+        Plugin 'mitsuhiko/vim-jinja'
+
+        " Plugin 'yssource/python.vim'
+        " Plugin 'python_match.vim'
+        " Plugin 'pythoncomplete'
     " 
 
     " Javascript 
-        Bundle 'elzr/vim-json'
-        Bundle 'groenewege/vim-less'
-        Bundle 'pangloss/vim-javascript'
-        Bundle 'briancollins/vim-jst'
-        Bundle 'kchmck/vim-coffee-script'
+        " Plugin 'elzr/vim-json'
+        " Plugin 'groenewege/vim-less'
+        " Plugin 'pangloss/vim-javascript'
+        " Plugin 'briancollins/vim-jst'
+        " Plugin 'kchmck/vim-coffee-script'
     " 
 
     " HTML 
-        Bundle 'amirh/HTML-AutoCloseTag'
-        Bundle 'hail2u/vim-css3-syntax'
-        Bundle 'gorodinskiy/vim-coloresque'
-        Bundle 'tpope/vim-haml'
+        " Plugin 'amirh/HTML-AutoCloseTag'
+        " Plugin 'hail2u/vim-css3-syntax'
+        " Plugin 'gorodinskiy/vim-coloresque'
+        " Plugin 'tpope/vim-haml'
     " 
 
     " Ruby 
-        Bundle 'tpope/vim-rails'
-        let g:rubycomplete_buffer_loading = 1
-        "let g:rubycomplete_classes_in_global = 1
-        "let g:rubycomplete_rails = 1
+        " Plugin 'tpope/vim-rails'
+        " let g:rubycomplete_buffer_loading = 1
+        " let g:rubycomplete_classes_in_global = 1
+        " let g:rubycomplete_rails = 1
     " 
 
     " Go Lang 
-        "Bundle 'Blackrush/vim-gocode'
-        Bundle 'fatih/vim-go'
+        " Plugin 'Blackrush/vim-gocode'
+        " Plugin 'fatih/vim-go'
     " 
 
     " Misc 
-        Bundle 'rust-lang/rust.vim'
-        Bundle 'tpope/vim-markdown'
-        Bundle 'spf13/vim-preview'
-        Bundle 'cespare/vim-toml'
-        Bundle 'saltstack/salt-vim'
-        Bundle 'rizzatti/dash.vim'
-        Bundle 'aklt/plantuml-syntax'
-        Bundle 'szw/vim-tags'
-        Plugin 'pzxbc/vim-kv'
+        " Plugin 'rust-lang/rust.vim'
+        Plugin 'tpope/vim-markdown'
+        " Plugin 'spf13/vim-preview'
+        " Plugin 'cespare/vim-toml'
+        " Plugin 'saltstack/salt-vim'
+        Plugin 'rizzatti/dash.vim'
+        Plugin 'aklt/plantuml-syntax'
+        Plugin 'szw/vim-tags'
+        " Plugin 'pzxbc/vim-kv'
     " 
 
 " 
