@@ -25,9 +25,8 @@
 "   limitations under the License.
 " }
 
-" Environment {
-
-    " Identify platform {
+" Environment
+    " Identify platform
         silent function! OSX()
             return has('macunix')
         endfunction
@@ -37,47 +36,38 @@
         silent function! WINDOWS()
             return  (has('win16') || has('win32') || has('win64'))
         endfunction
-    " }
 
-    " Basics {
+    " Basics
         set nocompatible        " Must be first line
         if !WINDOWS()
             set shell=/bin/sh
         endif
-    " }
 
-    " Windows Compatible {
+    " Windows Compatible
         " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
         " across (heterogeneous) systems easier.
         if WINDOWS()
           set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
         endif
-    " }
-    
-    " Arrow Key Fix {
+
+    " Arrow Key Fix
         " https://github.com/spf13/spf13-vim/issues/780
         if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
             inoremap <silent> <C-[>OC <RIGHT>
         endif
-    " }
 
-" }
-
-" Use before config if available {
+" Use before config if available
     if filereadable(expand("~/.vimrc.before"))
         source ~/.vimrc.before
     endif
-" }
 
-" Use bundles config {
+" Use bundles config
     if filereadable(expand("~/.vim/vundle.vim"))
         source ~/.vim/vundle.vim
     endif
-" }
 
 
-" General {
-
+" General
     set background=dark         " Assume a dark background
 
     " Allow to trigger background
@@ -92,9 +82,6 @@
     endfunction
     noremap <leader>bg :call ToggleBG()<CR>
 
-    " if !has('gui')
-        "set term=$TERM          " Make arrow and other keys work
-    " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
@@ -141,7 +128,7 @@
         autocmd BufWinEnter * call ResCur()
     augroup END
 
-    " Setting up the directories {
+    " Setting up the directories
         " turn backup off
         " set nobackup
         " set nowritebackup
@@ -164,13 +151,8 @@
         let g:skipview_files = [
             \ '\[example pattern\]'
             \ ]
-    " }
 
-" }
-
-
-" Vim UI {
-
+" Vim UI
     colorscheme zenburn
 
     set tabpagemax=15               " Only show 15 tabs
@@ -203,21 +185,22 @@
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
     endif
 
+    " search
+    set hlsearch                    " Highlight search terms
+    set incsearch                   " Find as you type search
+    set ignorecase                  " Case insensitive search
+    set smartcase                   " Case sensitive when uc present
+
     set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
     set number                      " Line numbers on
     set showmatch                   " Show matching brackets/parenthesis
-    set incsearch                   " Find as you type search
-    set hlsearch                    " Highlight search terms
     set winminheight=0              " Windows can be 0 line high
-    set ignorecase                  " Case insensitive search
-    set smartcase                   " Case sensitive when uc present
     set wildmenu                    " Show list instead of just completing
     set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
-    set foldenable                  " Auto fold code
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     set encoding=utf-8
@@ -226,11 +209,7 @@
     set ttyfast
     set autoread
 
-" }
-
-
-" Formatting {
-
+" Formatting
     set nowrap                      " Do not wrap long lines
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
@@ -262,11 +241,8 @@
     " auto reload vimrc when editing it
     autocmd! bufwritepost .vimrc source ~/.vimrc
 
-" }
 
-
-" Key (re)Mappings {
-
+" Key (re)Mappings
     " The default leader is '\', but many people prefer ',' as it's in a standard
     " location.
     let mapleader = ','
@@ -353,21 +329,6 @@
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
 
-    " Set the foldlevel high so it's not all folded to start
-    set foldlevel=10
-
-    " Code folding options
-    nmap <leader>f0 :set foldlevel=0<CR>
-    nmap <leader>f1 :set foldlevel=1<CR>
-    nmap <leader>f2 :set foldlevel=2<CR>
-    nmap <leader>f3 :set foldlevel=3<CR>
-    nmap <leader>f4 :set foldlevel=4<CR>
-    nmap <leader>f5 :set foldlevel=5<CR>
-    nmap <leader>f6 :set foldlevel=6<CR>
-    nmap <leader>f7 :set foldlevel=7<CR>
-    nmap <leader>f8 :set foldlevel=8<CR>
-    nmap <leader>f9 :set foldlevel=9<CR>
-
     " Most prefer to toggle search highlighting rather than clear the current
     " search results.
     nmap <silent> <leader>/ :set invhlsearch<CR>
@@ -412,14 +373,11 @@
 
     " Easier formatting
     nnoremap <silent> <leader>q gwip
-" }
-
-
 
 
 " GUI options (only in effect when running in a GUI).
 if has("gui_running")
-    set guifont=Liberation\ Mono\ for\ Powerline:h11
+    set guifont=Liberation\ Mono\ Powerline:h11
     " set guifont=Source\ Code\ Pro\ for\ Powerline:h12
     " set guifont=Meslo\ LG\ L\ for\ Powerline:h12
 
@@ -455,7 +413,7 @@ if has("gui_running")
 
         " A itzy-bitzy amount of transparency
         set transparency=4
-        
+
         " Anti-aliasing is niiiice
         set antialias
     endif
@@ -505,14 +463,6 @@ inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
 set wildignore=*.pyc,*~
 
-" autocompletition of files and commands behaves like shell
-" (complete only the common part, list the options that match)
-
-"folding...
-set foldmethod=indent
-set foldnestmax=10
-nnoremap <space> za
-
 " Shortcuts
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
@@ -530,25 +480,20 @@ nnoremap <leader>s :mksession<CR>
 " Use ag to search
 nnoremap <leader>a :Ag 
 
-" Setup vundle configuration...
-source ~/.vim/conf/general/functions.vim
-source ~/.vim/conf/general/airline.vim
-source ~/.vim/conf/general/ctags.vim
-source ~/.vim/conf/general/ctrlp.vim
-source ~/.vim/conf/languages/json.vim
-source ~/.vim/conf/plugins/nerdtree.vim
-source ~/.vim/conf/general/search.vim
-source ~/.vim/conf/languages/markdown.vim
-source ~/.vim/conf/languages/python.vim
-source ~/.vim/conf/languages/rst.vim
-source ~/.vim/conf/languages/syntastic.vim
-source ~/.vim/conf/plugins/jedi.vim
-source ~/.vim/conf/plugins/dash.vim
-source ~/.vim/conf/plugins/gitgutter.vim
-source ~/.vim/conf/plugins/tagbar.vim
-source ~/.vim/conf/plugins/fugitive.vim
+" load settings...
+for f in split(glob('~/.vim/conf/general/*.vim'), '\n')
+  exe 'source' f
+endfor
 
-source ~/.vim/conf/plugins/sessions.vim
+" load language settings...
+for f in split(glob('~/.vim/conf/languages/*.vim'), '\n')
+  exe 'source' f
+endfor
+
+" load plugin settings...
+for f in split(glob('~/.vim/conf/plugins/*.vim'), '\n')
+  exe 'source' f
+endfor
 
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
