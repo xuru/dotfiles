@@ -12,6 +12,10 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     . /usr/local/bin/virtualenvwrapper.sh
 fi
 
+if [ -f /usr/local/opt/autoenv/activate.sh ]; then
+    . /usr/local/opt/autoenv/activate.sh
+fi
+
 # if [[ $OS == winnt ]] ; then
     # # if we're on windows using cygwin (you are aren't you?)
     # # we need to use the installed version for pywin32
