@@ -11,3 +11,4 @@ Thumbs.db
 .vim/vimundo
 .vim/vimviews
 .vim/view
+.ptpython/history
