@@ -12,10 +12,6 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     . /usr/local/bin/virtualenvwrapper.sh
 fi
 
-if [[ $OS == macosx ]] ; then
-    export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
-fi
-
 # if [[ $OS == winnt ]] ; then
     # # if we're on windows using cygwin (you are aren't you?)
     # # we need to use the installed version for pywin32
