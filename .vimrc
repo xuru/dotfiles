@@ -7,7 +7,7 @@
 "-----------------------------------------------------------------------------
 " Global Stuff
 "-----------------------------------------------------------------------------
-" 
+"
 " Keys...
 " map <F2> to toggle NERDTree window
 " map <F7> to run flake8 when in python code
@@ -88,6 +88,13 @@
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
+    set modeline
+    set modelines=4
+    " Enable per-directory .vimrc files and disable unsafe commands in them
+    set exrc
+    set secure
+
+    " User the OS clipboard by default
     if has('clipboard')
         if has('unnamedplus')  " When possible use + register for copy-paste
             set clipboard=unnamed,unnamedplus
@@ -185,12 +192,6 @@
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
     endif
 
-    " search
-    set hlsearch                    " Highlight search terms
-    set incsearch                   " Find as you type search
-    set ignorecase                  " Case insensitive search
-    set smartcase                   " Case sensitive when uc present
-
     set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
     set number                      " Line numbers on
@@ -203,7 +204,7 @@
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-    set encoding=utf-8
+    set encoding=utf-8 nobomb
     set termencoding=utf-8
     set visualbell
     set ttyfast
@@ -265,8 +266,8 @@
     map <C-S-Left> :tabp<CR>
     imap <C-S-Left> <ESC>:tabp<CR>
 
-    " makes j and k work the way you expect instead of working 
-    " in some archaic “movement by file line instead of 
+    " makes j and k work the way you expect instead of working
+    " in some archaic “movement by file line instead of
     " screen line” fashion.
     noremap j gj
     noremap k gk
@@ -377,7 +378,7 @@
 
 " GUI options (only in effect when running in a GUI).
 if has("gui_running")
-    set guifont=Liberation\ Mono\ Powerline:h11
+    set guifont=Literation\ Mono\ Powerline:h11
     " set guifont=Source\ Code\ Pro\ for\ Powerline:h12
     " set guifont=Meslo\ LG\ L\ for\ Powerline:h12
 
@@ -430,9 +431,9 @@ set wrapscan
 "save on losing focus
 au FocusLost * :wa
 
-" The <leader><space> mapping makes it easy 
-" to clear out a search by typing ,<space>. 
-" This gets rid of the distracting highlighting 
+" The <leader><space> mapping makes it easy
+" to clear out a search by typing ,<space>.
+" This gets rid of the distracting highlighting
 " once I’ve found what I’m looking for.
 nnoremap <leader><space> :noh<cr>
 
@@ -478,7 +479,7 @@ set switchbuf=usetab
 nnoremap <leader>s :mksession<CR>
 
 " Use ag to search
-nnoremap <leader>a :Ag 
+nnoremap <leader>a :Ag
 
 " load settings...
 for f in split(glob('~/.vim/conf/general/*.vim'), '\n')

@@ -32,7 +32,6 @@ brew linkapps
 
 # brew cask
 brew tap caskroom/cask
-brew install brew-cask
 
 ## Lib
 brew install libevent
@@ -44,10 +43,12 @@ brew install bash-completion
 brew install homebrew/completions/pip-completion
 brew install homebrew/completions/vagrant-completion
 brew install homebrew/completions/django-completion
+brew install homebrew/completions/brew-cask-completion
 # brew install homebrew/versions/bash-completion2
 
 # python
 brew install python
+brew install python3
 
 # apps
 brew install htop
@@ -91,7 +92,6 @@ brew cask install google-chrome
 brew cask install google-drive
 brew cask install google-hangouts
 brew cask install gpgtools
-brew cask install heroku-toolbelt
 brew cask install iterm2
 brew cask install java
 brew cask install kaleidoscope
@@ -112,6 +112,10 @@ brew cask install virtualbox
 brew cask install vagrant
 brew cask install vagrant-manager
 brew cask install vlc
+
+brew cask install textual
+brew cask install postman
+
 # vmware-fusion
 brew cask install xquartz
 
@@ -131,7 +135,6 @@ brew cask install font-inconsolata
 brew cask install font-dejavu-sans-mono-for-powerline
 brew cask install font-anonymous-pro-for-powerline
 brew cask install font-ubuntu-mono-powerline
-brew cask install font-source-code-pro-for-powerline
 brew cask install font-sauce-code-powerline
 brew cask install font-meslo-lg-for-powerline
 brew cask install font-liberation-mono-for-powerline
