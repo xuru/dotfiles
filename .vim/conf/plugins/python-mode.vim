@@ -1,7 +1,7 @@
 "
 " Python configuration
 "
-if isdirectory(expand("~/.vim/bundle/python-mode"))
+if isdirectory(expand("~/.vim/plugged/python-mode"))
 
     " Enable auto indenting
     au FileType python let g:pymode_indent = 1

@@ -1,5 +1,5 @@
 " Description: Search Dash.app from Vim
-if isdirectory(expand("~/.vim/bundle/dash.vim"))
+if isdirectory(expand("~/.vim/plugged/dash.vim"))
 
     let g:dash_map = {
           \ 'ruby' : 'ruby_on_rails',

@@ -1,6 +1,6 @@
 " jedi-vim
 """"""""""""""""
-if isdirectory(expand("~/.vim/bundle/jedi-vim"))
+if isdirectory(expand("~/.vim/plugged/jedi-vim"))
     let g:jedi#auto_vim_configuration = 0
     let g:jedi#completions_enabled = 0
 

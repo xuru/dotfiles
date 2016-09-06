@@ -1,5 +1,5 @@
 
-if isdirectory(expand("~/.vim/bundle/vim-fugitive"))
+if isdirectory(expand("~/.vim/plugged/vim-fugitive"))
     nnoremap <silent> <leader>gs :Gstatus<CR>
     nnoremap <silent> <leader>gd :Gdiff<CR>
     nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -14,6 +14,6 @@ if isdirectory(expand("~/.vim/bundle/vim-fugitive"))
     nnoremap <silent> <leader>gg :SignifyToggle<CR>
 
     if exists("*fugitive#statusline")
-        set statusline+=%{fugitive#statusline()}\ 
+        set statusline+=%{fugitive#statusline()}\
     endif
 endif

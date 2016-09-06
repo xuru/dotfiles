@@ -2,7 +2,7 @@
 " delimitMate configuration
 "
 "
-if isdirectory(expand("~/.vim/bundle/delimate"))
+if isdirectory(expand("~/.vim/plugged/delimate"))
     " Autoclose brackets
     let delimitMate_autoclose = 1
 

@@ -56,15 +56,15 @@
             inoremap <silent> <C-[>OC <RIGHT>
         endif
 
+    filetype plugin indent on   " Automatically detect file types.
+
 " Use before config if available
     if filereadable(expand("~/.vimrc.before"))
         source ~/.vimrc.before
     endif
 
-" Use bundles config
-    if filereadable(expand("~/.vim/vundle.vim"))
-        source ~/.vim/vundle.vim
-    endif
+" Import plugins
+    source ~/.vim/plugins.vim
 
 
 " General
@@ -82,7 +82,6 @@
     endfunction
     noremap <leader>bg :call ToggleBG()<CR>
 
-    filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing

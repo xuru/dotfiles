@@ -1,5 +1,5 @@
 
-if isdirectory(expand("~/.vim/bundle/vim-gitgutter"))
+if isdirectory(expand("~/.vim/plugged/vim-gitgutter"))
     " gitgutter
     highlight GitGutterAddLine guibg=#646464
     highlight GitGutterChangeLine guibg=#233939

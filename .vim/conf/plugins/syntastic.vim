@@ -1,6 +1,6 @@
 " Syntastic
 
-if isdirectory(expand("~/.vim/bundle/syntastic"))
+if isdirectory(expand("~/.vim/plugged/syntastic"))
     let g:syntastic_python_checkers = ["flake8", "mccabe"]
     let g:syntastic_python_flake8_args='--ignore=F403,E301,E501,E221,E202,E251,E731,W391,W291,E701,W293,E121,E122,E123,E124,E125,E126,E127,E128,E502,E711,E712,E721,C901,N801,N802,N803,N804,N805,N806,N811,N812,W503 --max-complexity=18 --max-line-length=120'
 
@@ -28,7 +28,7 @@ if isdirectory(expand("~/.vim/bundle/syntastic"))
 
     " don't put icons on the sign column (it hides the vcs status icons of signify)
     let g:syntastic_enable_signs = 0
-    " custom icons (enable them if you use a patched font, and enable the previous 
+    " custom icons (enable them if you use a patched font, and enable the previous
     " setting)
     "let g:syntastic_error_symbol = '✗'
     "let g:syntastic_warning_symbol = '⚠'

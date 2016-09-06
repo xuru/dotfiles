@@ -1,5 +1,5 @@
 " Airline configuration
-if isdirectory(expand("~/.vim/bundle/vim-airline"))
+if isdirectory(expand("~/.vim/plugged/vim-airline"))
 
     set laststatus=2
     set encoding=utf-8 " Necessary to show Unicode glyphs

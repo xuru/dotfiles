@@ -16,20 +16,18 @@ Options:
 
 """
 
-__version__ = '1.0.0'
-__author__ = 'Eric Plaster'
-
 from docopt import docopt
 
 import os
 from os.path import join, exists, dirname, basename, abspath, realpath, islink, isdir
 from glob import glob
 
+__version__ = '1.0.0'
+__author__ = 'Eric Plaster'
+
+
 HERE = dirname(abspath(__file__))
 HOME = os.environ['HOME']
-
-# TODO: Add script arguments: verbose, force, etc
-VERBOSE = False
 
 
 class Linker(object):
@@ -45,7 +43,7 @@ class Linker(object):
         """
         if not self.dry_run:
             if self.verbose:
-                print "Backing up file {}".format(filename)
+                print("Backing up file {}".format(filename))
             os.rename(filename, filename + '.orig')
 
     def _get_excluded_files(self, origin, excludes):
@@ -67,21 +65,21 @@ class Linker(object):
         if islink(slink):
             if orig != realpath(slink):
                 if self.verbose:
-                    print "[WARN] relinking {}".format(slink)
+                    print("[WARN] relinking {}".format(slink))
 
                 if not self.dry_run:
                     os.unlink(slink)
                     os.symlink(orig, slink)
             else:
                 if self.verbose:
-                    print "Symbolic link is correct: {} ...skipping".format(slink)
+                    print("Symbolic link is correct: {} ...skipping".format(slink))
         else:
             if exists(slink):
                 self._backup_file(slink)
             if not self.dry_run:
                 os.symlink(orig, slink)
 
-    def symtastico(self, origin, destination, include, excludes=None):
+    def symtastico(self, origin, destination, include, excludes=None, dirs=None):
         """ Given an origin directory and a destination directory, link files from destination to origin
         """
         exfiles = self._get_excluded_files(origin, excludes)
@@ -102,7 +100,7 @@ def _ssh_dir(linker):
         os.makedirs(sshdir)
 
     if os.stat(sshdir).st_mode != 16832:
-        os.chmod(sshdir, 0700)
+        os.chmod(sshdir, 0x0700)
 
     linker.symtastico(
         join(HERE, '.ssh'), sshdir, '*', excludes=["*~", ".*~"])
@@ -111,8 +109,8 @@ def _ssh_dir(linker):
     keys = set(glob(join(sshdir, '*'))) - set(excludes)
     for key in keys:
         if os.stat(key).st_mode != 33152:
-            print "Changing permisions on key {}".format(key)
-            os.chmod(key, 0600)
+            print("Changing permisions on key {}".format(key))
+            os.chmod(key, 0x0600)
 
 
 def main(options):
@@ -124,7 +122,7 @@ def main(options):
     # all the dot files first
     # --------------------------------------------------------------------------------
     linker.symtastico(
-        HERE, HOME, '.*', excludes=["*~", ".*~", ".ssh"])
+        origin=HERE, destination=HOME, include='.*', excludes=["*~", ".*~", ".ssh"], dirs=['bin', '.config'])
 
     # --------------------------------------------------------------------------------
     # bin directory...

@@ -12,3 +12,4 @@ Thumbs.db
 .vim/vimviews
 .vim/view
 .ptpython/history
+plug.vim
