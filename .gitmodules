@@ -1,0 +1,6 @@
+[submodule ".vim/submodules/markdown2ctags"]
+	path = .vim/submodules/markdown2ctags
+	url = https://github.com/jszakmeister/markdown2ctags.git
+[submodule ".vim/submodules/rst2ctags"]
+	path = .vim/submodules/rst2ctags
+	url = https://github.com/jszakmeister/rst2ctags.git

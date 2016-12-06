@@ -2,13 +2,13 @@
 #   http://brew.sh/
 # Homebrew Cask
 #   http://caskroom.io/
-# 
+#
 
 # Before we begin:
 #
 # * Install XCode
 # * Install XQuartz: https://xquartz.macosforge.org
-# 
+#
 # * bash_completion
 # * grc
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
@@ -94,9 +94,12 @@ brew cask install google-hangouts
 brew cask install gpgtools
 brew cask install iterm2
 brew cask install java
-brew cask install kaleidoscope
 brew cask install moom
 brew cask install 1password
+
+brew cask install malwarebytes-anti-malware
+brew cask install macclean
+brew cask install appcleaner
 brew cask install omnidisksweeper
 brew cask install onyx
 # patterns

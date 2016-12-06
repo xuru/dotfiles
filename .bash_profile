@@ -27,3 +27,8 @@ for file in $BASHDIR/*.bash; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done
 unset file;
+
+
+if [ -f ~/.bash_local ]; then
+    [ -r ~/.bash_local ] && source ~/.bash_local;
+fi

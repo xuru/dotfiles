@@ -23,7 +23,7 @@ map <leader>m :action DashLauncherAction<CR>
 map <leader>n :action FileChooser.NewFolder<CR>
 map <leader>o :action MethodHierarchy.OverrideMethodAction<CR>
 map <leader>p :action ParameterInfo<CR>
-map <leader>r :action Replace<CR>
+map <leader>r :action RenameElement<CR>
 map <leader>s :action SaveAll<CR>
 map <leader>t :action Vcs.UpdateProject<CR>
 map <leader>u :action GotoSuperMethod<CR>

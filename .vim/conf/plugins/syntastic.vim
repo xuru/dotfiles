@@ -20,11 +20,12 @@ if isdirectory(expand("~/.vim/plugged/syntastic"))
     endif
 
     let g:syntastic_aggregate_errors = 1
-    let g:syntastic_check_on_open = 0
+    let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 1
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
     let g:syntastic_auto_jump = 0
+    let g:syntastic_enable_highlighting = 1
 
     " don't put icons on the sign column (it hides the vcs status icons of signify)
     let g:syntastic_enable_signs = 0

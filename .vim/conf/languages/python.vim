@@ -6,8 +6,6 @@ augroup python_autogroup
     autocmd FileType python :set makeprg=python\ %
 augroup END
 
-autocmd FileType python setlocal omnifunc=RopeCompleteFunc
-
 " Nerd commenter
 let g:NERDSpaceDelims = 1
 
@@ -24,22 +22,6 @@ function! AppendModeline()
 endfunction
 
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-
-" Rope
-" let ropevim_codeassist_maxfixes=10
-" let ropevim_guess_project=1
-" let ropevim_vim_completion=1
-" let ropevim_enable_autoimport=0
-" let ropevim_extended_complete=1 
-" let ropevim_enable_shortcuts=0
-" autocmd FileType python setlocal omnifunc=RopeCompleteFunc
-
-" map <leader>g :call RopeGotoDefinition()<cr>
-" map <leader>d :call RopeShowDoc()<cr>
-" map <leader>rm :RopeExtractMethod<cr>
-" map <leader>ri :call RopeOrganizeImports()<cr>
-" map <leader>rr :call RopeRename()<cr>
-" map <leader>rc :call RopeShowCalltip()<cr>
 
 ab shabang #!/usr/bin/env python
 ab utf8 # -*- coding: utf-8 -*-
