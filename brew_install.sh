@@ -79,13 +79,9 @@ brew link python
 ################################################################################
 
 brew cask install alfred
-brew cask install adium
 brew cask install caffeine
 brew cask install dropbox
 brew cask install dash
-brew cask install firefox
-brew cask install flash
-brew cask install flash-player
 brew cask install flux
 brew cask install github-desktop
 brew cask install google-chrome
@@ -107,10 +103,9 @@ brew cask install prezi
 brew cask install proximity
 # Radia
 brew cask install skitch
-brew cask install skype
+# brew cask install skype
 brew cask install sourcetree
 brew cask install sublime-text
-brew cask install thunderbird
 brew cask install virtualbox
 brew cask install vagrant
 brew cask install vagrant-manager
