@@ -3,11 +3,7 @@ augroup python_autogroup
     autocmd!
     " removes trailing spaces of python files (and restores cursor position)
     autocmd BufWritePre *.py mark z | %s/ *$//e | 'z
-    autocmd FileType python :set makeprg=python\ %
 augroup END
-
-" Nerd commenter
-let g:NERDSpaceDelims = 1
 
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 

@@ -1,5 +1,5 @@
 " When create .c,.h,.sh,.java, auto complete file infomation
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py,*.md exec ":call SetTitle()"
+" autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py,*.md exec ":call SetTitle()"
 func! SetTitle()
     if &filetype == 'sh'
         call setline(1,"\#########################################################################")

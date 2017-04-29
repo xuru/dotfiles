@@ -4,7 +4,7 @@
 # python specific stuff
 ################################################################################
 if [ ! -d $HOME/.virtualenvs ]; then
-    mkdir $HOME/.virtualenvs 
+    mkdir $HOME/.virtualenvs
 fi
 export WORKON_HOME=$HOME/.virtualenvs
 
@@ -12,8 +12,8 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     . /usr/local/bin/virtualenvwrapper.sh
 fi
 
-if [ -f /usr/local/opt/autoenv/activate.sh ]; then
-    . /usr/local/opt/autoenv/activate.sh
+if [ -f /usr/local/bin/activate.sh ]; then
+    . /usr/local/bin/activate.sh
 fi
 
 # if [[ $OS == winnt ]] ; then
@@ -25,7 +25,7 @@ fi
 # fi
 
 # -ev negates the regular expression so it will not show up in the logfile window only
-# for the file following the command(s). 
+# for the file following the command(s).
 # -cS uses the color scheme set in multitail.conf for only the file follwing the command.
 # -i specific file to tail.
 # -wh window 2's only 12 lines high

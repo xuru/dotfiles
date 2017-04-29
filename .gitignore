@@ -13,3 +13,8 @@ Thumbs.db
 .vim/view
 .ptpython/history
 plug.vim
+.config/configstore
+.config/.mono
+.vim/autoload
+.vim/temp/undodir
+.idea/*

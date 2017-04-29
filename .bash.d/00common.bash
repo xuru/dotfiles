@@ -21,7 +21,6 @@ check_ret() {
 
 
 find_os() {
-    $ECHO "Finding OS..."
     uname_s=`uname -s`
     check_ret uname
     case $uname_s in
@@ -41,7 +40,6 @@ find_os() {
 
 
 find_architecture() {
-    $ECHO "Finding ARCH..."
     uname_m=`uname -m`
     check_ret uname
     case $uname_m in

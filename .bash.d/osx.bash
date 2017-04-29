@@ -81,7 +81,6 @@ if test "$OS" = "macosx"; then
     check_installed curl
     check_installed tree
     check_installed wget
-    check_installed tree
 
-    source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
+    #source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
 fi

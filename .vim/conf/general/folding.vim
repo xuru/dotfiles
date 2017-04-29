@@ -11,10 +11,6 @@ nnoremap <space> za
 " Set the foldlevel high so it's not all folded to start
 set foldlevel=10
 
-let g:SimpylFold_fold_docstring = 0
-
-let g:SimpylFold_fold_import = 0
-
 autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
