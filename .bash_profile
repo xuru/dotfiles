@@ -21,6 +21,9 @@ for option in autocd globstar; do
     shopt -s "$option" 2> /dev/null;
 done;
 
+# convox
+test -e "${HOME}/.convox/completion.bash" && source ~/.convox/completion.bash
+export CONVOX_WAIT=true
 
 export BASHDIR="$HOME/.bash.d"
 for file in $BASHDIR/*.bash; do
@@ -32,3 +35,5 @@ unset file;
 if [ -f ~/.bash_local ]; then
     [ -r ~/.bash_local ] && source ~/.bash_local;
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

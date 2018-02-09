@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Homebrew
 #   http://brew.sh/
 # Homebrew Cask
@@ -66,6 +67,7 @@ brew install tmux
 brew install tofrodos
 brew install tree
 brew install wget
+brew install duti
 
 # special care is taken with macvim...
 # brew install macvim
@@ -78,6 +80,7 @@ brew link python
 # GUI apps
 ################################################################################
 
+brew cask install the-unarchiver
 brew cask install alfred
 brew cask install caffeine
 brew cask install dropbox
@@ -89,6 +92,9 @@ brew cask install google-drive
 brew cask install google-hangouts
 brew cask install gpgtools
 brew cask install iterm2
+# allow shell integration
+curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
+
 brew cask install java
 brew cask install moom
 brew cask install 1password
@@ -99,11 +105,11 @@ brew cask install appcleaner
 brew cask install omnidisksweeper
 brew cask install onyx
 # patterns
-brew cask install prezi
-brew cask install proximity
+# prezi
+# proximity
 # Radia
 brew cask install skitch
-# brew cask install skype
+# skype
 brew cask install sourcetree
 brew cask install sublime-text
 brew cask install virtualbox
@@ -129,6 +135,7 @@ pip install --upgrade virtualenv virtualenvwrapper atomac docopt ropevim
 brew tap caskroom/fonts                  # you only have to do this once!
 brew update
 
+brew cask install font-hack-nerd-font
 brew cask install font-inconsolata
 brew cask install font-dejavu-sans-mono-for-powerline
 brew cask install font-anonymous-pro-for-powerline
@@ -142,17 +149,14 @@ brew cask install font-inconsolata-dz-for-powerline
 brew cask install font-fira-mono-for-powerline
 brew cask install font-droid-sans-mono-for-powerline
 
-if [[ ! -d .dotfiles ]]; then
-    git clone https://github.com/xuru/dotfiles.git .dotfiles
-else
-    python ./.dotfiles/engage.py --verbose
-    . ./.dotfiles/osx
-fi
-
-# build C component of you complete me...
-cd ~/.vim/bundle/YouCompleteMe
-./install.py
-cd ~
+# if [[ ! -d .dotfiles ]]; then
+#     git clone https://github.com/xuru/dotfiles.git .dotfiles
+# else
+#     python ./.dotfiles/engage.py --verbose
+#     . ./.dotfiles/osx
+# fi
+python ./engage.py --verbose
+. ./osx
 
 # install the rest of the bundles.
-vim +PluginInstall +qall
+vim +PlugInstall +qall
