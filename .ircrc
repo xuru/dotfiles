@@ -1,0 +1,24 @@
+server irc.freenode.net
+set display off
+nick xuru
+msg nickserv identify zip100
+
+
+set auto_away off
+set auto_unmark_away on
+set auto_whowas on
+set beep off
+set beep_max 0
+set clock_24hour off
+set history_file ~/.irchistory
+set input_aliases off
+set lastlog 1000
+set log on
+set novice off
+set show_always_once on
+set show_channel_names on
+set suppress_server_motd on
+
+join #schlubs
+
+set display on

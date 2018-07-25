@@ -3,7 +3,7 @@
 ################################################################################
 # homebrew specific stuff
 ################################################################################
-if test "$OS" = "Darwin"; then
+if test "$OS" = "macosx"; then
     if check_installed brew; then
         export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 

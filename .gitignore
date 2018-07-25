@@ -18,3 +18,4 @@ plug.vim
 .vim/autoload
 .vim/temp/undodir
 .idea/*
+.config/direnv

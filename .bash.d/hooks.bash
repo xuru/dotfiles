@@ -1,3 +1,13 @@
-# direnv (https://direnv.net/)
-# eval "$(direnv hook bash)"
+if [ -f /usr/local/bin/direnv ]; then
+  eval "$(direnv hook bash)"
+
+
+    show_virtual_env() {
+        if [ -n "$VIRTUAL_ENV" ]; then
+            virtualenv=`basename "$VIRTUAL_ENV"`
+            echo "($virtualenv) "
+        fi
+    }
+    PS1='($(show_virtual_env))'$PS1
+fi
 

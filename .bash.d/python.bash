@@ -50,7 +50,14 @@ alias ptail="multitail --config $confpath -CS plogging -ev \"HEAD /favicon.ico\"
 export PYTHONPATH=$PYTHONPATH:${HOME}/lib/python
 export PYTHONIOENCODING=utf_8
 # locally installed python packages/scripts
-export PATH=${HOME}/.local/bin:${PATH}
+
+if [ -d $HOME/.local/bin ]; then
+    export PATH=${HOME}/.local/bin:${PATH}
+fi
+
+if [ -d $HOME/Library/Python/3.6/bin ]; then
+    export PATH=$PATH:${HOME}/Library/Python/3.6/bin
+fi
 
 # pip should only run if there is a virtualenv currently activated
 #export PIP_REQUIRE_VIRTUALENV=true
