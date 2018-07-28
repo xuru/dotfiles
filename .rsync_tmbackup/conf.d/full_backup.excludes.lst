@@ -1,0 +1,27 @@
+- Applications
+- Desktop
+- Dropbox
+- Library
+- Music
+- Pictures
+- VirtualBox\ VMs
+- tmp
+- .DS_Store
+- .Trash
+- .dropbox
+- .cache
+- .npm
+- .pyenv
+- .vagant.d
+- __MACOSX
+- /Downloads/*.dmg
+- node_modulesk
+
+#temporary files
+- *.tmp
+- *.temp
+- *.pyc
+- __pycache__
+- *~
+
+
