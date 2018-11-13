@@ -3,6 +3,6 @@
 ################################################################################
 # cscope specific stuff
 ################################################################################
-if check_installed cscope; then
-    CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB   
+if installed cscope; then
+    CSCOPE_DB=${HOME}/.cscope/cscope.out; export CSCOPE_DB
 fi

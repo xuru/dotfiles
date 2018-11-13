@@ -71,7 +71,7 @@ if test "$OS" = "macosx"; then
     # Colorizer
     # brew install grc
     ################################################################################
-    if check_installed grc; then
+    if installed grc; then
         source_if_exists "`brew --prefix`/etc/grc.bashrc"
     fi
 

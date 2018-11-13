@@ -8,4 +8,4 @@
 # specific configuration)
 export ACKRC=".ackrc"
 
-check_installed ack
+installed "ack" || brew install ack

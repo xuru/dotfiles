@@ -16,6 +16,9 @@ Options:
 
 """
 
+# TODO: check for installed apps and prompt:
+# virtualenvwrapper
+
 from docopt import docopt
 
 import os

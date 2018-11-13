@@ -4,7 +4,7 @@
 # homebrew specific stuff
 ################################################################################
 if test "$OS" = "macosx"; then
-    if check_installed brew; then
+    if installed brew; then
         export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
         # Setup homebrew auto-completion on the Mac

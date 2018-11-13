@@ -5,7 +5,7 @@
 ################################################################################
 case "$OS" in
 Linux*)
-    if check_installed meld; then
+    if installed meld; then
         export GIT_EXTERNAL_DIFF=/usr/bin/meld
     fi
     ;;

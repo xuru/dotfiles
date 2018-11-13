@@ -3,6 +3,126 @@
 # See: https://github.com/mathiasbynens/dotfiles
 ############################################################
 
+check_ret() {
+    RET=$?
+    if [[ $RET -ne 0 ]] ; then
+        $ECHO $1 failed
+        exit 2
+    fi
+}
+
+
+find_os() {
+    uname_s=`uname -s`
+    check_ret uname
+    case $uname_s in
+        CYGWIN_NT-5.2-WOW64) OS=winnt;;
+        *CYGWIN_NT*) OS=winnt;;
+        *CYGWIN*) OS=winnt;;
+        *darwin*) OS=macosx;;
+        *Darwin*) OS=macosx;;
+        *linux*) OS=linux;;
+        *Linux*) OS=linux;;
+        *NetBSD*) OS=netbsd;;
+        *FreeBSD*) OS=freebsd;;
+        *OpenBSD*) OS=openbsd;;
+        *DragonFly*) OS=dragonflybsd;;
+    esac
+}
+
+
+find_architecture() {
+    uname_m=`uname -m`
+    check_ret uname
+    case $uname_m in
+        i386) ARCH=x86;;
+        i686) ARCH=x86;;
+        amd64) ARCH=x86;;
+        ppc64) ARCH=ppc;;
+        *86) ARCH=x86;;
+        *86_64) ARCH=x86;;
+        "Power Macintosh") ARCH=ppc;;
+    esac
+}
+
+function installed() {
+    [ -n `type -p $1` ]
+}
+
+
+function check_installed() {
+    if ! [[ -n `type -p $1` ]] ; then
+        prt_warn "$1 is not installed"
+    fi
+}
+
+function set_downloader() {
+    test_program_installed wget curl
+    if [[ $? -ne 0 ]] ; then
+        DOWNLOADER=wget
+    else
+        DOWNLOADER="curl -O"
+    fi
+}
+
+function prt_error() {
+    echo "$(tput setaf 1)$1$(tput sgr0)"
+}
+
+function prt_warn() {
+    echo "$(tput setaf 5)$1$(tput sgr0)"
+}
+
+function prt() {
+    echo "$(tput setaf 2)$1$(tput sgr0)"
+}
+
+function source_if_exists() {
+    if test -e "$1"; then
+        . "$1"
+    else
+        prt_warn "Couldn't source $1"
+    fi
+}
+
+function contains() {
+    local array="$1[@]"
+    local seeking=$2
+    local in=1
+    for element in "${!array}"; do
+        echo "${element} == ${seeking}";
+        if [[ "${element}" == "${seeking}" ]]; then
+            in=0
+            break
+        fi
+    done
+    return ${in}
+}
+
+
+# pathmunge /path/to/add [after]
+function pathmunge () {
+    if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
+       if [ "$2" = "after" ] ; then
+          export PATH="$PATH:$1"
+       else
+          export PATH="$1:$PATH"
+       fi
+    fi
+}
+
+# pypathmunge /path/to/add [after]
+function pypathmunge () {
+    if ! echo "$PYTHONPATH" | grep -Eq "(^|:)$1($|:)" ; then
+       if [ "$2" = "after" ] ; then
+          export PYTHONPATH="$PYTHONPATH:$1"
+       else
+          export PYTHONPATH="$1:$PYTHONPATH"
+       fi
+    fi
+}
+
+
 # Simple calculator
 function calc() {
     local result="";

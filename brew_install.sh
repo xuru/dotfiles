@@ -5,134 +5,139 @@
 #   http://caskroom.io/
 #
 
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+function prt_error() {
+    echo "$(tput setaf 1)$1$(tput sgr0)"
+}
+
+function prt_warn() {
+    echo "$(tput setaf 5)$1$(tput sgr0)"
+}
+
+function prt() {
+    echo "$(tput setaf 2)$1$(tput sgr0)"
+}
+
+function check_installed() {
+    if ! [[ -n `type -p $1` ]] ; then
+        prt_warn "$1 is not installed"
+        return 0;
+    fi
+    return 1;
+}
+
+
 # Before we begin:
 #
 # * Install XCode
-# * Install XQuartz: https://xquartz.macosforge.org
-#
-# * bash_completion
-# * grc
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+if ! check_installed xcodebuild; then
+    prt_error "XCode is not installed."
+    xcode-select --install
+fi
+
 
 if [ ! -d /usr/local ]; then
     sudo mkdir /usr/local
+    sudo chmod 775 /usr/local
 fi
-sudo chown -R $(whoami):admin /usr/local
 
 if [ ! -x /usr/local/bin/brew ]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-cd ~
-
 brew update
 brew upgrade
-brew prune
-brew cleanup
-brew linkapps
 
 # brew cask
 brew tap caskroom/cask
+brew tap caskroom/fonts
 
-## Lib
-brew install libevent
-brew install libxml2
-brew install libxslt
 
-# completion
-brew install bash-completion
-brew install homebrew/completions/pip-completion
-brew install homebrew/completions/vagrant-completion
-brew install homebrew/completions/django-completion
-brew install homebrew/completions/brew-cask-completion
-# brew install homebrew/versions/bash-completion2
+pkgs=(
+    ack autoconf bash-completion cmake cscope ctags direnv duti gdbm gettext git git-flow grc htop
+    libevent libidn2 libunistring nmap openssl pcre2 pkg-config postgresql@9.5 pyenv
+    python readline sqlite tmux tofrodos tree wget xz
+)
 
-# python
-brew install python
-brew install python3
 
-# apps
-brew install htop
-brew install ack
-brew install ctags
-brew install cmake
-brew install cscope
-brew install git
-brew install git-flow
-brew install grc
-brew install nmap
-brew install openssl
-brew install readline
-brew install tmux
-brew install tofrodos
-brew install tree
-brew install wget
-brew install duti
-
-# special care is taken with macvim...
-# brew install macvim
-brew unlink python
-brew install -v --force macvim --env-std --override-system-vim --python --cscope
-brew link macvim
-brew link python
+for pkg in "${pkgs[@]}"
+do
+    echo "Installing $pkg"
+    brew install ${pkg}
+done
 
 ################################################################################
 # GUI apps
 ################################################################################
+cask_apps=(
+    1password
+    alfred
+    appcleaner
+    bartender
+    caffeine
+    dash
+    disk-inventory-x
+    dropbox
+    firefox
+    flux
+    font-dejavu-sans-mono-for-powerline
+    font-droid-sans-mono-for-powerline
+    font-fira-mono-for-powerline
+    font-hack-nerd-font
+    font-inconsolata
+    font-inconsolata-dz-for-powerline
+    font-inconsolata-for-powerline
+    font-inconsolata-g-for-powerline
+    font-liberation-mono-for-powerline
+    google-chrome
+    google-hangouts
+    gpg-suite
+    iterm2
+    java
+    macvim
+    malwarebytes
+    moom
+    omnidisksweeper
+    onyx
+    osxfuse
+    postman
+    rocket
+    skitch
+    slack
+    sourcetree
+    spotify
+    textual
+    the-unarchiver
+    trailer
+    tunnelblick
+    vagrant
+    vanilla
+    veracrypt
+    virtualbox
+    virtualbox-extension-pack
+    vlc
+    xquartz
+    yujitach-menumeters
+)
 
-brew cask install the-unarchiver
-brew cask install alfred
-brew cask install caffeine
-brew cask install dropbox
-brew cask install dash
-brew cask install flux
-brew cask install github-desktop
-brew cask install google-chrome
-brew cask install google-drive
-brew cask install google-hangouts
-brew cask install gpgtools
-brew cask install iterm2
+for app in "${cask_apps[@]}"
+do
+    echo "Installing $app"
+done
+
+
 # allow shell integration
 curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
 
-brew cask install java
-brew cask install moom
-brew cask install 1password
-
-brew cask install malwarebytes-anti-malware
-brew cask install macclean
-brew cask install appcleaner
-brew cask install omnidisksweeper
-brew cask install onyx
 # patterns
 # prezi
 # proximity
-# Radia
-brew cask install skitch
-# skype
-brew cask install sourcetree
-brew cask install sublime-text
-brew cask install virtualbox
-brew cask install vagrant
-brew cask install vagrant-manager
-brew cask install vlc
 
-brew cask install textual
-brew cask install postman
-
-# vmware-fusion
-brew cask install xquartz
-
-brew cask cleanup
-
-# setup a few things with python
-export PATH=/usr/local/bin:$PATH
-
-pip install --upgrade pip setuptools
-pip install --upgrade virtualenv virtualenvwrapper atomac docopt ropevim
+brew prune
+brew cleanup
 
 # setup fonts
-brew tap caskroom/fonts                  # you only have to do this once!
 brew update
 
 brew cask install font-hack-nerd-font

@@ -11,7 +11,7 @@ if test "$OS" = "Linux"; then
     export MOZ_DISABLE_PANGO=1
     export FIREFOX_DSP=none
 
-    if check_installed meld; then
+    if installed meld; then
         export SVN_MERGE=/usr/bin/meld
         export SVN_DIFF=/usr/bin/meld
     fi
