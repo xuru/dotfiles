@@ -1,4 +1,5 @@
-# vim: set ts=4 sw=4 tw=80 syntax=sh :
+#!/usr/bin/env bash
+#  vim: set ts=4 sw=4 tw=80 syntax=sh :
 #
 ################################################################################
 # Linux specific stuff
@@ -16,7 +17,7 @@ if test "$OS" = "Linux"; then
         export SVN_DIFF=/usr/bin/meld
     fi
 
-    if [ -e /usr/bin/ack-grep ]; then
+    if installed ack-grep; then
         alias ack=ack-grep
     fi
 fi

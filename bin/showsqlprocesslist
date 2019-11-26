@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while [ 1 -le 1 ]
+do
+         mysql --port=3306 --protocol=tcp --password="bwell@123" --user=root --host=127.0.0.1 -e "show processlist\G" | grep Info | grep -v processlist | grep -v "Info: NULL" | grep -v "Using a password";
+done
+

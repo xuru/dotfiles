@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#  vim: set ts=4 sw=4 tw=80 syntax=sh :
+#
 
 SSH_ENV="$HOME/.ssh/environment"
 
@@ -11,19 +13,20 @@ function start_agent {
      /usr/bin/ssh-add;
 }
 
-# Source SSH settings, if applicable
-if [ -f "${SSH_ENV}" ]; then
+# Source SSH settings, if applicable and start ssh-agent
+if [[ -f "${SSH_ENV}" ]]; then
      . "${SSH_ENV}" > /dev/null
-     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent > /dev/null || {
          start_agent;
      }
 else
      start_agent;
 fi
 
-ssh_keys=$(find -E ~/.ssh -type f -regex '.*(rsa$)')
-
-for k in ${ssh_keys}; do
-    ssh-add "${k}" > /dev/null 2>&1
+# add all private keys
+ssh_files=$(find -E ~/.ssh -type f)
+for k in ${ssh_files}; do
+    if grep -q "PRIVATE KEY" "$k"; then
+        ssh-add "${k}" > /dev/null 2>&1
+    fi
 done
-

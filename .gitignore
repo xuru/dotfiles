@@ -19,3 +19,4 @@ plug.vim
 .vim/temp/undodir
 .idea/
 .config/direnv
+git_hooks/*

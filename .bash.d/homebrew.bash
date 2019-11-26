@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #  vim: set ts=4 sw=4 tw=80 syntax=sh :
 #
 ################################################################################
@@ -11,7 +12,7 @@ if test "$OS" = "macosx"; then
         source_if_exists `brew --prefix`/etc/bash_completion
 
         # add completion
-        if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        if [[ -f $(brew --prefix)/etc/bash_completion ]]; then
             . $(brew --prefix)/etc/bash_completion
         fi
     fi

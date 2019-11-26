@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#  vim: set ts=4 sw=4 tw=80 syntax=sh :
+#
 ############################################################
 # See: https://github.com/mathiasbynens/dotfiles
 ############################################################
@@ -16,17 +18,17 @@ find_os() {
     uname_s=`uname -s`
     check_ret uname
     case $uname_s in
-        CYGWIN_NT-5.2-WOW64) OS=winnt;;
-        *CYGWIN_NT*) OS=winnt;;
-        *CYGWIN*) OS=winnt;;
-        *darwin*) OS=macosx;;
-        *Darwin*) OS=macosx;;
-        *linux*) OS=linux;;
-        *Linux*) OS=linux;;
-        *NetBSD*) OS=netbsd;;
-        *FreeBSD*) OS=freebsd;;
-        *OpenBSD*) OS=openbsd;;
-        *DragonFly*) OS=dragonflybsd;;
+        CYGWIN_NT-5.2-WOW64) export OS=winnt;;
+        *CYGWIN_NT*) export OS=winnt;;
+        *CYGWIN*) export OS=winnt;;
+        *darwin*) export OS=macosx;;
+        *Darwin*) export OS=macosx;;
+        *linux*) export OS=linux;;
+        *Linux*) export OS=linux;;
+        *NetBSD*) export OS=netbsd;;
+        *FreeBSD*) export OS=freebsd;;
+        *OpenBSD*) export OS=openbsd;;
+        *DragonFly*) export OS=dragonflybsd;;
     esac
 }
 
@@ -35,18 +37,19 @@ find_architecture() {
     uname_m=`uname -m`
     check_ret uname
     case $uname_m in
-        i386) ARCH=x86;;
-        i686) ARCH=x86;;
-        amd64) ARCH=x86;;
-        ppc64) ARCH=ppc;;
-        *86) ARCH=x86;;
-        *86_64) ARCH=x86;;
-        "Power Macintosh") ARCH=ppc;;
+        i386) export ARCH=x86;;
+        i686) export ARCH=x86;;
+        amd64) export ARCH=x86;;
+        ppc64) export ARCH=ppc;;
+        *86) export ARCH=x86;;
+        *86_64) export ARCH=x86;;
+        "Power Macintosh") export ARCH=ppc;;
     esac
 }
 
+
 function installed() {
-    [ -n `type -p $1` ]
+    [[ -n `type -p $1` ]]
 }
 
 
@@ -57,8 +60,7 @@ function check_installed() {
 }
 
 function set_downloader() {
-    test_program_installed wget curl
-    if [[ $? -ne 0 ]] ; then
+    if installed wget; then
         DOWNLOADER=wget
     else
         DOWNLOADER="curl -O"
@@ -103,7 +105,7 @@ function contains() {
 # pathmunge /path/to/add [after]
 function pathmunge () {
     if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
-       if [ "$2" = "after" ] ; then
+       if [[ "$2" = "after" ]] ; then
           export PATH="$PATH:$1"
        else
           export PATH="$1:$PATH"
@@ -114,7 +116,7 @@ function pathmunge () {
 # pypathmunge /path/to/add [after]
 function pypathmunge () {
     if ! echo "$PYTHONPATH" | grep -Eq "(^|:)$1($|:)" ; then
-       if [ "$2" = "after" ] ; then
+       if [[ "$2" = "after" ]] ; then
           export PYTHONPATH="$PYTHONPATH:$1"
        else
           export PYTHONPATH="$1:$PYTHONPATH"
@@ -175,7 +177,7 @@ function targz() {
 
     echo "Compressing .tar ($((size / 1000)) kB) using \`${cmd}\`…";
     "${cmd}" -v "${tmpFile}" || return 1;
-    [ -f "${tmpFile}" ] && rm "${tmpFile}";
+    [[ -f "${tmpFile}" ]] && rm "${tmpFile}";
 
     zippedSize=$(
         stat -f"%z" "${tmpFile}.gz" 2> /dev/null; # macOS `stat`
@@ -201,7 +203,7 @@ function fs() {
 
 # Use Git’s colored diff when available
 hash git &>/dev/null;
-if [ $? -eq 0 ]; then
+if [[ $? -eq 0 ]]; then
     function diff() {
         git diff --no-index --color-words "$@";
     }
@@ -218,7 +220,7 @@ function dataurl() {
 
 # Create a git.io short URL
 function gitio() {
-    if [ -z "${1}" -o -z "${2}" ]; then
+    if [[ -z "${1}" || -z "${2}" ]]; then
         echo "Usage: \`gitio slug url\`";
         return 1;
     fi;
@@ -255,7 +257,7 @@ function gz() {
 # Syntax-highlight JSON strings or files
 # Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
 function json() {
-    if [ -t 0 ]; then # argument
+    if [[ -t 0 ]]; then # argument
         python -mjson.tool <<< "$*" | pygmentize -l javascript;
     else # pipe
         python -mjson.tool | pygmentize -l javascript;
@@ -271,7 +273,7 @@ function digga() {
 function escape() {
     printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
     # print a newline unless we’re piping the output to another program
-    if [ -t 1 ]; then
+    if [[ -t 1 ]]; then
         echo ""; # newline
     fi;
 }
@@ -280,7 +282,7 @@ function escape() {
 function unidecode() {
     perl -e "binmode(STDOUT, ':utf8'); print \"$@\"";
     # print a newline unless we’re piping the output to another program
-    if [ -t 1 ]; then
+    if [[ -t 1 ]]; then
         echo ""; # newline
     fi;
 }
@@ -289,7 +291,7 @@ function unidecode() {
 function codepoint() {
     perl -e "use utf8; print sprintf('U+%04X', ord(\"$@\"))";
     # print a newline unless we’re piping the output to another program
-    if [ -t 1 ]; then
+    if [[ -t 1 ]]; then
         echo ""; # newline
     fi;
 }
@@ -297,7 +299,7 @@ function codepoint() {
 # Show all the names (CNs and SANs) listed in the SSL certificate
 # for a given domain
 function getcertnames() {
-    if [ -z "${1}" ]; then
+    if [[ -z "${1}" ]]; then
         echo "ERROR: No domain specified.";
         return 1;
     fi;
@@ -331,7 +333,7 @@ function getcertnames() {
 # `s` with no arguments opens the current directory in Sublime Text, otherwise
 # opens the given location
 function s() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         subl .;
     else
         subl "$@";
@@ -341,7 +343,7 @@ function s() {
 # `a` with no arguments opens the current directory in Atom Editor, otherwise
 # opens the given location
 function a() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         atom .;
     else
         atom "$@";
@@ -351,7 +353,7 @@ function a() {
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
 function v() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         vim .;
     else
         vim "$@";
@@ -361,7 +363,7 @@ function v() {
 # `o` with no arguments opens the current directory, otherwise opens the given
 # location
 function o() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         open .;
     else
         open "$@";

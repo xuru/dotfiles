@@ -1,9 +1,50 @@
+# ~/.config/direnv/direnvrc: Global configuration for direnv to make it compliant
+# with pyenv -- see https://direnv.net/
+#
+# Adapted from
+#  - https://github.com/direnv/direnv/wiki/Python#-pyenv and
+#  - https://github.com/direnv/direnv/wiki/Python#-virtualenvwrapper
+#
+# use a certain pyenv version
+#
+
+use_python() {
+    if [ -n "$(which pyenv)" ]; then
+        local pyversion=$1
+        pyenv local ${pyversion}
+    fi
+}
+
+# layout virtualenv 2.7.14 envname
+layout_virtualenv() {
+    local pyversion=$1
+    local pvenv=$2
+    if [ -n "$(which pyenv-virtualenv)" ]; then
+        pyenv virtualenv --force --quiet ${pyversion} ${pvenv}-${pyversion}
+    fi
+    pyenv local --unset
+}
+
+# layout activate envname-2.7.14
+layout_activate() {
+    if [ -n "$(which pyenv)" ]; then
+        source $PYENV_ROOT/versions/$1/bin/activate
+    fi
+}
+
+# layout virtualenv envpath
 layout_virtualenv() {
   local venv_path="$1"
   source ${venv_path}/bin/activate
 }
 
+# pyenv local 2.7.14
+# mkvirtualenv envname
+# layout virtualenv envname
 layout_virtualenvwrapper() {
   local venv_path="${WORKON_HOME}/$1"
   layout_virtualenv $venv_path
 }
+
+
+# vim: ft=sh :

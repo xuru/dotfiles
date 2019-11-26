@@ -2,6 +2,16 @@
 # vim: set ts=4 sw=4 tw=80 syntax=bash
 set +e
 
+# Adapted from https://mths.be/macos
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+
+# Of note:
+#    https://github.com/herrbischoff/awesome-macos-command-line
+
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
 function defaults_write {
     echo "  defaults write $1 $2 $3 $4 $5 $6"
     defaults write $1 $2 $3 $4 $5 $6
@@ -102,7 +112,7 @@ function osx_general {
     sudo scutil --set HostName "xuru.mbp.local"
     sudo scutil --set LocalHostName "xuru"
 
-    sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "mbp"
+    sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "xuru"
     defaults_write com.apple.screensaver askForPassword -int 1
     defaults_write com.apple.screensaver askForPasswordDelay -int 0
     defaults_write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false  # Disable auto-correct

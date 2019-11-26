@@ -1,9 +1,11 @@
+#!/usr/bin/env bash
 #  vim: set ts=4 sw=4 tw=80 syntax=sh :
+#
 
 ## Standard aliases - convenience
 # Color syntax
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if [[ -x /usr/bin/dircolors ]]; then
     eval "`dircolors -b`"
 fi
 
@@ -23,14 +25,16 @@ else
     alias vim=vi
 fi
 
-if [ -e `which less` ]; then
+if [[ -e `which less` ]]; then
     alias more='less'
 fi
 
 alias dos2unix='fromdos'
 alias unix2dos='todos'
 
-alias fuck='$(thefuck $(fc -ln -1))'
+if installed "thefuck"; then
+    alias fuck='$(thefuck $(fc -ln -1))'
+fi
 
 ################################################################################
 # find...
@@ -174,7 +178,7 @@ command -v sha1sum > /dev/null || alias sha1sum="shasum"
 
 # JavaScriptCore REPL
 jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc";
-[ -e "${jscbin}" ] && alias jsc="${jscbin}";
+[[ -e "${jscbin}" ]] && alias jsc="${jscbin}";
 unset jscbin;
 
 # Trim new lines and copy to clipboard

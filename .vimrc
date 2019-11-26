@@ -445,6 +445,8 @@ hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=da
 " autoclose
 inoremap ( ()<Left>
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+" alternate escape key... thanks apple
+inoremap jj <esc>
 
 set wildignore=*.pyc,*~
 

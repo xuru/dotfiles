@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #  vim: set ts=4 sw=4 tw=80 syntax=sh :
 #
 ################################################################################
@@ -7,5 +8,3 @@
 # this makes it look in the current directory on up for the .ackrc (for project
 # specific configuration)
 export ACKRC=".ackrc"
-
-installed "ack" || brew install ack
