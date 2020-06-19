@@ -78,35 +78,34 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ################################################################################
 # Clone dotfiles
 ################################################################################
-bootstrap_echo "Cloning dotfiles..."
+# bootstrap_echo "Cloning dotfiles..."
 
-if [[ -d ${DOTFILES_DIR} ]]; then
-  bootstrap_echo "Backing up old dotfiles to $HOME/old_dotfiles_backup..."
-  rm -rf "$OLD_DOTFILES_BACKUP"
-  cp -R "$DOTFILES_DIR" "$OLD_DOTFILES_BACKUP"
-  rm -rf "$DOTFILES_DIR"
-fi
-git clone "$DOTFILES_REPO_URL" -b "$DOTFILES_BRANCH" "$DOTFILES_DIR"
-bootstrap_echo "Done!"
+# if [[ -d ${DOTFILES_DIR} ]]; then
+#   bootstrap_echo "Backing up old dotfiles to $HOME/old_dotfiles_backup..."
+#   rm -rf "$OLD_DOTFILES_BACKUP"
+#   cp -R "$DOTFILES_DIR" "$OLD_DOTFILES_BACKUP"
+#   rm -rf "$DOTFILES_DIR"
+# fi
+# git clone "$DOTFILES_REPO_URL" -b "$DOTFILES_BRANCH" "$DOTFILES_DIR"
+# bootstrap_echo "Done!"
 
 source ${DOTFILES_DIR}/.bash.d/scripts/functions.sh
-
-################################################################################
-# Setup dotfiles
-################################################################################
-bootstrap_echo "Setting up dotfiles..."
-source "$DOTFILES_DIR"/install.sh
-
-# python "$DOTFILES_DIR"/engage.py --verbose
-
-bootstrap_echo "Done!"
 
 ################################################################################
 # Install apps with homebrew
 ################################################################################
 bootstrap_echo "Installing applications..."
 
-sh "$DOTFILES_DIR"/brew_install.sh 2>&1 | tee ~/brew_install.log
+brew bundle install 2>&1 | tee ~/brew_install.log
+
+bootstrap_echo "Done!"
+
+################################################################################
+# Setup dotfiles
+################################################################################
+bootstrap_echo "Setting up dotfiles..."
+
+python3 "$DOTFILES_DIR"/engage.py --verbose
 
 bootstrap_echo "Done!"
 
@@ -115,11 +114,7 @@ bootstrap_echo "Done!"
 ################################################################################
 bootstrap_echo "Installing Vundle and vim plugins..."
 
-if [[ -d "$HOME"/.vim/bundle ]]; then
-    rm -rf "$HOME"/.vim/bundle
-fi
-git clone https://github.com/VundleVim/Vundle.vim.git "$HOME"/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
+vim +PlugInstall +qall
 
 bootstrap_echo "Done!"
 
@@ -128,7 +123,7 @@ bootstrap_echo "Done!"
 ################################################################################
 bootstrap_echo "Setting macOS preferences..."
 
-source "$DOTFILES_DIR"/install/macos-defaults.sh
+# source "$DOTFILES_DIR"/install/macos-defaults.sh
 
 bootstrap_echo "Done!"
 

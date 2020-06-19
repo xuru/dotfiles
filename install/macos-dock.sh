@@ -13,4 +13,9 @@ dockutil --no-restart --add "/Applications/Slack.app" # MAS
 dockutil --no-restart --add "/Applications/iTerm.app" # Cask
 dockutil --no-restart --add "/Applications/System Preferences.app" # Default app
 
+dockutil --no-restart --add '~/Dropbox' --view list --display folder --replacing 'Dropbox'
+dockutil --no-restart --add '~/Applications' --view list --display folder --replacing 'Applications'
+dockutil --no-restart --add '~/Documents' --view list --display folder --replacing 'Documents'
+dockutil --no-restart --add '~/Downloads' --view list --display folder --replacing 'Downloads'
+
 killall Dock

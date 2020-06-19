@@ -81,18 +81,18 @@ class Linker(object):
                 self._backup_file(slink)
             if not self.dry_run:
                 os.symlink(orig, slink)
-
-    def symtastico(self, origin, destination, include, excludes=None, dirs=None):
+    
+    def symtastico(self, origin, destination, includes=None, excludes=None):
         """ Given an origin directory and a destination directory, link files from destination to origin
         """
         exfiles = self._get_excluded_files(origin, excludes)
-        files = set(glob(join(origin, include))) - set(exfiles)
+        files = []
+        for include in includes:
+            files += [f for f in glob(join(origin, include)) if f not in exfiles]
 
         for f in files:
             slink = join(destination, basename(f))
-
-            if not isdir(slink):
-                self._relink(slink, f)
+            self._relink(slink, f)
 
 
 def _ssh_dir(linker):
@@ -106,7 +106,7 @@ def _ssh_dir(linker):
         os.chmod(sshdir, 0x0700)
 
     linker.symtastico(
-        join(HERE, '.ssh'), sshdir, '*', excludes=["*~", ".*~"])
+        join(HERE, '.ssh'), sshdir, includes=['*'], excludes=["*~", ".*~"])
 
     excludes = [join(sshdir, 'config'), join(sshdir, 'known_hosts')]
     keys = set(glob(join(sshdir, '*'))) - set(excludes)
@@ -125,16 +125,16 @@ def main(options):
     # all the dot files first
     # --------------------------------------------------------------------------------
     linker.symtastico(
-        origin=HERE, destination=HOME, include='.*', excludes=["*~", ".*~", ".ssh"], dirs=['bin', '.config'])
+        origin=HERE, destination=HOME, includes=['.*', "bin"], excludes=["*~", ".*~", ".ssh"])
 
     # --------------------------------------------------------------------------------
     # bin directory...
     # --------------------------------------------------------------------------------
-    if not exists(join(HOME, 'bin')):
-        os.makedirs(join(HOME, 'bin'))
+    # if not exists(join(HOME, 'bin')):
+    #     os.makedirs(join(HOME, 'bin'))
 
-    linker.symtastico(
-        join(HERE, 'bin'), join(HOME, 'bin'), '*', excludes=["*~", ".*~"])
+    # linker.symtastico(
+    #     join(HERE, 'bin'), join(HOME, 'bin'), '*', excludes=["*~", ".*~"])
 
     # --------------------------------------------------------------------------------
     # ssh directory
