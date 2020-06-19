@@ -8,7 +8,7 @@ set +e
 ########################################
 
 # Case insensitive string comparison
-shopt -s nocaseglob
+# shopt -s nocaseglob
 
 ECHO=echo
 OS=
