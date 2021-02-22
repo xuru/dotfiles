@@ -38,13 +38,11 @@ zstyle :omz:plugins:ssh-agent identities talentpair github aws-eb
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  poetry
   brew
   thefuck
   git
   direnv
   ssh-agent
-  pyenv
   zsh-autosuggestions
   zsh-syntax-highlighting
   vagrant
@@ -105,6 +103,3 @@ unsetopt HIST_EXPIRE_DUPS_FIRST
 end=$EPOCHREALTIME
 
 printf "+++Loaded files in %0.4f seconds\n\n" $(($end-$start))
-export PATH="/usr/local/opt/qt/bin:$PATH"
-
-export PATH="$HOME/.poetry/bin:$PATH"

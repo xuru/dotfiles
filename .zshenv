@@ -48,8 +48,13 @@ export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
 
-# VIRTUALENVWRAPPER
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+export PATH="$PATH:$(brew --prefix pyenv)"
+eval "$(pyenv init -)"
+
+# use pyenv to create virtualenvs by default
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+pyenv virtualenvwrapper
+
 
 export ACKRC=".ackrc"
 
@@ -60,13 +65,3 @@ if [[ "$OS" == "macosx" ]]; then
 fi
 
 pathmunge "$HOME/bin"
-
-export POETRY_VIRTUALENVS_PATH="${HOME}/.virtualenvs"
-
-openssl_path=$(/usr/local/bin/brew --prefix openssl)
-readline_path=$(/usr/local/bin/brew --prefix readline)
-xcode_path=$(/usr/bin/xcrun --show-sdk-path)
-
-export CFLAGS="-I${readline_path}/include -I${openssl_path}/include -I${xcode_path}/usr/include -O2"
-export LDFLAGS="-L${readline_path}/lib -L${openssl_path}/lib -L${xcode_path}/usr/lib"
-export PYTHON_CONFIGURE_OPTS=--enable-unicode=ucs2
