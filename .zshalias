@@ -1,0 +1,94 @@
+# TERMINAL ALIASES - PERSONA IO
+# JAN 2015
+#
+
+# VARS
+EMAIL="$EMAIL"
+
+# SYSTEM --------------------------
+# SOME FROM Damian Conway
+
+alias o='open . &' # QUICK OPEN IN FINDER WITH "O"
+alias tu='top -o cpu' # QUICK LOOK AT CPU USAGE
+alias tm='top -o vsize' # QUICK LOOK AT MEMOERY USAGE
+alias cl='clear; l' # CLEAR THEN LIST
+alias a='ls -A' # LIST ALL EXCEPT LITERAL
+alias la="ls -A -l -G" # LIST ALL - EXPANDED
+alias l.='ls -d .[^.]*' # LIST HIDDEN FILES
+alias lh="ls -lh" # UNKNOWN LIST TYPE
+alias l='ls -lhGt'  #  LONG LISTING < RECENT FIRST
+alias ll='ls -lhG'  # LONG LISTING, HUMAN READABLE, NO GROUP INFO
+alias lt='ls -lt' # LIST BY LAST MODIFIED
+alias c='clear' # CLEAR TERMINAL
+alias cls='clear; ls' # CLEAR - LIST DIR
+alias h='history' # TERMINAL HISTORY
+alias cdd='cd -'  # RETURN TO THE LAST DIR CHANGED FROM
+alias md='mkdir -p' # CREATE DIR , CREATE PARENT DIR IF IT DOES EXIST
+alias up='cd ..'   # MOVE UP ONE DIR
+alias e='exit'  # EXIT CMD
+alias k9="killall -9" # KILL BY PROC ID
+alias spell="aspell"
+alias ports='sudo lsof -i -P | grep -i "listen"' # LIST OPEN PORTS
+alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)" # GET LOCAL IPS
+
+# ANIMATION FUNCTIONS --------------------------
+
+# GRC OVERIDES FOR LS
+#   MADE POSSIBLE THROUGH CONTRIBUTIONS FROM GENEROUS BENEFACTORS LIKE
+#   `BREW INSTALL COREUTILS`
+if hash gls
+then
+  alias g-ls="gls -F --color"
+  alias g-l="gls -lAh --color"
+  alias g-ll="gls -l --color"
+  alias g-la='gls -A --color'
+fi
+
+# APPS --------------------------
+alias nano="vim" # USE VIM WHEN NANO IS CALLED
+
+# LANGUAGE --------------------------
+
+# PYTHON
+alias python_dir="python -c 'from distutils.sysconfig import get_python_lib; print get_python_lib()'" # DISPLAY SYSTEM PYTHON DIR
+alias pip_remove_all="pip freeze | xargs pip uninstall -y" # REMOVE ALL PACKAGES
+
+#NODE
+#alias nodenv_update="$(nodenv root)/plugins/node-build && npm run write-definitions"
+
+# GIT
+alias ungit="find . -name '.git' -exec rm -rf {} \;" # REMOVE GIT FILES
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative" # PRETTY LOG alias gs='git status -sb' # SHORT / BRANCH
+
+# CONFIG FILES --------------------------
+alias ohmyzsh='vim $HOME/.oh-my-zsh' # OPEN ZSH DEFAULT CONFIG
+alias zshconfig='vim $HOME/.zshrc' # OPEN ZSH CONFIG
+alias reload='source $HOME/.zshrc && echo "ZSH config reloaded"' # RELOAD CONFIGS
+alias ea='vim $HOME/.dotfiles/.zshalias && reload' # OPEN USER-DEFINED ALIASES
+alias ee='vim $HOME/.dotfiles/.zshenv' # OPEN USER-DEFINED ENV
+alias known-host='vim $USER/.ssh/known_hosts' # OPEN KNOWN HOST
+alias ssh-config='vim $HOME/.ssh/config' # OPEN SSH CONFIG
+alias eh="sudo vim /private/etc/hosts" # OPEN HOSTS FILE IN SUBL
+alias eg='vim .git/config' # EDIT GIT CONFIG
+alias dotconfig='vim $HOME/.dotfiles' # EDIT DOT FILES
+
+if hash grc
+then
+  GRC=$(command -v grc)
+  if [ "$TERM" != dumb ] && [[ -n $GRC ]]
+  then
+    alias colourify='$GRC -es --colour=auto'
+    alias configure='colourify ./configure'
+    alias diff='colourify diff'
+    alias make='colourify make'
+    alias gcc='colourify gcc'
+    alias g++='colourify g++'
+    alias as='colourify as'
+    alias gas='colourify gas'
+    alias ld='colourify ld'
+    alias netstat='colourify netstat'
+    alias ping='colourify ping'
+    alias traceroute='colourify /usr/sbin/traceroute'
+    alias tail='colourify tail'
+  fi
+fi

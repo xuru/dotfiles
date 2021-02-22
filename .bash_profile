@@ -14,3 +14,8 @@ if [[ -f "$HOME/.bash_local" ]]; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
+
+export PATH="$HOME/.poetry/bin:$PATH"

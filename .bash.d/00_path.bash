@@ -4,10 +4,9 @@
 ################################################################################
 # XXXXXX specific stuff
 ################################################################################
-export PATH=${HOME}/bin:/usr/local/bin:/usr/local/sbin:$PATH
+pathmunge "$HOME/bin"
 
 ### Added by the Heroku Toolbelt
 if [[ -d /usr/local/heroku ]]; then
-    export PATH="/usr/local/heroku/bin:$PATH"
+  pathmunge "/usr/local/heroku/bin" after
 fi
-

@@ -49,12 +49,12 @@ prompt_git() {
             git update-index --really-refresh -q &>/dev/null;
 
             # Check for uncommitted changes in the index.
-            if ! $(git diff --quiet --ignore-submodules --cached); then
+            if ! git diff --quiet --ignore-submodules --cached; then
                 s+='+';
             fi;
 
             # Check for unstaged changes.
-            if ! $(git diff-files --quiet --ignore-submodules --); then
+            if ! git diff-files --quiet --ignore-submodules --; then
                 s+='!';
             fi;
 
@@ -64,7 +64,7 @@ prompt_git() {
             fi;
 
             # Check for stashed files.
-            if $(git rev-parse --verify refs/stash &>/dev/null); then
+            if git rev-parse --verify refs/stash &>/dev/null; then
                 s+='$';
             fi;
 
@@ -83,6 +83,19 @@ prompt_git() {
     else
         return;
     fi;
+}
+
+prompt_direnv() {
+    if installed direnv; then
+        show_virtual_env() {
+          if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+            echo "($(basename $VIRTUAL_ENV))"
+          fi
+        }
+        export -f show_virtual_env
+        PS1='$(show_virtual_env)'$PS1
+    fi
+
 }
 
 if tput setaf 1 &> /dev/null; then
@@ -130,6 +143,7 @@ else
 fi;
 
 # Set the terminal title and prompt.
+
 PS1="\[\033]0;\W\007\]"; # working directory base name
 # PS1+="\[${bold}\]\n"; # newline
 PS1+="\[${userStyle}\]\u"; # username
@@ -141,6 +155,7 @@ PS1+="\[${white}\]]";
 PS1+="\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
 #PS1+="\n";
 PS1+="\[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
+prompt_direnv
 export PS1;
 
 PS2="\[${yellow}\]→ \[${reset}\]";

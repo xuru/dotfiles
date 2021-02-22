@@ -4,11 +4,11 @@
 ################################################################################
 # python specific stuff
 ################################################################################
-source ${HOME}/.bash.d/scripts/functions.sh
+source "${HOME}"/.bash.d/scripts/functions.sh
 
 # ensure we have a place for our virtualenvs
-if [[ ! -d $HOME/.virtualenvs ]]; then
-    mkdir $HOME/.virtualenvs
+if [[ ! -d ${HOME}/.virtualenvs ]]; then
+    mkdir "$HOME"/.virtualenvs
 fi
 export WORKON_HOME=$HOME/.virtualenvs
 
@@ -24,8 +24,8 @@ fi
 
 # multitail
 if installed multitail; then
-    confpath="~/.multitail.conf"
-    alias ptail="multitail --config $confpath -CS plogging -ev \"HEAD /favicon.ico\" -ev \"deferred.py\" -j"
+    confpath="${HOME}/.multitail.conf"
+    alias ptail="multitail --config ${confpath} -CS plogging -ev \"HEAD /favicon.ico\" -ev \"deferred.py\" -j"
 fi
 
 

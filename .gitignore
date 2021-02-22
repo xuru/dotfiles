@@ -17,6 +17,8 @@ plug.vim
 .config/.mono
 .vim/autoload
 .vim/temp/undodir
-.idea/
 .config/direnv
-git_hooks/*
+
+# PyCharm
+.idea
+.tags

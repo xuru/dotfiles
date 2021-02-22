@@ -76,3 +76,5 @@ set fish_plugins git brew extract gi vi-mode
 . $HOME/.config/fish/virtual.fish
 . $HOME/.config/fish/auto_activation.fish
 . $HOME/.config/fish/global_requirements.fish
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
