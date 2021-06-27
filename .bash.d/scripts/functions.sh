@@ -49,12 +49,12 @@ find_architecture() {
 
 
 function installed() {
-    [[ -n `type -p $1` ]]
+    [[ -n $(type -p "$1") ]]
 }
 
 
 function check_installed() {
-    if ! [[ -n `type -p $1` ]] ; then
+    if [[ -z $(type -p "$1") ]] ; then
         prt_warn "$1 is not installed"
     fi
 }

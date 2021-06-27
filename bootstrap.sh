@@ -78,18 +78,14 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ################################################################################
 # Clone dotfiles
 ################################################################################
-# bootstrap_echo "Cloning dotfiles..."
 
-# if [[ -d ${DOTFILES_DIR} ]]; then
-#   bootstrap_echo "Backing up old dotfiles to $HOME/old_dotfiles_backup..."
-#   rm -rf "$OLD_DOTFILES_BACKUP"
-#   cp -R "$DOTFILES_DIR" "$OLD_DOTFILES_BACKUP"
-#   rm -rf "$DOTFILES_DIR"
-# fi
-# git clone "$DOTFILES_REPO_URL" -b "$DOTFILES_BRANCH" "$DOTFILES_DIR"
-# bootstrap_echo "Done!"
+if [[ ! -d "${DOTFILES_DIR}" ]]; then
+    bootstrap_echo "Cloning dotfiles..."
+    git clone "$DOTFILES_REPO_URL" -b "$DOTFILES_BRANCH" "$DOTFILES_DIR"
+    bootstrap_echo "Done!"
+fi
 
-source ${DOTFILES_DIR}/.bash.d/scripts/functions.sh
+source "${DOTFILES_DIR}"/.bash.d/scripts/functions.sh
 
 ################################################################################
 # Install apps with homebrew

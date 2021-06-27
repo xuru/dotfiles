@@ -204,7 +204,7 @@ function grf() {
   git checkout "$1"
 }
 
-pyinstall() {
+function pyinstall() {
     openssl_path=$(brew --prefix openssl)
     readline_path=$(brew --prefix readline)
     xcode_path=$(xcrun --show-sdk-path)

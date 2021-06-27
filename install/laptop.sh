@@ -4,9 +4,9 @@
 # Homebrew Cask
 #   http://caskroom.io/
 #
-source ${HOME}/.dotfiles/.bash.d/scripts/functions.sh
+source "${HOME}"/.dotfiles/.bash.d/scripts/functions.sh
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-export DOTFILES_DIR=$HOME/.dotfiles
+export DOTFILES_DIR="${HOME}/.dotfiles"
 
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 

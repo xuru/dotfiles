@@ -103,3 +103,10 @@ unsetopt HIST_EXPIRE_DUPS_FIRST
 end=$EPOCHREALTIME
 
 printf "+++Loaded files in %0.4f seconds\n\n" $(($end-$start))
+
+export PATH="/usr/local/sbin:$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+# so pycharm can pickup the binary
+export PATH="$VOLTA_HOME/tools/image/yarn/1.22.10/bin:$PATH"

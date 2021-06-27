@@ -47,7 +47,9 @@ export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
 # PYTHON ----------------------------------------------------------------------
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
+export WORKON_HOME="${HOME}/.virtualenvs"
 
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="$PATH:$(brew --prefix pyenv)"
 eval "$(pyenv init -)"
 
