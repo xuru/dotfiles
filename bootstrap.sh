@@ -17,24 +17,6 @@
 ################################################################################
 
 
-function gprint {
-    printf "\033[32m$1\033[39m\n"
-}
-
-# Thank you, thoughtbot!
-bootstrap_echo() {
-  local fmt="$1"; shift
-
-  # shellcheck disable=SC2059
-  gprint "\n[BOOTSTRAP] $fmt"
-}
-
-
-# Before we begin double check we have commandline tools installed
-if ! check_installed xcodebuild; then
-    xcode-select --install
-fi
-
 ################################################################################
 # Variable declarations
 ################################################################################
@@ -53,19 +35,10 @@ export DOTFILES_DIR=$HOME/.dotfiles
 ################################################################################
 
 if [[ "$osname" != "Darwin" ]]; then
-    bootstrap_echo "Oops, it looks like you're using a non-UNIX system. This script
+    echo "Oops, it looks like you're using a non-UNIX system. This script
 only supports Mac. Exiting..."
     exit 1
 fi
-
-
-################################################################################
-# Check for presence of command line tools if macOS
-################################################################################
-if [[ ! -d "$COMMANDLINE_TOOLS" ]]; then
-    xcode-select --install
-fi
-
 
 ################################################################################
 # Authenticate
@@ -80,48 +53,54 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ################################################################################
 
 if [[ ! -d "${DOTFILES_DIR}" ]]; then
-    bootstrap_echo "Cloning dotfiles..."
     git clone "$DOTFILES_REPO_URL" -b "$DOTFILES_BRANCH" "$DOTFILES_DIR"
-    bootstrap_echo "Done!"
 fi
 
-source "${DOTFILES_DIR}"/.bash.d/scripts/functions.sh
+source "${DOTFILES_DIR}"/functions.sh
+
+################################################################################
+# Check for presence of command line tools if macOS
+################################################################################
+if [[ ! -d "$COMMANDLINE_TOOLS" ]]; then
+    xcode-select --install
+fi
 
 ################################################################################
 # Install apps with homebrew
 ################################################################################
-bootstrap_echo "Installing applications..."
+prt "Installing applications..."
 
-brew bundle install 2>&1 | tee ~/brew_install.log
+source "$DOTFILES_DIR"/install/homebrew.sh
 
-bootstrap_echo "Done!"
+prt "Done!"
 
 ################################################################################
 # Setup dotfiles
 ################################################################################
-bootstrap_echo "Setting up dotfiles..."
+prt "restoring settings"
 
-python3 "$DOTFILES_DIR"/engage.py --verbose
+cd "$HOME" && mackup restore
 
-bootstrap_echo "Done!"
+prt "Done!"
 
 ################################################################################
 # Install Vundle & Vim plugins (https://github.com/VundleVim/Vundle.vim.git)
 ################################################################################
-bootstrap_echo "Installing Vundle and vim plugins..."
+prt "Installing Vundle and vim plugins..."
 
 vim +PlugInstall +qall
 
-bootstrap_echo "Done!"
+prt "Done!"
 
 ################################################################################
 # Set macOS preferences
 ################################################################################
-bootstrap_echo "Setting macOS preferences..."
+prt "Setting macOS preferences..."
 
-# source "$DOTFILES_DIR"/install/macos-defaults.sh
+source "$DOTFILES_DIR"/install/macos-defaults.sh
+source "$DOTFILES_DIR"/install/macos-dock.sh
 
-bootstrap_echo "Done!"
+prt "Done!"
 
 echo
 echo "**********************************************************************"

@@ -1,2 +1,0 @@
-#!/bin/bash
-/sbin/mount -uwo noatime,nodev,nosuid,nobrowse /Users/$1

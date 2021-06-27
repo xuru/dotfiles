@@ -2,6 +2,9 @@
 # vim: set ts=4 sw=4 tw=80 syntax=bash
 set +e
 
+export DOTFILES_DIR="${HOME}/.dotfiles"
+source "${DOTFILES_DIR}"/functions.sh
+
 # Adapted from https://mths.be/macos
 # https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
@@ -15,10 +18,6 @@ osascript -e 'tell application "System Preferences" to quit'
 function defaults_write {
     echo "  defaults write $1 $2 $3 $4 $5 $6"
     defaults write $1 $2 $3 $4 $5 $6
-}
-
-function print {
-    printf "\033[32mSetting $1 prefs\033[39m\n"
 }
 
 function osx_debug {
@@ -37,7 +36,7 @@ function osx_disk {
 }
 
 function osx_dock {
-    print "dock"
+    prt "dock"
     defaults_write com.apple.dock magnification -bool true
     defaults_write com.apple.dock largesize -int 64
     defaults_write com.apple.dock tilesize -int 32
@@ -56,7 +55,7 @@ function osx_dock {
 }
 
 function osx_finder {
-    print "finder"
+    prt "finder"
     chflags nohidden ~/Library
     defaults_write com.apple.desktopservices DSDontWriteNetworkStores -bool true # no .DS_Store on network volumes
     defaults_write com.apple.finder AppleShowAllExtensions -bool true
@@ -94,7 +93,7 @@ function osx_finder {
 }
 
 function osx_general {
-    print "general"
+    prt "general"
     defaults_write -g AppleScrollerPagingBehavior -int 1 # scroll bar: jump to clicked spot
     defaults_write -g NSTableViewDefaultSizeMode -int 1 # sidebar icon size: small
     defaults_write -g NSQuitAlwaysKeepsWindows -bool true # resume windows
@@ -127,7 +126,7 @@ function osx_general {
 }
 
 function osx_itunes {
-    print "itunes"
+    prt "itunes"
     defaults_write com.apple.iTunes disableGeniusSidebar -bool true
     defaults_write com.apple.iTunes disablePing -bool true
     defaults_write com.apple.iTunes disablePingSidebar -bool true
@@ -136,7 +135,7 @@ function osx_itunes {
 }
 
 function osx_keyboard {
-    print "keyboard"
+    prt "keyboard"
     defaults_write -g AppleKeyboardUIMode -int 3                # full keyboard access
     defaults_write -g ApplePressAndHoldEnabled -bool false      # favor key repeat
     defaults_write com.apple.BezelServices kDim -bool true      # keyboard illumination
@@ -145,30 +144,30 @@ function osx_keyboard {
 }
 
 function osx_noatime {
-    print "noatime"
+    prt "noatime"
     sudo defaults write com.apple.loginwindow LoginHook $HOME/bin/remount_noatime
 }
 
 function osx_power {
-    print "power"
+    prt "power"
     sudo pmset -b displaysleep 5
     sudo pmset -c displaysleep 20
     sudo pmset -c sleep 0
 }
 
 function osx_reset {
-    print "refresh dock"
+    prt "refresh dock"
     find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
 }
 
 function osx_safari {
-    print "safari"
+    prt "safari"
     defaults_write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2 # thumbnails off
     defaults_write com.apple.Safari ProxiesInBookmarksBar "()"
 }
 
 function osx_security {
-    print "security"
+    prt "security"
     # unneded daemons
     #sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.blued.plist                           # bluetooth
     #sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.IIDCAssistant.plist                   # iSight
@@ -205,7 +204,7 @@ function osx_security {
 }
 
 function osx_visuals {
-    print "visuals"
+    prt "visuals"
     defaults_write -g NSNavPanelExpandedStateForSaveMode -bool true # expand save panel
     defaults_write -g PMPrintingExpandedStateForPrint -bool true # expand print panel
     defaults_write com.apple.screencapture disable-shadow -bool true
@@ -216,7 +215,7 @@ function osx_visuals {
 }
 
 function osx_trackpad {
-    print "trackpad"
+    prt "trackpad"
     defaults_write com.apple.driver.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 0
     defaults_write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -int 0
 
@@ -231,14 +230,14 @@ function osx_trackpad {
 }
 
 function osx_mail {
-    print "mail.app"
+    prt "mail.app"
     # Disable send and reply animations in Mail.app
     defaults write com.apple.Mail DisableReplyAnimations -bool true
     defaults write com.apple.Mail DisableSendAnimations -bool true
 }
 
 function osx_timemachine {
-    print "timemachine"
+    prt "timemachine"
     # Disable local Time Machine backups
     hash tmutil &> /dev/null && sudo tmutil disablelocal
 }

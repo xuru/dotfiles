@@ -4,17 +4,13 @@
 # Homebrew Cask
 #   http://caskroom.io/
 #
-source "${HOME}"/.dotfiles/.bash.d/scripts/functions.sh
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export DOTFILES_DIR="${HOME}/.dotfiles"
+source "${DOTFILES_DIR}/functions.sh"
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 
 set -e
-
-if [[ ! -d "$HOME/bin/" ]]; then
-  mkdir "$HOME/bin"
-fi
 
 HOMEBREW_PREFIX="/usr/local"
 
@@ -26,10 +22,6 @@ else
   sudo mkdir "$HOMEBREW_PREFIX"
   sudo chflags norestricted "$HOMEBREW_PREFIX"
   sudo chown -R "$LOGNAME:admin" "$HOMEBREW_PREFIX"
-fi
-
-if ! check_installed xcodebuild; then
-    xcode-select --install
 fi
 
 if ! installed brew; then
@@ -46,7 +38,6 @@ fi
 brew update --force
 brew upgrade
 brew bundle --file "$DOTFILES_DIR/Brewfile"
-
 
 # allow shell integration
 curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
